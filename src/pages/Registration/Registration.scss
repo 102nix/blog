@@ -1,0 +1,25 @@
+.registration{
+  padding: 20px;
+  h2{
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .form-reg{
+    width: 50%;
+    margin: 0 auto;
+  }
+  .form-group {
+    margin-bottom: 15px;
+  } 
+  .form-actions{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+}
+
+@media(max-width: 768px){
+  .registration .form-reg{
+    width: 100%;
+  }
+}

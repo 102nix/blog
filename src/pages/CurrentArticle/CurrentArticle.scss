@@ -1,0 +1,29 @@
+.current-article__body{
+  padding: 25px;
+  background-color:rgb(49, 49, 77);
+  box-shadow: 2px 3px 45px rgb(49, 49, 77);
+  color: rgb(235, 239, 243);
+  border-radius: 5px;
+  text-indent: 15px;
+  line-height: 25px;
+  text-align: justify;
+  margin-bottom: 30px;
+}
+.action-block{
+  width: 180px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: transform .3s ease-out;
+  &:hover{
+    transform: translateX(4px);
+    transition: transform .3s ease-out;
+  }
+  a{
+    text-decoration: none;
+    color: #000;
+    font-size: 19px;
+    font-weight: bold;
+  }
+}
