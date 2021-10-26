@@ -49,6 +49,15 @@ export const LoginForm = () => {
     console.log(data)
   }
 
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      e.preventDefault()
+      const form = e.target.form
+      const indexField = Array.prototype.indexOf.call(form, e.target)
+      form.elements[indexField+1].focus()
+    }
+  }
+
   return (
     <form className='form-auth' onSubmit={handleSubmit}>
       <TextField 
@@ -59,6 +68,7 @@ export const LoginForm = () => {
         error={errors.email}
         className="input-auth-form"
         autoFocus
+        onKeyDown={handleKeyDown}
       />
       <TextField 
         label="Пароль"
@@ -68,11 +78,13 @@ export const LoginForm = () => {
         onChange={handleChange}
         error={errors.password}
         className="input-auth-form"
+        onKeyDown={handleKeyDown}
       />
       <CheckBoxField 
         value={data.stayOn}
         onChange={handleChange}
         name='stayOn'
+        onKeyDown={handleKeyDown}
       >
         Оставаться в системе 
       </CheckBoxField>
