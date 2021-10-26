@@ -54,6 +54,15 @@ export const RegisterForm = () => {
     console.log(data)
   }
 
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      e.preventDefault()
+      const form = e.target.form
+      const indexField = Array.prototype.indexOf.call(form, e.target)
+      form.elements[indexField+1].focus()
+    }
+  }
+
   return (
     <form className="form-auth" onSubmit={handleSubmit}>
       <TextField 
@@ -64,6 +73,7 @@ export const RegisterForm = () => {
         error={errors.email}
         className="input-auth-form"
         autoFocus
+        onKeyDown={handleKeyDown}
       />
       <TextField 
         label="Пароль"
@@ -73,6 +83,7 @@ export const RegisterForm = () => {
         onChange={handleChange}
         error={errors.password}
         className="input-auth-form"
+        onKeyDown={handleKeyDown}
       />
       <TextField 
         label="Повторить пароль"
@@ -82,6 +93,7 @@ export const RegisterForm = () => {
         onChange={handleChange}
         error={errors.confirmpassword}
         className="input-auth-form"
+        onKeyDown={handleKeyDown}
       />
       <div className="form-actions">
         <button 
