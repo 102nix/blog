@@ -62,6 +62,7 @@ export const RegisterForm = () => {
         value={data.email}
         onChange={handleChange}
         error={errors.email}
+        className="input-auth-form"
         autoFocus
       />
       <TextField 
@@ -71,6 +72,7 @@ export const RegisterForm = () => {
         value={data.password}
         onChange={handleChange}
         error={errors.password}
+        className="input-auth-form"
       />
       <TextField 
         label="Повторить пароль"
@@ -79,6 +81,7 @@ export const RegisterForm = () => {
         value={data.confirmpassword}
         onChange={handleChange}
         error={errors.confirmpassword}
+        className="input-auth-form"
       />
       <div className="form-actions">
         <button 

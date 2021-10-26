@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export const TextField = ({ label, type, name, value, onChange, error, ...rest }) => {
+export const TextField = ({ label, type, name, className, value, onChange, error, ...rest }) => {
   
   const [showPassword, setShowPassword] = useState(false)
 
@@ -26,7 +26,7 @@ export const TextField = ({ label, type, name, value, onChange, error, ...rest }
           name={name}
           value={value}
           onChange={handleChange}
-          className='input-auth-form'
+          className={className}
           {...rest}
         />
         {type === "password" &&

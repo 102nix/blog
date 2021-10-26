@@ -57,6 +57,7 @@ export const LoginForm = () => {
         value={data.email}
         onChange={handleChange}
         error={errors.email}
+        className="input-auth-form"
         autoFocus
       />
       <TextField 
@@ -66,6 +67,7 @@ export const LoginForm = () => {
         value={data.password}
         onChange={handleChange}
         error={errors.password}
+        className="input-auth-form"
       />
       <CheckBoxField 
         value={data.stayOn}
