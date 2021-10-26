@@ -18,10 +18,10 @@ export const TextField = ({ label, type, name, value, onChange, error, ...rest }
 
   return (
     <div className="form-group">
-      <label htmlFor={name} className='label-auth-form'> {label}</label>
+      <label htmlFor={name} className='label-auth-form'>{label}</label>
       <div className="input-group">
         <input 
-          type={ showPassword ? 'text' : type} 
+          type={showPassword ? 'text' : type} 
           id={name}
           name={name}
           value={value}
@@ -40,14 +40,12 @@ export const TextField = ({ label, type, name, value, onChange, error, ...rest }
             ) : (
               <span className="material-icons">visibility_off</span>
             )}
-            
           </button>
         }
       </div>
         {error &&
           <div className="error-field-form">{error}</div>
         }
-  
     </div>
   )
 }
