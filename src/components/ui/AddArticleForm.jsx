@@ -3,6 +3,7 @@ import * as yup from 'yup'
 import { useHistory } from 'react-router-dom'
 import { TextField } from '../common/form/TextField'
 import { TextAreaField } from '../common/form/TextAreaField'
+import { handleChange, handleSubmit, handleKeyDown } from '../../static/funcsForForm'
 
 export const AddArticleForm = () => {
 
@@ -10,13 +11,6 @@ export const AddArticleForm = () => {
 
   const [data, setData] = useState({title: '', article: ''})
   const [errors, setErrors] = useState({})
-
-  const handleChange = (target) => {
-    setData(prevSate => ({
-      ...prevSate,
-      [target.name]: target.value
-    }))
-  }
 
   let validateScheme = yup.object().shape({
     article: yup.string().required('Содержание статьи - обязательно'),
@@ -34,33 +28,17 @@ export const AddArticleForm = () => {
     validate()
   }, [data])
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const isValid = validate()
-    if (!isValid) return
-    console.log(data)
-  }
-
-  const handleKeyDown = (e) => {
-    if (e.keyCode === 13) {
-      e.preventDefault()
-      const form = e.target.form
-      const indexField = Array.prototype.indexOf.call(form, e.target)
-      form.elements[indexField+1].focus()
-    }
-  }
-
   return (
-    <form className='form-add-article' onSubmit={handleSubmit}>
+    <form className='form-add-article' onSubmit={(e) => handleSubmit(e, validate, data)}>
       <TextField
         name="title"
         value={data.email}
-        onChange={handleChange}
+        onChange={(target) => handleChange(setData, target)}
         error={errors.title}
         autoFocus
         placeholder="Название статьи..."
         className="input-add-article"
-        onKeyDown={handleKeyDown}
+        onKeyDown={(e) => handleKeyDown(e)}
       />
       <TextAreaField
         id="article"
@@ -69,9 +47,9 @@ export const AddArticleForm = () => {
         className="ta-add-article"
         value={data.value}
         error={errors.article}
-        onChange={handleChange}
+        onChange={(target) => handleChange(setData, target)}
         placeholder="Содержание статьи..."
-        onKeyDown={handleKeyDown}
+        onKeyDown={(e) => handleKeyDown(e)}
       />
       <div className="form-actions">
       <button 

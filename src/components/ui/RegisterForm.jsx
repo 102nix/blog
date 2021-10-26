@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import * as yup from 'yup'
 import { TextField } from '../common/form/TextField'
+import { handleChange, handleSubmit, handleKeyDown } from '../../static/funcsForForm'
 
 export const RegisterForm = () => {
 
@@ -14,13 +15,6 @@ export const RegisterForm = () => {
   })
 
   const [errors, setErrors] = useState({})
-
-  const handleChange = (target) => {
-    setData(prevSate => ({
-      ...prevSate,
-      [target.name]: target.value
-    }))
-  }
 
   let validateScheme = yup.object().shape({
     password: yup.string()
@@ -47,53 +41,37 @@ export const RegisterForm = () => {
     validate()
   }, [data])
   
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const isValid = validate()
-    if (!isValid) return
-    console.log(data)
-  }
-
-  const handleKeyDown = (e) => {
-    if (e.keyCode === 13) {
-      e.preventDefault()
-      const form = e.target.form
-      const indexField = Array.prototype.indexOf.call(form, e.target)
-      form.elements[indexField+1].focus()
-    }
-  }
-
   return (
-    <form className="form-auth" onSubmit={handleSubmit}>
+    <form className="form-auth" onSubmit={(e) => handleSubmit(e, validate, data)}>
       <TextField 
         label="Электронная почта"
         name="email"
         value={data.email}
-        onChange={handleChange}
+        onChange={(target) => handleChange(setData, target)}
         error={errors.email}
         className="input-auth-form"
         autoFocus
-        onKeyDown={handleKeyDown}
+        onKeyDown={(e) => handleKeyDown(e)}
       />
       <TextField 
         label="Пароль"
         type="password"
         name="password"
         value={data.password}
-        onChange={handleChange}
+        onChange={(target) => handleChange(setData, target)}
         error={errors.password}
         className="input-auth-form"
-        onKeyDown={handleKeyDown}
+        onKeyDown={(e) => handleKeyDown(e)}
       />
       <TextField 
         label="Повторить пароль"
         type="password"
         name="confirmpassword"
         value={data.confirmpassword}
-        onChange={handleChange}
+        onChange={(target) => handleChange(setData, target)}
         error={errors.confirmpassword}
         className="input-auth-form"
-        onKeyDown={handleKeyDown}
+        onKeyDown={(e) => handleKeyDown(e)}
       />
       <div className="form-actions">
         <button 

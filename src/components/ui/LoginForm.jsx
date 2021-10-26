@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import * as yup from 'yup'
 import { TextField } from '../common/form/TextField'
 import { CheckBoxField } from '../common/form/CheckBoxField'
+import { handleChange, handleSubmit, handleKeyDown } from '../../static/funcsForForm'
 
 export const LoginForm = () => {
 
@@ -13,14 +14,6 @@ export const LoginForm = () => {
   })
 
   const [errors, setErrors] = useState({})
-
-  const handleChange = (target) => {
-    console.log(target)
-    setData(prevSate => ({
-      ...prevSate,
-      [target.name]: target.value
-    }))
-  }
 
   let validateScheme = yup.object().shape({
     password: yup.string().required('Пароль обязателен для заполнения')
@@ -41,40 +34,24 @@ export const LoginForm = () => {
     validate()
   }, [data])
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const isValid = validate()
-    if (!isValid) return
-    console.log(data)
-  }
-
-  const handleKeyDown = (e) => {
-    if (e.keyCode === 13) {
-      e.preventDefault()
-      const form = e.target.form
-      const indexField = Array.prototype.indexOf.call(form, e.target)
-      form.elements[indexField+1].focus()
-    }
-  }
-
   return (
-    <form className='form-auth' onSubmit={handleSubmit}>
+    <form className='form-auth' onSubmit={(e) => handleSubmit(e, validate, data)}>
       <TextField 
         label="Электронная почта"
         name="email"
         value={data.email}
-        onChange={handleChange}
+        onChange={(target) => handleChange(setData, target)}
         error={errors.email}
         className="input-auth-form"
         autoFocus
-        onKeyDown={handleKeyDown}
+        onKeyDown={(e) => handleKeyDown(e)}
       />
       <TextField 
         label="Пароль"
         type="password"
         name="password"
         value={data.password}
-        onChange={handleChange}
+        onChange={(target) => handleChange(setData, target)}
         error={errors.password}
         className="input-auth-form"
         onKeyDown={handleKeyDown}
