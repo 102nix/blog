@@ -4,8 +4,6 @@ import * as Yup from 'yup'
 import { InputComponent } from '../../components/InputComponent/InputComponent'
 import { TextareaComponent } from '../../components/TextareaComponent/TextareaComponent'
 import { useHistory } from 'react-router-dom'
-import api from '../../api'
-
 import './AddArticle.scss'
 
 export const AddArticle = () => {

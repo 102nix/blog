@@ -2,15 +2,15 @@ import React from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
-import { InputComponent } from '../../components/InputComponent/InputComponent'
-import './Registration.scss'
+import { InputComponent } from '../InputComponent/InputComponent'
+// import './Registration.scss'
 
-export const Registration = () => {
+export const RegisterForm = () => {
 
   const history = useHistory()
 
   return (
-    <div className="registration">
+    <div className="auth">
       <h2>Регистрация</h2>
       <Formik
         initialValues={{
@@ -27,7 +27,7 @@ export const Registration = () => {
           console.log(dataForm)
         }}
       >
-        <Form className='form-reg'>
+        <Form className='form-auth'>
           <InputComponent
             label="Email:"
             id="login"
@@ -56,7 +56,7 @@ export const Registration = () => {
         </Form>
       </Formik>
       <div className="form-links">
-        <NavLink to='/login' className='link-reg'>Есть логин?</NavLink>
+        <NavLink to='/auth/login' className='link-reg'>Есть логин?</NavLink>
       </div>
     </div>
   )

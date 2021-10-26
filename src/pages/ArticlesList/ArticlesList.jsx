@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 import api from '../../api'
 //components:
 import Loader from '../../components/Loader/Loader'
-
 import { ArticleComponent } from '../../components/ArticleComponent/ArticleComponent'
 import { CurrentArticle } from '../CurrentArticle/CurrentArticle'
 import './ArticlesList.scss'

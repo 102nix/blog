@@ -60,14 +60,14 @@ export const NavbarComponent = () => {
           </ul>
           <div className='header__list-reg'>
               <NavLink
-                to='/login'
+                to='/auth/login'
                 className="header__list-link"
                 onClick={handlerVisibleMenu}
               >
                 Вход
               </NavLink>
               <NavLink
-                to='/registration'
+                to='/auth/register'
                 className="header__list-link"
                 onClick={handlerVisibleMenu}
               >

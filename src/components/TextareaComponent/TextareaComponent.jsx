@@ -21,7 +21,11 @@ export const TextareaComponent = ({label, ...props}) => {
         />
       </div >
       {
-        meta.touched && meta.error ? <div className="error-field-form">{meta.error}</div> : null
+        meta.touched && meta.error ? (
+          <div className="error-field-form">{meta.error}</div>
+        ) : (
+          null
+        )
       }
     </>
   )

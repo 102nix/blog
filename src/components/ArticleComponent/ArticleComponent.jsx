@@ -17,7 +17,12 @@ export const ArticleComponent = ({ articles }) => {
           <div className="article-text">
             `{article.article.substr(0,71)}...`
           </div>
-          <button className="btn btn-open-article" onClick={() => handlerOpenArticle(article.id)}>Открыть</button>
+          <button 
+            className="btn btn-open-article" 
+            onClick={() => handlerOpenArticle(article.id)}
+          >
+            Открыть
+          </button>
         </div>
         ))}
     </>
