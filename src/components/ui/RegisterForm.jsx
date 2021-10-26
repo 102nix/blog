@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
 import { Formik, Form } from 'formik'
-import * as Yup from 'yup'
+import * as yup from 'yup'
 import { InputComponent } from '../InputComponent/InputComponent'
 
 export const RegisterForm = () => {
+
+  const history = useHistory()
 
   const [data, setData] = useState({
     email: '', 
@@ -12,12 +14,46 @@ export const RegisterForm = () => {
     confirmpassword: '',
   })
 
-  const history = useHistory()
+  const [errors, setErrors] = useState({})
 
+  const handleChange = (target) => {
+    setData(prevSate => ({
+      ...prevSate,
+      [target.name]: target.value
+    }))
+  }
+
+  let validateScheme = yup.object().shape({
+    confirmpassword: yup.string().oneOf([yup.ref('password'), null], 'Пароли не совпадают'),
+    password: yup.string().required('Пароль обязателен для заполнения')
+    .matches(/(?=.*[A-Z])/,'Пароль должен содержать хотябы 1 заглавную букву')
+    .matches(/(?=.*[0-9])/,'Пароль должен содержать хотябы 1 число')
+    .matches(/(?=.{8,})/,'Пароль должен состоять минимум из 8 символов'),
+    email: yup.string().required('Email обязательно для заполнения').email('Email введён некорректно'),
+  }) 
+  
+  const validate = () => {
+    validateScheme.validate(data).then(() => setErrors({})).catch(err => setErrors({[err.path]: err.message}))
+    return Object.keys(errors).length === 0 
+  }
+
+  const isValid = Object.keys(errors).length === 0 
+
+  useEffect (() => {
+    validate()
+  }, [data])
+  
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const isValid = validate()
+    if (!isValid) return
+    console.log(data)
+  }
+  
   return (
     <div className="auth">
       <h2>Регистрация</h2>
-      <Formik
+      {/* <Formik
         initialValues={{
           login: '',
           password: '',
@@ -59,7 +95,7 @@ export const RegisterForm = () => {
             <button className="btn btn-cansel" onClick={() => {history.push('/')}}>Отмена</button>
           </div>
         </Form>
-      </Formik>
+      </Formik> */}
       <div className="form-links">
         <NavLink to='/auth/login' className='link-reg'>Есть логин?</NavLink>
       </div>
