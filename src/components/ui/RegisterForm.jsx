@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import { InputComponent } from '../InputComponent/InputComponent'
-// import './Registration.scss'
 
 export const RegisterForm = () => {
+
+  const [data, setData] = useState({
+    email: '', 
+    password: '', 
+    confirmpassword: '',
+  })
 
   const history = useHistory()
 
