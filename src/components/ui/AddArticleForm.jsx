@@ -41,6 +41,15 @@ export const AddArticleForm = () => {
     console.log(data)
   }
 
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      e.preventDefault()
+      const form = e.target.form
+      const indexField = Array.prototype.indexOf.call(form, e.target)
+      form.elements[indexField+1].focus()
+    }
+  }
+
   return (
     <form className='form-add-article' onSubmit={handleSubmit}>
       <TextField
@@ -51,6 +60,7 @@ export const AddArticleForm = () => {
         autoFocus
         placeholder="Название статьи..."
         className="input-add-article"
+        onKeyDown={handleKeyDown}
       />
       <TextAreaField
         id="article"
@@ -61,6 +71,7 @@ export const AddArticleForm = () => {
         error={errors.article}
         onChange={handleChange}
         placeholder="Содержание статьи..."
+        onKeyDown={handleKeyDown}
       />
       <div className="form-actions">
       <button 
