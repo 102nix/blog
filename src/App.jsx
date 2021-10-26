@@ -5,7 +5,7 @@ import { NavbarComponent } from './components/NavbarComponent/NavbarComponent'
 import { Main } from './pages/Main/Main'
 import { Auth } from './layouts/Auth/Auth'
 import { AdminManageArticles } from './pages/AdminManageArticles/AdminManageArticles2'
-import { AddArticle } from './pages/AddArticle/AddArticle'
+import { AddArticlePage } from './pages/AddArticlePage/AddArticlePage'
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
         <Route path='/articles/:articleId?' component={ArticlesList} />
         <Route path='/auth/:type?' component={Auth} />
         <Route path='/adminmanagearticles' component={AdminManageArticles} />
-        <Route path='/addarticle/' component={AddArticle} />
+        <Route path='/addarticle/' component={AddArticlePage} />
       </div>
     </div>
   )

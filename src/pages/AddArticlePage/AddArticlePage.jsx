@@ -1,9 +1,9 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { AddArticleForm } from '../../components/ui/AddArticleForm'
-import './AddArticle.scss'
+import './AddArticlePage.scss'
 
-export const AddArticle = () => {
+export const AddArticlePage = () => {
 
   const history = useHistory()
 
