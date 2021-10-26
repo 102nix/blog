@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { NavLink, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import * as yup from 'yup'
 import { TextField } from '../common/form/TextField'
 
@@ -55,47 +55,40 @@ export const RegisterForm = () => {
   }
 
   return (
-    <div className="auth">
-      <h2>Регистрация</h2>
-      <form className="form-auth" onSubmit={handleSubmit}>
-        <TextField 
-          label="Электронная почта"
-          name="email"
-          value={data.email}
-          onChange={handleChange}
-          error={errors.email}
-          autoFocus
-        />
-        <TextField 
-          label="Пароль"
-          type="password"
-          name="password"
-          value={data.password}
-          onChange={handleChange}
-          error={errors.password}
-        />
-        <TextField 
-          label="Повторить пароль"
-          type="password"
-          name="confirmpassword"
-          value={data.confirmpassword}
-          onChange={handleChange}
-          error={errors.confirmpassword}
-        />
-        <div className="form-actions">
-          <button 
-            type="submit"
-            disabled={!isValid}
-            className="btn btn-login"
-          >
-            Submit
-          </button>
-          <button className="btn btn-cansel" onClick={() => {history.push('/')}}>Отмена</button>
-        </div>
-      </form>
-      <div className="form-links">
-        <NavLink to='/auth/login' className='link-reg'>Есть логин?</NavLink>
+    <form className="form-auth" onSubmit={handleSubmit}>
+      <TextField 
+        label="Электронная почта"
+        name="email"
+        value={data.email}
+        onChange={handleChange}
+        error={errors.email}
+        autoFocus
+      />
+      <TextField 
+        label="Пароль"
+        type="password"
+        name="password"
+        value={data.password}
+        onChange={handleChange}
+        error={errors.password}
+      />
+      <TextField 
+        label="Повторить пароль"
+        type="password"
+        name="confirmpassword"
+        value={data.confirmpassword}
+        onChange={handleChange}
+        error={errors.confirmpassword}
+      />
+      <div className="form-actions">
+        <button 
+          type="submit"
+          disabled={!isValid}
+          className="btn btn-login"
+        >
+          Submit
+        </button>
+        <button className="btn btn-cansel" onClick={() => {history.push('/')}}>Отмена</button>
       </div>
-    </div>
-  )
+    </form>)
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { NavLink, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import * as yup from 'yup'
 import { TextField } from '../common/form/TextField'
 import { CheckBoxField } from '../common/form/CheckBoxField'
@@ -50,46 +50,39 @@ export const LoginForm = () => {
   }
 
   return (
-    <div className="auth">
-      <h2>Вход</h2>
-      <form className='form-auth' onSubmit={handleSubmit}>
-        <TextField 
-          label="Электронная почта"
-          name="email"
-          value={data.email}
-          onChange={handleChange}
-          error={errors.email}
-          autoFocus
-        />
-        <TextField 
-          label="Пароль"
-          type="password"
-          name="password"
-          value={data.password}
-          onChange={handleChange}
-          error={errors.password}
-        />
-        <CheckBoxField 
-          value={data.stayOn}
-          onChange={handleChange}
-          name='stayOn'
+    <form className='form-auth' onSubmit={handleSubmit}>
+      <TextField 
+        label="Электронная почта"
+        name="email"
+        value={data.email}
+        onChange={handleChange}
+        error={errors.email}
+        autoFocus
+      />
+      <TextField 
+        label="Пароль"
+        type="password"
+        name="password"
+        value={data.password}
+        onChange={handleChange}
+        error={errors.password}
+      />
+      <CheckBoxField 
+        value={data.stayOn}
+        onChange={handleChange}
+        name='stayOn'
+      >
+        Оставаться в системе 
+      </CheckBoxField>
+      <div className="form-actions">
+        <button 
+          type="submit"
+          disabled={!isValid}
+          className="btn btn-login"
         >
-          Оставаться в системе 
-        </CheckBoxField>
-        <div className="form-actions">
-          <button 
-            type="submit"
-            disabled={!isValid}
-            className="btn btn-login"
-          >
-            Submit
-          </button>
-          <button className="btn btn-cansel" onClick={() => {history.push('/')}}>Отмена</button>
-        </div>
-      </form>
-      <div className="form-links">
-        <NavLink to='/auth/register' className='link-auth'>Нет логина?</NavLink>
+          Submit
+        </button>
+        <button className="btn btn-cansel" onClick={() => {history.push('/')}}>Отмена</button>
       </div>
-    </div>
-  )
+    </form>)
 }
