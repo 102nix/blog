@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { handleKeyDown } from '../../../static/funcsForForm'
 
 export const TextField = ({ label, type, name, className, value, onChange, error, ...rest }) => {
   
@@ -8,10 +9,6 @@ export const TextField = ({ label, type, name, className, value, onChange, error
     onChange({name: target.name, value: target.value})
   }
 
-  // const getInputClasses = () => {
-  //   return "form-control" + (error ? " is-invalid" : "")
-  // }
-  
   const togleShowPassword = () => {
     setShowPassword(prevState => !prevState)
   }
@@ -34,6 +31,7 @@ export const TextField = ({ label, type, name, className, value, onChange, error
             className="btn btn-span" 
             type="button" 
             onClick={togleShowPassword}
+            onKeyDown={handleKeyDown}
           >
             {showPassword ? (
               <span className="material-icons">visibility</span>

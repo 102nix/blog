@@ -54,13 +54,13 @@ export const LoginForm = () => {
         onChange={(target) => handleChange(setData, target)}
         error={errors.password}
         className="input-auth-form"
-        onKeyDown={handleKeyDown}
+        onKeyDown={(e) => handleKeyDown(e)}
       />
       <CheckBoxField 
         value={data.stayOn}
-        onChange={handleChange}
+        onChange={(target) => handleChange(setData, target)}
         name='stayOn'
-        onKeyDown={handleKeyDown}
+        onKeyDown={(e) => handleKeyDown(e)}
       >
         Оставаться в системе 
       </CheckBoxField>
