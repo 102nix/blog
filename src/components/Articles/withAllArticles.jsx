@@ -19,7 +19,5 @@ export const withAllArticles = (Component) => (props) => {
               <Loader />
           </div>
       )}
-    </>
-    
-  )
+    </>)
 }

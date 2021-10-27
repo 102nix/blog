@@ -1,8 +1,8 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import { SubTitle } from '../../components/common/typografy/SubTitle'
 
-export const ArticlesListPage
- = ({ articles }) => {
+export const ArticlesListPage = ({ articles }) => {
 
   const history = useHistory()
 
@@ -12,7 +12,7 @@ export const ArticlesListPage
   
   return (
     <>
-      <h2>Статьи</h2>
+      <SubTitle>Статьи</SubTitle>
       <div className="articles__articles-list">
         {articles.map(article => (
           <div className="articles-list__card" key={article.id}>

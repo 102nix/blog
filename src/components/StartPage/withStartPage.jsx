@@ -18,9 +18,6 @@ export const withStartPage = (Component) => (props) => {
         <div className="loader-container">
           <Loader />
         </div>
-        
       )}
-    </>
-    
-  )
+    </>)
 }

@@ -1,16 +1,12 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { SubTitle } from '../../components/common/typografy/SubTitle'
 import { AddArticleForm } from '../../components/ui/AddArticleForm'
 import './AddArticlePage.scss'
 
 export const AddArticlePage = () => {
-
-  const history = useHistory()
-
   return (
     <div className="add-article">
-      <h3>Добавление статьи</h3>
+      <SubTitle>Добавление статьи</SubTitle>
       <AddArticleForm />
-    </div>
-  )
+    </div>)
 }

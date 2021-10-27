@@ -1,9 +1,5 @@
 .articles{
   padding: 10px;
-  h2{
-    margin-bottom: 20px;
-    text-align: center;
-  }
   &__articles-list{
     display: flex;
     flex-wrap: wrap;
