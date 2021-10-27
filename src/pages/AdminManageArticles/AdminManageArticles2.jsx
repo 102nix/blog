@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import _ from 'lodash'
 import api from '../../api'
 //components:
-import Loader from '../../components/Loader/Loader'
+import Loader from '../../components/common/Loader/Loader'
 import { TableHeader } from '../../components/TableComponents/TableHeader'
 import { TableBody } from '../../components/TableComponents/TableBody'
 import { ModalEdit } from '../../components/ModalEdit/ModalEdit'

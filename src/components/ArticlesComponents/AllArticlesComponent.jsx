@@ -6,19 +6,19 @@ import { ArticlesListPage } from '../../pages/ArticlesListPage/ArticlesListPage'
 import { ArticlePage } from '../../pages/ArticlePage/ArticlePage'
 import './ArticlesList.scss'
 
-export const AllArticles = () => {
+export const AllArticlesComponent = () => {
 
   const { articleId } = useParams()
 
-  const AllArticles = withAllArticles(ArticlesListPage)
-  const Article = withArticle(ArticlePage)
+  const ArticlesComponent = withAllArticles(ArticlesListPage)
+  const ArticleComponent = withArticle(ArticlePage)
 
   return (
     <div className="articles">
       {articleId ? (
-          <Article id={articleId}/>
+          <ArticleComponent id={articleId}/>
         ) : (
-          <AllArticles />
+          <ArticlesComponent />
         )
       }
     </div>)

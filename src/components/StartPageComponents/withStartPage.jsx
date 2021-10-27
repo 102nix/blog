@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import api from '../../api'
-import Loader from '../Loader/Loader'
+import Loader from '../common/Loader/Loader'
 
 export const withStartPage = (Component) => (props) => {
   
