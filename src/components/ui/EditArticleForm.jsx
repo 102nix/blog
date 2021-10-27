@@ -7,7 +7,6 @@ import {
   handleSubmit,
   handleKeyDown,
 } from "../../static/funcsForForm"
-import { SubTitle } from "../common/typografy/SubTitle"
 
 export const EditArticleForm = ({ article, onCloseModal }) => {
 

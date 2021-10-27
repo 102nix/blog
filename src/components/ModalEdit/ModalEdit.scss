@@ -15,11 +15,41 @@
     margin: 100px auto;
     border-radius: 5px;
     box-shadow: 2px 3px 5px 3px rgb(190, 190, 190);
-    .textarea-reg-form{
-      height: 400px;
-      text-align: justify;
-      padding-right: 5px;
+    .form-add-article{
+      padding: 25px;
+      box-shadow: 5px 3px 4px rgb(90, 89, 89);
+      .input-add-article{
+        width: 100%;
+        box-sizing: border-box;
+        border: none;
+        border-bottom: 1px solid rgb(90, 89, 89);
+        font-size: 17px;;
+        color: #000;
+        padding: 0 0 0 5px;
+        margin-bottom: 20px;
+        outline: none;
+        font-family: inherit;
+        background: transparent;
+      }
+      .ta-add-article{
+        background: transparent;
+        border: 1px solid rgb(90, 89, 89);
+        width: 100%;
+        padding: 10px;
+        font-size: 17px;;
+        outline: none;
+        font-family: inherit;
+        margin-bottom: 10px;
+      }
+      .error-field-form{
+        color: rgb(184, 84, 84);
+      }
+      .btn-save-article{
+        background-color: rgb(77, 106, 235);
+        color: #fff;
+      }
     }
+
   }
 }
 @media(max-width: 768px){

@@ -5,11 +5,13 @@ import { TextField } from '../common/form/TextField'
 import { TextAreaField } from '../common/form/TextAreaField'
 import { handleChange, handleSubmit, handleKeyDown } from '../../static/funcsForForm'
 
-export const AddArticleForm = () => {
+export const AddArticleForm = ({ article, onCloseModal }) => {
 
   const history = useHistory()
-
-  const [data, setData] = useState({title: '', article: ''})
+  const [data, setData] = useState({
+    title: article ? article.title : '',
+    article: article ? article.article : '',
+  })
   const [errors, setErrors] = useState({})
 
   let validateScheme = yup.object().shape({
@@ -32,7 +34,7 @@ export const AddArticleForm = () => {
     <form className='form-add-article' onSubmit={(e) => handleSubmit(e, validate, data)}>
       <TextField
         name="title"
-        value={data.email}
+        value={data.title}
         onChange={(target) => handleChange(setData, target)}
         error={errors.title}
         autoFocus
@@ -45,7 +47,7 @@ export const AddArticleForm = () => {
         type="text"
         name="article"
         className="ta-add-article"
-        value={data.value}
+        value={data.article}
         error={errors.article}
         onChange={(target) => handleChange(setData, target)}
         placeholder="Содержание статьи..."
@@ -59,7 +61,18 @@ export const AddArticleForm = () => {
         >
           Сохранить
         </button>
-        <button className="btn btn-cansel" onClick={() => {history.push('/adminmanagearticles')}}>Отмена</button>
+        {onCloseModal ? (
+          <button
+            type="button"
+            className="btn btn-cansel"
+            onClick={onCloseModal}
+          >
+            Отмена
+          </button>
+          ) : (
+            <button className="btn btn-cansel" onClick={() => history.goBack()}>Отмена</button>
+          )
+        }
       </div>
     </form>)
     }
