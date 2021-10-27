@@ -1,7 +1,7 @@
 import { Route } from 'react-router-dom';
 import './App.scss'
 import { NavbarComponent } from './components/NavbarComponent/NavbarComponent'
-import { Main } from './pages/Main/Main'
+import { ForStartPage } from './components/StartPage/ForStartPage'
 import { Auth } from './layouts/Auth/Auth'
 import { AdminManageArticles } from './pages/AdminManageArticles/AdminManageArticles2'
 import { AddArticlePage } from './pages/AddArticlePage/AddArticlePage'
@@ -12,7 +12,7 @@ function App() {
     <div className="container">
       <NavbarComponent />
       <div className="content">
-        <Route exact path='/' component={Main} />
+        <Route exact path='/' component={ForStartPage} />
         <Route path='/articles/:articleId?' component={AllArticles} />
         <Route path='/auth/:type?' component={Auth} />
         <Route path='/adminmanagearticles' component={AdminManageArticles} />
