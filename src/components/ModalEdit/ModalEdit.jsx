@@ -2,7 +2,6 @@ import React from 'react'
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import { InputComponent } from '../InputComponent/InputComponent'
-import { TextareaComponent } from '../TextareaComponent/TextareaComponent'
 import { useHistory } from 'react-router-dom'
 import './ModalEdit.scss'
 
@@ -15,7 +14,7 @@ export const ModalEdit = ({ article, onCloseModal }) => {
     <div className="modal-window">
       <div className="modal_container">
         <h3>Редактирование</h3>
-        <Formik
+        {/* <Formik
           initialValues={{
             title: article.title,
             article: article.article
@@ -46,7 +45,7 @@ export const ModalEdit = ({ article, onCloseModal }) => {
               <button type='button' className="btn btn-cansel" onClick={onCloseModal}>Отмена</button>
             </div>
           </Form>
-        </Formik>
+        </Formik> */}
       </div>
     </div>
   )

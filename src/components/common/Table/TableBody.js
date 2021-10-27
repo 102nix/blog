@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 //images:
-import DeletePNG from '../../assets/imgs/delete1x.png'
-import EditPNG from '../../assets/imgs/edit1x.png'
+import DeletePNG from  '../../../assets/imgs/delete1x.png'
+import EditPNG from '../../../assets/imgs/edit1x.png'
 
 export const TableBody = ({ data, columns, onDelete, onEdit }) => {
 

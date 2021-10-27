@@ -4,11 +4,11 @@ import api from '../../api'
 import { ModalEdit } from '../ModalEdit/ModalEdit'
 //static data:
 import { columns } from '../../static/sortData'
-import './AdminManageArticles.scss'
 import { AdminAllPage } from '../../pages/AdminAllPage/AdminAllPage'
 import { withAllAdmin } from './withAllAdmin'
+import './AdminManageArticles.scss'
 
-export const AdminComponent = () => {
+export const AdminContainer = () => {
 
   const history = useHistory()
 

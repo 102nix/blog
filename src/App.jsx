@@ -1,23 +1,21 @@
 import { Route } from 'react-router-dom';
-import './App.scss'
 import { NavbarComponent } from './components/NavbarComponent/NavbarComponent'
-import { StartPageComponent } from './components/StartPageComponents/StartPageComponent'
+import { StartContainer } from './components/StartContainer/StartContainer'
 import { Auth } from './layouts/Auth/Auth'
-// import { AdminManageArticles } from './pages/AdminManageArticles/AdminManageArticles2'
-import { AdminComponent } from './components/AdminComponents/AdminComponent'
+import { AdminContainer } from './components/AdminContainer/AdminContainer'
 import { AddArticlePage } from './pages/AddArticlePage/AddArticlePage'
-import { AllArticlesComponent } from './components/ArticlesComponents/AllArticlesComponent'
+import { ArticlesContainer } from './components/ArticlesContainer/ArticlesContainer'
+import './App.scss'
 
 function App() {
   return (
     <div className="container">
       <NavbarComponent />
       <div className="content">
-        <Route exact path='/' component={StartPageComponent} />
-        <Route path='/articles/:articleId?' component={AllArticlesComponent} />
+        <Route exact path='/' component={StartContainer} />
+        <Route path='/articles/:articleId?' component={ArticlesContainer} />
         <Route path='/auth/:type?' component={Auth} />
-        {/* <Route path='/adminmanagearticles' component={AdminManageArticles} /> */}
-        <Route path='/adminmanagearticles' component={AdminComponent} />
+        <Route path='/adminmanagearticles' component={AdminContainer} />
         <Route path='/addarticle/' component={AddArticlePage} />
       </div>
     </div>

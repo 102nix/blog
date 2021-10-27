@@ -4,7 +4,7 @@ import { withStartPage } from './withStartPage'
 import './StartPage.scss'
 
 
-export const StartPageComponent = () => {
+export const StartContainer = () => {
 
   const StartComponent = withStartPage(StartPage)
 

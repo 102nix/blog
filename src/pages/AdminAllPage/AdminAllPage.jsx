@@ -1,7 +1,7 @@
 import React from "react"
 import Loader from "../../components/common/Loader/Loader"
-import { TableHeader } from "../../components/TableComponents/TableHeader"
-import { TableBody } from "../../components/TableComponents/TableBody"
+import { TableHeader } from "../../components/common/Table/TableHeader"
+import { TableBody } from "../../components/common/Table/TableBody"
 import { useHistory } from "react-router"
 
 export const AdminAllPage = ({ columns, sortedArticles, handleSort, sortBy, handlerDelArticle, handlerEdit }) => {

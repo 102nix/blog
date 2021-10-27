@@ -1,8 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
 //images:
-import downPNG from '../../assets/imgs/down.png'
-import upPNG from '../../assets/imgs/up.png'
+import downPNG from '../../../assets/imgs/down.png'
+import upPNG from '../../../assets/imgs/up.png'
 
 export const TableHeader = ({ onSort, selectedSort, columns }) => {
 

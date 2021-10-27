@@ -6,7 +6,7 @@ import { ArticlesListPage } from '../../pages/ArticlesListPage/ArticlesListPage'
 import { ArticlePage } from '../../pages/ArticlePage/ArticlePage'
 import './ArticlesList.scss'
 
-export const AllArticlesComponent = () => {
+export const ArticlesContainer = () => {
 
   const { articleId } = useParams()
 
