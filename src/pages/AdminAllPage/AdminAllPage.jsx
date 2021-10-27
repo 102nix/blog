@@ -1,14 +1,12 @@
 import React from "react"
 import Loader from "../../components/common/Loader/Loader"
-import { TableHeader } from "../../components/common/Table/TableHeader"
-import { TableBody } from "../../components/common/Table/TableBody"
+import { TableHeader } from "../../components/common/table/TableHeader"
+import { TableBody } from "../../components/common/table/TableBody"
 import { useHistory } from "react-router"
 
 export const AdminAllPage = ({ columns, sortedArticles, handleSort, sortBy, handlerDelArticle, handlerEdit }) => {
   
   const history = useHistory()
-
-  console.log('columns: ', columns, sortedArticles, handleSort, sortBy, handlerDelArticle, handlerEdit)
 
   return (
     <div className="admin-articles">
@@ -17,7 +15,7 @@ export const AdminAllPage = ({ columns, sortedArticles, handleSort, sortBy, hand
           Создать статью
         </button>
       </div>
-      {columns !== {} ? (
+      {columns? (
         <table className="table">
           <TableHeader
             onSort={handleSort}
