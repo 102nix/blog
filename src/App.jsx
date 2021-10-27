@@ -3,7 +3,8 @@ import './App.scss'
 import { NavbarComponent } from './components/NavbarComponent/NavbarComponent'
 import { StartPageComponent } from './components/StartPageComponents/StartPageComponent'
 import { Auth } from './layouts/Auth/Auth'
-import { AdminManageArticles } from './pages/AdminManageArticles/AdminManageArticles2'
+// import { AdminManageArticles } from './pages/AdminManageArticles/AdminManageArticles2'
+import { AdminComponent } from './components/AdminComponents/AdminComponent'
 import { AddArticlePage } from './pages/AddArticlePage/AddArticlePage'
 import { AllArticlesComponent } from './components/ArticlesComponents/AllArticlesComponent'
 
@@ -15,7 +16,8 @@ function App() {
         <Route exact path='/' component={StartPageComponent} />
         <Route path='/articles/:articleId?' component={AllArticlesComponent} />
         <Route path='/auth/:type?' component={Auth} />
-        <Route path='/adminmanagearticles' component={AdminManageArticles} />
+        {/* <Route path='/adminmanagearticles' component={AdminManageArticles} /> */}
+        <Route path='/adminmanagearticles' component={AdminComponent} />
         <Route path='/addarticle/' component={AddArticlePage} />
       </div>
     </div>
