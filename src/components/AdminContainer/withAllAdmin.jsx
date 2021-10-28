@@ -10,6 +10,7 @@ export const withAllAdmin = (Component) => (props) => {
   const [sortBy, setSortBy] = useState({ path: 'name', order: "asc" })
   const [article, setArticle] = useState(null)
   const [articleId, setArticleId] = useState(null)
+  const [newArticle, setNewArticle] = useState(null)
 
   useEffect(() => {
     api.articles.fetchAll().then(data => setArticles(data))
@@ -25,6 +26,7 @@ export const withAllAdmin = (Component) => (props) => {
 
   const handleCloseModalEdit = () => {
     setArticle(null)
+    setNewArticle(null)
   }
 
   const sortedArticles = _.orderBy(articles, [sortBy.path], [sortBy.order])
@@ -39,7 +41,7 @@ export const withAllAdmin = (Component) => (props) => {
 
   return (
     <>
-     { article &&
+     { (article || (newArticle === 'addArt')) &&
         <ModalEdit
           article={article}
           onCloseModal={handleCloseModalEdit}
@@ -53,6 +55,7 @@ export const withAllAdmin = (Component) => (props) => {
           handleSort={handleSort}
           handlerDelArticle={handlerDelArticle}
           handlerEdit={handlerEdit}
+          setNewArticle={setNewArticle}
         />
         ) : (
           <div className="loader-container">

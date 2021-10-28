@@ -4,14 +4,14 @@ import { TableHeader } from "../../components/common/table/TableHeader"
 import { TableBody } from "../../components/common/table/TableBody"
 import { useHistory } from "react-router"
 
-export const AdminAllPage = ({ columns, sortedArticles, handleSort, sortBy, handlerDelArticle, handlerEdit }) => {
+export const AdminAllPage = ({ columns, sortedArticles, handleSort, sortBy, handlerDelArticle, handlerEdit, setNewArticle }) => {
   
   const history = useHistory()
 
   return (
     <div className="admin-articles">
       <div className="admin-articles__header-block">
-        <button className="btn" onClick={() => history.push("/addarticle")}>
+        <button className="btn" onClick={() => setNewArticle('addArt')}>
           Создать статью
         </button>
       </div>

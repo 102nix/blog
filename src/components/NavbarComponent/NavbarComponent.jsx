@@ -75,9 +75,6 @@ export const NavbarComponent = () => {
               </NavLink>
           </div>
         </div>
-        {/* <div className={showMenu.join(" ")}>
-
-        </div> */}
       </div>
     </div>
   )
