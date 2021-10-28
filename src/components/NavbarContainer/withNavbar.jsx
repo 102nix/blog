@@ -18,8 +18,7 @@ export const withNavbar = (Component) => (props) => {
   return (
     <Component
       showMenu={showMenu}
-      handlerVisibleMenu={handlerVisibleMenu}
       clsBurger={clsBurger}
-    />
-  )
+      handlerVisibleMenu={handlerVisibleMenu}
+    />)
 }

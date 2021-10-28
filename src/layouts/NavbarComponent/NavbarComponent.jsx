@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
 import './NavbarComponent.scss'
 
 export const NavbarComponent = ({ showMenu, handlerVisibleMenu, clsBurger }) => {
-  console.log("!!!: ", showMenu, handlerVisibleMenu, clsBurger)
   return (
     <div className="header">
       <div className="header__body">
@@ -63,6 +62,5 @@ export const NavbarComponent = ({ showMenu, handlerVisibleMenu, clsBurger }) => 
           </div>
         </div>
       </div>
-    </div>
-  )
+    </div>)
 }
