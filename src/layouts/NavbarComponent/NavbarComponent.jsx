@@ -2,21 +2,8 @@ import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import './NavbarComponent.scss'
 
-export const NavbarComponent = () => {
-  
-  const [showMenu, setShowMenu] = useState(['header__menu'])
-  const [clsBurger, setClsBurger] = useState(['header__burger'])
-
-  const handlerVisibleMenu = () => {
-    if (showMenu.indexOf('actived') === -1) {
-      setShowMenu([...showMenu, 'actived'])
-      setClsBurger([...clsBurger, 'actived'])
-    } else {
-      setShowMenu([...showMenu.splice(showMenu.indexOf('header__menu'), 1)])
-      setClsBurger([...clsBurger.splice(clsBurger.indexOf('header__burger'), 1)])
-    }
-  }
-    
+export const NavbarComponent = ({ showMenu, handlerVisibleMenu, clsBurger }) => {
+  console.log("!!!: ", showMenu, handlerVisibleMenu, clsBurger)
   return (
     <div className="header">
       <div className="header__body">
@@ -79,4 +66,3 @@ export const NavbarComponent = () => {
     </div>
   )
 }
-
