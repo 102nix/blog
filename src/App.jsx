@@ -1,10 +1,9 @@
-import { Route } from 'react-router-dom';
-// import { NavbarComponent } from './components/NavbarComponent/NavbarComponent'
+import { Route } from 'react-router-dom'
+import { NavbarContainer } from './components/NavbarContainer/NavbarContainer'
 import { StartContainer } from './components/StartContainer/StartContainer'
 import { Auth } from './layouts/Auth/Auth'
 import { AdminContainer } from './components/AdminContainer/AdminContainer'
 import { ArticlesContainer } from './components/ArticlesContainer/ArticlesContainer'
-import { NavbarContainer } from './components/NavbarContainer/NavbarContainer'
 import './App.scss'
 
 function App() {
