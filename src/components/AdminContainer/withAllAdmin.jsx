@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import api from '../../api'
-import Loader from '../common/Loader/Loader'
+import LoaderComponent from '../common/Loader/Loader'
 import _ from 'lodash'
 import { ModalEdit } from '../ModalEdit/ModalEdit'
+import Loader from "react-loader-spinner"
 
 export const withAllAdmin = (Component) => (props) => {
   
@@ -11,17 +12,22 @@ export const withAllAdmin = (Component) => (props) => {
   const [article, setArticle] = useState(null)
   const [articleId, setArticleId] = useState(null)
   const [newArticle, setNewArticle] = useState(null)
+  const [isLoader, setIsLoader] = useState(false)
 
   useEffect(() => {
     api.articles.fetchAll().then(data => setArticles(data))
   }, [])
 
   useEffect(() => {
-    api.articles.getById(articleId).then(data => setArticle(data))
+    api.articles.getById(articleId).then(data => {
+      setIsLoader(false)
+      setArticle(data)
+    })
   },[articleId]) //This articleID get's from handlerEdit(articleId)
 
   const handlerEdit = (articleId) => {
     setArticleId(articleId)
+    setIsLoader(true)
   }
 
   const handleCloseModalEdit = () => {
@@ -41,6 +47,17 @@ export const withAllAdmin = (Component) => (props) => {
 
   return (
     <>
+    {isLoader &&
+      <div className="loader-container">
+        <Loader
+        type="Bars"
+        color="#000"
+        height={50}
+        width={50}
+        timeout={3000} //3 secs
+      />
+      </div>
+    }
      { (article || (newArticle === 'addArt')) &&
         <ModalEdit
           article={article}
@@ -59,7 +76,7 @@ export const withAllAdmin = (Component) => (props) => {
         />
         ) : (
           <div className="loader-container">
-              <Loader />
+              <LoaderComponent />
           </div>
       )}
     </>)

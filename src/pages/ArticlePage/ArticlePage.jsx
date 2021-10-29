@@ -10,21 +10,26 @@ export const ArticlePage = ({ article }) => {
     <div className="current-article">
       <SubTitle>{article.title}</SubTitle>
       <div className="current-article__body">
-        {article.article}
+        <p className="img-block">
+          <img src={article.img} alt="" />
+        </p>
+        <p className="content">
+          {article.article}
+        </p>
       </div>
       <div className="action-block">
-        <NavLink 
+        {/* <NavLink 
             className=' '
             to='/articles'          
           >
             Список статей
-          </NavLink>
-          <NavLink 
-            className=' '
-            to='/articles'          
-          >
-            <img src={list2xPng} alt="" />
-          </NavLink>
+          </NavLink> */}
+        {/* <NavLink 
+          className=' '
+          to='/articles'          
+        >
+          <img src={list2xPng} alt="" />
+        </NavLink> */}
       </div>
   </div>)
 }
