@@ -2,6 +2,7 @@ import React from "react"
 import Loader from "../../components/common/Loader/Loader"
 import { TableHeader } from "../../components/common/table/TableHeader"
 import { TableBody } from "../../components/common/table/TableBody"
+import './AdminAllPage.scss'
 
 export const AdminAllPage = ({
   columns,

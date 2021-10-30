@@ -54,9 +54,20 @@
 }
 @media(max-width: 768px){
   .modal-window .modal_container{
+    padding: 5px 0 0 0;
     max-width: 300px;
-    .textarea-reg-form{
-      height: 250px;
-    }
+  }
+  .modal-window .modal_container .form-add-article{
+    padding: 10px;
+    box-shadow: none;
+  }
+  .modal-window .modal_container .form-add-article .input-add-article{
+    margin-bottom: 0;
+    font-size: 14px;
+  }
+  .modal-window .modal_container .form-add-article .ta-add-article{
+    height: 250px;
+    font-size: 14px;
+    line-height: 16px;
   }
 }
