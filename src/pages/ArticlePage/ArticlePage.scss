@@ -1,5 +1,4 @@
 .current-article{
-  margin-top: 70px;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -22,6 +21,9 @@
 }
 
 @media(max-width: 768px){
+  .current-article{
+    margin-top: 70px;
+  }
   .current-article .current-article__body .img-block{
    margin: 0;
    float: none;
