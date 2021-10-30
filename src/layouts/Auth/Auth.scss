@@ -75,6 +75,9 @@
 }
 
 @media(max-width: 768px){
+  .auth{
+    padding-top: 100px;
+  }
   .auth .form-auth{
     width: 100%;
   }

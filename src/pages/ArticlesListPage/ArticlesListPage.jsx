@@ -1,6 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { SubTitle } from '../../components/common/typografy/SubTitle'
+import './ArticlesList.scss'
 
 export const ArticlesListPage = ({ articles }) => {
 

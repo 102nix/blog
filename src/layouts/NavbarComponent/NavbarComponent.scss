@@ -62,6 +62,9 @@
   .header {
     padding: 0 10px;
     font-size: 25px;
+    position: fixed;
+    width: 100%;
+    z-index: 999;
   }
   .header__body{
     align-items: center;
@@ -124,6 +127,7 @@
       border-radius: 4px;
       height: auto;
       background-color: rgba(7, 6, 77, .7);
+      z-index: 999;
       transition: all 0.9s ease-in 0s;
     }
     .header__menu.actived{

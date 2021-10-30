@@ -4,7 +4,6 @@ import { withAllArticles } from './withAllArticles'
 import { withArticle } from './withArticle'
 import { ArticlesListPage } from '../../pages/ArticlesListPage/ArticlesListPage'
 import { ArticlePage } from '../../pages/ArticlePage/ArticlePage'
-import './ArticlesList.scss'
 
 export const ArticlesContainer = () => {
 

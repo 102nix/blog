@@ -5,15 +5,15 @@ import Loader from '../common/Loader/Loader'
 export const withArticle = (Component) => (props) => {
   
   const [article, setArticle] = useState()
+
   useEffect(() => {
-      console.log('useEffect')
       api.articles.getById(props.id).then(data => setArticle(data))
     },[])
   
   return (
     <>
       {article ? (
-        <Component article={article} />
+        <Component blog={article} />
       ) : (
         <div className="loader-container">
           <Loader />

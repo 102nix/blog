@@ -1,35 +1,24 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import list2xPng from '../../assets/imgs/list2x.png'
+import { ArticleText } from '../../components/common/typografy/ArticleText/ArticleText'
+import { LinkBack } from '../../components/common/typografy/LinkBack/LinkBack'
 import { SubTitle } from '../../components/common/typografy/SubTitle'
 import './ArticlePage.scss'
 
-export const ArticlePage = ({ article }) => {
+export const ArticlePage = ({ blog }) => {
 
   return (
     <div className="current-article">
-      <SubTitle>{article.title}</SubTitle>
+      <SubTitle>{blog.title}</SubTitle>
       <div className="current-article__body">
         <p className="img-block">
-          <img src={article.img} alt="" />
+          <img src={blog.img} alt="" />
         </p>
-        <p className="content">
-          {article.article}
-        </p>
+        {blog.article.split(' ~ ').map(textBlog => (
+          <ArticleText>{textBlog}</ArticleText>
+        ))}
       </div>
-      <div className="action-block">
-        {/* <NavLink 
-            className=' '
-            to='/articles'          
-          >
-            Список статей
-          </NavLink> */}
-        {/* <NavLink 
-          className=' '
-          to='/articles'          
-        >
-          <img src={list2xPng} alt="" />
-        </NavLink> */}
-      </div>
+      <LinkBack />
   </div>)
 }

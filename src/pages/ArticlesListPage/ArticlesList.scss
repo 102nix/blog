@@ -35,9 +35,24 @@
   }
 }
 
-@media (max-width: 768px){
-  .articles-list__container{
+@media (width: 768px){
+  .articles__articles-list{
     flex-direction: column;
+    .articles-list__card{
+      max-width: 450px;
+    }
   }
 }
+
+@media (max-width: 767px){
+  .articles__articles-list{
+    flex-direction: column;
+    padding-top: 50px;
+    .articles-list__card{
+      max-width: 350px;
+    }
+  }
+}
+
+
 
