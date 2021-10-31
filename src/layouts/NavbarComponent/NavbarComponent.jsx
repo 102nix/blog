@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import './NavbarComponent.scss'
 
-export const NavbarComponent = ({ showMenu, handlerVisibleMenu, clsBurger }) => {
+export const NavbarComponent = ({ showMenu, handlerVisibleMenu, clsBurger, auth, logout }) => {
   return (
     <div className="header">
       <div className="header__body">
@@ -36,15 +36,16 @@ export const NavbarComponent = ({ showMenu, handlerVisibleMenu, clsBurger }) => 
             </li>
             <li className="header__list-item">
               <NavLink 
-                to="/about" 
+                to="/admin" 
                 className="header__list-link"
                 onClick={handlerVisibleMenu}  
               >
-                About ME
+                RootДоступ
               </NavLink>
             </li>
           </ul>
-          <div className='header__list-reg'>
+          {!auth ? (
+            <div className='header__list-reg'>
               <NavLink
                 to='/auth/login'
                 className="header__list-link"
@@ -59,7 +60,20 @@ export const NavbarComponent = ({ showMenu, handlerVisibleMenu, clsBurger }) => 
               >
                 Регистрация
               </NavLink>
-          </div>
+            </div>
+            ) : (
+              <div className='header__list-reg'>
+                <NavLink
+                to='/auth/login'
+                className="header__list-link"
+                onClick={logout}
+               >
+                Выход
+              </NavLink>
+              </div>
+          )
+          }
+          
         </div>
       </div>
     </div>)

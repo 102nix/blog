@@ -20,5 +20,7 @@ export const withNavbar = (Component) => (props) => {
       showMenu={showMenu}
       clsBurger={clsBurger}
       handlerVisibleMenu={handlerVisibleMenu}
+      auth={props.auth}
+      logout={props.logout}
     />)
 }

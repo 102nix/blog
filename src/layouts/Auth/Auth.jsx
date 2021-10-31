@@ -5,7 +5,7 @@ import { useParams } from 'react-router'
 import { NavLink } from 'react-router-dom'
 import './Auth.scss'
 
-export const Auth = () => {
+export const Auth = ({login}) => {
 
   const { type } = useParams()
 
@@ -22,7 +22,7 @@ export const Auth = () => {
       ) : (
         <>
           <h2>Вход</h2>
-          <LoginForm />
+          <LoginForm login={login}/>
           <div className="form-links">
             <NavLink to='/auth/register' className='link-auth'>Нет логина?</NavLink>
           </div>

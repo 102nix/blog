@@ -3,9 +3,9 @@ import { useHistory } from 'react-router-dom'
 import * as yup from 'yup'
 import { TextField } from '../common/form/TextField'
 import { CheckBoxField } from '../common/form/CheckBoxField'
-import { handleChange, handleSubmit, handleKeyDown } from '../../static/funcsForForm'
+import { handleChange, handleKeyDown } from '../../static/funcsForForm'
 
-export const LoginForm = () => {
+export const LoginForm = ({ login }) => {
 
   const history = useHistory()
 
@@ -34,8 +34,17 @@ export const LoginForm = () => {
     validate()
   }, [data])
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const isValid = validate()
+    if (!isValid) return
+    console.log(data)
+    login()
+    history.push('/')
+  }
+
   return (
-    <form className='form-auth' onSubmit={(e) => handleSubmit(e, validate, data)}>
+    <form className='form-auth' onSubmit={handleSubmit}>
       <TextField 
         label="Электронная почта"
         name="email"
