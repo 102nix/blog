@@ -7,38 +7,38 @@ export const NavbarComponent = ({ showMenu, handlerVisibleMenu, clsBurger, auth,
     <div className="header">
       <div className="header__body">
         <div className="header__logo">БлогДжуна<span>_frontend</span></div>
-        <div 
-          className={clsBurger.join(" ")} 
-          onClick={handlerVisibleMenu}  
+        <div
+          className={clsBurger.join(' ')}
+          onClick={handlerVisibleMenu}
         >
           <span></span>
         </div>
-        <div className={showMenu.join(" ")}>
+        <div className={showMenu.join(' ')}>
           <ul className="header__list">
             <li className="header__list-item">
-              <NavLink 
-                exact 
-                to="/" 
+              <NavLink
+                exact
+                to="/"
                 className="header__list-link"
-                onClick={handlerVisibleMenu}  
+                onClick={handlerVisibleMenu}
               >
                 Главная
               </NavLink>
             </li>
             <li className="header__list-item">
-              <NavLink 
-                to="/articles" 
+              <NavLink
+                to="/articles"
                 className="header__list-link"
-                onClick={handlerVisibleMenu}  
+                onClick={handlerVisibleMenu}
               >
                 Список статей
               </NavLink>
             </li>
             <li className="header__list-item">
-              <NavLink 
-                to="/admin" 
+              <NavLink
+                to="/admin"
                 className="header__list-link"
-                onClick={handlerVisibleMenu}  
+                onClick={handlerVisibleMenu}
               >
                 RootДоступ
               </NavLink>
@@ -61,20 +61,19 @@ export const NavbarComponent = ({ showMenu, handlerVisibleMenu, clsBurger, auth,
                 Регистрация
               </NavLink>
             </div>
-            ) : (
-              <div className='header__list-reg'>
-                <NavLink
+          ) : (
+            <div className='header__list-reg'>
+              <NavLink
                 to='/auth/login'
                 className="header__list-link"
                 onClick={logout}
-               >
+              >
                 Выход
               </NavLink>
-              </div>
-          )
-          }
-          
+            </div>
+          ) }
         </div>
       </div>
-    </div>)
+    </div>
+  )
 }

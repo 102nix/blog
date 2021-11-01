@@ -18,6 +18,6 @@ export const handleKeyDown = (e) => {
     e.preventDefault()
     const form = e.target.form
     const indexField = Array.prototype.indexOf.call(form, e.target)
-    form.elements[indexField+1].focus()
+    form.elements[indexField + 1].focus()
   }
 }

@@ -3,13 +3,13 @@ import api from '../../api'
 import Loader from '../common/Loader/Loader'
 
 export const withArticle = (Component) => (props) => {
-  
   const [article, setArticle] = useState()
 
   useEffect(() => {
-      api.articles.getById(props.id).then(data => setArticle(data))
-    },[])
-  
+    console.log('testing...')
+    api.articles.getById(props.id).then(data => setArticle(data))
+  }, [props.id])
+
   return (
     <>
       {article ? (
@@ -18,9 +18,7 @@ export const withArticle = (Component) => (props) => {
         <div className="loader-container">
           <Loader />
         </div>
-        
       )}
     </>
-    
   )
 }

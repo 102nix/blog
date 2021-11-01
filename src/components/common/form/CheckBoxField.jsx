@@ -1,9 +1,8 @@
 import React from 'react'
 
-export const CheckBoxField = ({name, value, onChange, children, error, ...rest}) => {
-
+export const CheckBoxField = ({ name, value, onChange, children, error, ...rest }) => {
   const handleChange = () => {
-    onChange({name: name, value: !value})
+    onChange({ name: name, value: !value })
   }
 
   // const getInputClasses = () => {
@@ -12,10 +11,10 @@ export const CheckBoxField = ({name, value, onChange, children, error, ...rest})
 
   return (
     <div className="form-check">
-      <input 
+      <input
         className="input-checkbox"
-        type="checkbox" 
-        value="" 
+        type="checkbox"
+        value=""
         onChange={handleChange}
         id={name}
         checked={value}
@@ -30,4 +29,3 @@ export const CheckBoxField = ({name, value, onChange, children, error, ...rest})
     </div>
   )
 }
-

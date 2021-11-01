@@ -6,7 +6,6 @@ import { CheckBoxField } from '../common/form/CheckBoxField'
 import { handleChange, handleKeyDown } from '../../static/funcsForForm'
 
 export const LoginForm = ({ login }) => {
-
   const history = useHistory()
 
   const [data, setData] = useState({
@@ -15,22 +14,22 @@ export const LoginForm = ({ login }) => {
 
   const [errors, setErrors] = useState({})
 
-  let validateScheme = yup.object().shape({
+  const validateScheme = yup.object().shape({
     password: yup.string().required('Пароль обязателен для заполнения')
-    .matches(/(?=.*[A-Z])/,'Пароль должен содержать хотябы 1 заглавную букву')
-    .matches(/(?=.*[0-9])/,'Пароль должен содержать хотябы 1 число')
-    .matches(/(?=.{8,})/,'Пароль должен состоять минимум из 8 символов'),
-    email: yup.string().required('Email обязательно для заполнения').email('Email введён некорректно'),
-  }) 
+      .matches(/(?=.*[A-Z])/, 'Пароль должен содержать хотябы 1 заглавную букву')
+      .matches(/(?=.*[0-9])/, 'Пароль должен содержать хотябы 1 число')
+      .matches(/(?=.{8,})/, 'Пароль должен состоять минимум из 8 символов'),
+    email: yup.string().required('Email обязательно для заполнения').email('Email введён некорректно')
+  })
 
   const validate = () => {
-    validateScheme.validate(data).then(() => setErrors({})).catch(err => setErrors({[err.path]: err.message}))
-    return Object.keys(errors).length === 0 
+    validateScheme.validate(data).then(() => setErrors({})).catch(err => setErrors({ [err.path]: err.message }))
+    return Object.keys(errors).length === 0
   }
 
   const isValid = Object.keys(errors).length === 0
 
-  useEffect (() => {
+  useEffect(() => {
     validate()
   }, [data])
 
@@ -45,7 +44,7 @@ export const LoginForm = ({ login }) => {
 
   return (
     <form className='form-auth' onSubmit={handleSubmit}>
-      <TextField 
+      <TextField
         label="Электронная почта"
         name="email"
         value={data.email}
@@ -55,7 +54,7 @@ export const LoginForm = ({ login }) => {
         autoFocus
         onKeyDown={(e) => handleKeyDown(e)}
       />
-      <TextField 
+      <TextField
         label="Пароль"
         type="password"
         name="password"
@@ -65,23 +64,23 @@ export const LoginForm = ({ login }) => {
         className="input-auth-form"
         onKeyDown={(e) => handleKeyDown(e)}
       />
-      <CheckBoxField 
+      <CheckBoxField
         value={data.stayOn}
         onChange={(target) => handleChange(setData, target)}
         name='stayOn'
         onKeyDown={(e) => handleKeyDown(e)}
       >
-        Оставаться в системе 
+        Оставаться в системе
       </CheckBoxField>
       <div className="form-actions">
-        <button 
+        <button
           type="submit"
           disabled={!isValid}
           className="btn btn-login"
         >
           Submit
         </button>
-        <button className="btn btn-cansel" onClick={() => {history.push('/')}}>Отмена</button>
+        <button className="btn btn-cansel" onClick={() => { history.push('/') }}>Отмена</button>
       </div>
     </form>)
 }

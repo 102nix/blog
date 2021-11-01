@@ -6,12 +6,12 @@ import './LinkBack.scss'
 export const LinkBack = () => {
   return (
     <div className="action-block">
-    <NavLink 
-      className=' '
-      to='/articles'          
-    >
-      <img src={list2xPng} alt="" />
-    </NavLink>
-  </div>
+      <NavLink
+        className=' '
+        to='/articles'
+      >
+        <img src={list2xPng} alt="" />
+      </NavLink>
+    </div>
   )
 }

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 export const withNavbar = (Component) => (props) => {
-  
   const [showMenu, setShowMenu] = useState(['header__menu'])
   const [clsBurger, setClsBurger] = useState(['header__burger'])
 
@@ -14,7 +13,6 @@ export const withNavbar = (Component) => (props) => {
       setClsBurger([...clsBurger.splice(clsBurger.indexOf('header__burger'), 1)])
     }
   }
-    
   return (
     <Component
       showMenu={showMenu}

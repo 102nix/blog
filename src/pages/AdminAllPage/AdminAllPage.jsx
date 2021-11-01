@@ -1,7 +1,7 @@
-import React from "react"
-import Loader from "../../components/common/Loader/Loader"
-import { TableHeader } from "../../components/common/table/TableHeader"
-import { TableBody } from "../../components/common/table/TableBody"
+import React from 'react'
+import Loader from '../../components/common/Loader/Loader'
+import { TableHeader } from '../../components/common/table/TableHeader'
+import { TableBody } from '../../components/common/table/TableBody'
 import './AdminAllPage.scss'
 
 export const AdminAllPage = ({
@@ -11,12 +11,12 @@ export const AdminAllPage = ({
   sortBy,
   handlerDelArticle,
   handlerEdit,
-  setNewArticle,
+  setNewArticle
 }) => {
   return (
     <div className="admin-articles">
       <div className="admin-articles__header-block">
-        <button className="btn" onClick={() => setNewArticle("addArt")}>
+        <button className="btn" onClick={() => setNewArticle('addArt')}>
           Создать статью
         </button>
       </div>

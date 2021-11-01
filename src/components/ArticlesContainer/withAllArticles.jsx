@@ -3,7 +3,6 @@ import api from '../../api'
 import Loader from '../common/Loader/Loader'
 
 export const withAllArticles = (Component) => (props) => {
-
   const [articles, setArticles] = useState([])
 
   useEffect(() => {
@@ -14,10 +13,11 @@ export const withAllArticles = (Component) => (props) => {
     <>
       {articles.length > 0 ? (
         <Component articles={articles} {...props}/>
-        ) : (
-          <div className="loader-container">
-              <Loader />
-          </div>
+      ) : (
+        <div className="loader-container">
+          <Loader />
+        </div>
       )}
-    </>)
+    </>
+  )
 }

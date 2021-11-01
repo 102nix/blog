@@ -5,5 +5,5 @@ export const ArticleText = ({ children }) => {
   return (
     <div className="blog-text">
       <p>{children}</p>
-    </div>) 
+    </div>)
 }

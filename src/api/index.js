@@ -1,5 +1,5 @@
-import articles from "./fake.api/articles.api";
+import articles from './fake.api/articles.api'
 const API = {
-    articles,
-};
-export default API;
+  articles
+}
+export default API

@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react'
 
 export default function useAuth (initialValue) {
+  const [isAuth, setIsAuth] = useState(initialValue)
 
-  const [ isAuth, setIsAuth ] = useState(initialValue)
-  
-  function login() {
+  function login () {
     setIsAuth(true)
   }
-  function logout() {
+  function logout () {
     setIsAuth(false)
   }
   return [isAuth, login, logout]

@@ -4,8 +4,7 @@ import { AdminAllPage } from '../../pages/AdminAllPage/AdminAllPage'
 import { withAllAdmin } from './withAllAdmin'
 
 export const AdminContainer = () => {
-
   const AdminComponent = withAllAdmin(AdminAllPage)
-
-  return (<AdminComponent columns={columns}/>)
+  return (<AdminComponent columns={columns}/>
+  )
 }

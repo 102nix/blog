@@ -1,5 +1,5 @@
-import React from "react"
-import { SubTitle } from "../../components/common/typografy/SubTitle"
+import React from 'react'
+import { SubTitle } from '../../components/common/typografy/SubTitle'
 import './StartPage.scss'
 
 export const StartPage = ({ startInfo }) => {
@@ -8,7 +8,7 @@ export const StartPage = ({ startInfo }) => {
       <SubTitle>Статьи, посвещенные Frontend-у: ReactJS, JS, ...</SubTitle>
       <div className="start-container__body">
         {startInfo.map(blog => (
-          <div className="start-container__body-line">
+          <div key={blog.img} className="start-container__body-line">
             <div className="img-block">
               <img src={blog.img} alt="" />
             </div>
@@ -16,5 +16,6 @@ export const StartPage = ({ startInfo }) => {
           </div>
         ))}
       </div>
-    </div>)
+    </div>
+  )
 }

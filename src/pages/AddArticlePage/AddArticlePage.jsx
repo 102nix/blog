@@ -8,5 +8,6 @@ export const AddArticlePage = () => {
     <div className="add-article">
       <SubTitle>Добавление статьи</SubTitle>
       <AddArticleForm />
-    </div>)
+    </div>
+  )
 }

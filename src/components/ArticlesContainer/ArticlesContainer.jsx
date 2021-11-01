@@ -6,7 +6,6 @@ import { ArticlesListPage } from '../../pages/ArticlesListPage/ArticlesListPage'
 import { ArticlePage } from '../../pages/ArticlePage/ArticlePage'
 
 export const ArticlesContainer = () => {
-
   const { articleId } = useParams()
 
   const ArticlesComponent = withAllArticles(ArticlesListPage)
@@ -15,10 +14,10 @@ export const ArticlesContainer = () => {
   return (
     <div className="articles">
       {articleId ? (
-          <ArticleComponent id={articleId}/>
-        ) : (
-          <ArticlesComponent />
-        )
-      }
-    </div>)
+        <ArticleComponent id={articleId}/>
+      ) : (
+        <ArticlesComponent />
+      ) }
+    </div>
+  )
 }

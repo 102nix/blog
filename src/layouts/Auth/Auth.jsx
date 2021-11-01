@@ -5,8 +5,7 @@ import { useParams } from 'react-router'
 import { NavLink } from 'react-router-dom'
 import './Auth.scss'
 
-export const Auth = ({login}) => {
-
+export const Auth = ({ login }) => {
   const { type } = useParams()
 
   return (
@@ -28,5 +27,6 @@ export const Auth = ({login}) => {
           </div>
         </>
       )}
-    </div>)
+    </div>
+  )
 }

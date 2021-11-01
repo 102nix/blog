@@ -1,3 +1,4 @@
+import React from 'react'
 import { Route } from 'react-router-dom'
 import { NavbarContainer } from './components/NavbarContainer/NavbarContainer'
 import { StartContainer } from './components/StartContainer/StartContainer'
@@ -8,14 +9,13 @@ import { ProtectedRoute } from './components/common/ProtectedRoute'
 import useAuth from './hooks/useAuth'
 import './App.scss'
 
-function App() {
-
+function App () {
   const [isAuth, login, logout] = useAuth(false)
 
   console.log(isAuth)
   return (
     <div className="container">
-      <NavbarContainer auth={isAuth} logout={logout}/>
+      <NavbarContainer auth={isAuth} logout={logout} />
       <div className="content">
         <Route exact path='/' component={StartContainer} />
         <Route path='/articles/:articleId?' component={ArticlesContainer} />
@@ -27,4 +27,4 @@ function App() {
   )
 }
 
-export default App;
+export default App

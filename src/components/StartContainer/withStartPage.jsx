@@ -3,13 +3,11 @@ import api from '../../api'
 import Loader from '../common/Loader/Loader'
 
 export const withStartPage = (Component) => (props) => {
-  
   const [startInfo, setStartInfo] = useState([])
 
   useEffect(() => {
     api.articles.fetchAllMain().then(data => setStartInfo(data))
   }, [])
-  
   return (
     <>
       {startInfo.length > 0 ? (
@@ -19,5 +17,6 @@ export const withStartPage = (Component) => (props) => {
           <Loader />
         </div>
       )}
-    </>)
+    </>
+  )
 }

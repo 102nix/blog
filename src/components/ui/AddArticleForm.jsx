@@ -6,27 +6,26 @@ import { TextAreaField } from '../common/form/TextAreaField'
 import { handleChange, handleSubmit, handleKeyDown } from '../../static/funcsForForm'
 
 export const AddArticleForm = ({ article, onCloseModal }) => {
-
   const history = useHistory()
   const [data, setData] = useState({
     title: article ? article.title : '',
-    article: article ? article.article : '',
+    article: article ? article.article : ''
   })
   const [errors, setErrors] = useState({})
 
-  let validateScheme = yup.object().shape({
+  const validateScheme = yup.object().shape({
     article: yup.string().required('Содержание статьи - обязательно'),
-    title: yup.string().required('Необходимо указать название статьи'),
+    title: yup.string().required('Необходимо указать название статьи')
   })
-  
+
   const validate = () => {
-    validateScheme.validate(data).then(() => setErrors({})).catch(err => setErrors({[err.path]: err.message}))
-    return Object.keys(errors).length === 0 
+    validateScheme.validate(data).then(() => setErrors({})).catch(err => setErrors({ [err.path]: err.message }))
+    return Object.keys(errors).length === 0
   }
 
   const isValid = Object.keys(errors).length === 0
 
-  useEffect (() => {
+  useEffect(() => {
     validate()
   }, [data])
 
@@ -54,10 +53,10 @@ export const AddArticleForm = ({ article, onCloseModal }) => {
         onKeyDown={(e) => handleKeyDown(e)}
       />
       <div className="form-actions">
-      <button 
+        <button
           type="submit"
           disabled={!isValid}
-          className={isValid ? "btn btn-save-article" : 'btn-disabled' } 
+          className={isValid ? 'btn btn-save-article' : 'btn-disabled' }
         >
           Сохранить
         </button>
@@ -69,10 +68,11 @@ export const AddArticleForm = ({ article, onCloseModal }) => {
           >
             Отмена
           </button>
-          ) : (
-            <button className="btn btn-cansel" onClick={() => history.goBack()}>Отмена</button>
-          )
+        ) : (
+          <button className="btn btn-cansel" onClick={() => history.goBack()}>Отмена</button>
+        )
         }
       </div>
-    </form>)
-    }
+    </form>
+  )
+}
