@@ -5,11 +5,14 @@ import { TextField } from '../common/form/TextField'
 import { TextAreaField } from '../common/form/TextAreaField'
 import { handleChange, handleSubmit, handleKeyDown } from '../../static/funcsForForm'
 
-export const AddArticleForm = ({ article, onCloseModal }) => {
+export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
+  console.log(article)
   const history = useHistory()
   const [data, setData] = useState({
     title: article ? article.title : '',
-    article: article ? article.article : ''
+    article: article ? article.article : '',
+    id: article ? article.id : '',
+    img: article ? article.img : ''
   })
   const [errors, setErrors] = useState({})
 
@@ -30,7 +33,7 @@ export const AddArticleForm = ({ article, onCloseModal }) => {
   }, [data])
 
   return (
-    <form className='form-add-article' onSubmit={(e) => handleSubmit(e, validate, data)}>
+    <form className='form-add-article' onSubmit={submitEdit ? (e) => submitEdit(e, data, article.id) : (e) => handleSubmit(e, validate, data)}>
       <TextField
         name="title"
         value={data.title}

@@ -9,7 +9,7 @@ export const AdminAllPage = ({
   sortedArticles,
   handleSort,
   sortBy,
-  handlerDelArticle,
+  DelArticle,
   handlerEdit,
   setNewArticle
 }) => {
@@ -30,7 +30,7 @@ export const AdminAllPage = ({
           <TableBody
             columns={columns}
             data={sortedArticles}
-            onDelete={handlerDelArticle}
+            onDelete={DelArticle}
             onEdit={handlerEdit}
           />
         </table>

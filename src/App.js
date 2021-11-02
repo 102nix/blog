@@ -11,9 +11,9 @@ import './App.scss'
 import { DataContext } from './components/common/DataContext'
 
 function App () {
-  const [isAuth, login, logout] = useAuth(false)
+  const [isAuth, login, logout] = useAuth(JSON.parse(localStorage.getItem('login')) || false)
 
-  console.log(isAuth)
+  console.log(isAuth, typeof JSON.parse(localStorage.getItem('login')), JSON.parse(localStorage.getItem('login')))
   return (
     <div className="container">
       <DataContext.Provider value = {{ isAuth, login, logout }}>

@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 import api from '../../api'
 import LoaderComponent from '../common/Loader/Loader'
 import _ from 'lodash'
 import { ModalEdit } from '../ModalEdit/ModalEdit'
 import Loader from 'react-loader-spinner'
+import { reducer, initialState } from '../../api/fake.api/articles.api'
 
 export const withAllAdmin = (Component) => (props) => {
   const [articles, setArticles] = useState([])
@@ -12,10 +13,28 @@ export const withAllAdmin = (Component) => (props) => {
   const [articleId, setArticleId] = useState(null)
   const [newArticle, setNewArticle] = useState(null)
   const [isLoader, setIsLoader] = useState(false)
+  const [state, dispatch] = useReducer(reducer, initialState)
+
+  console.log('Locking for state: ', state)
+
+  function arrayСompare (articles, state) {
+    if (articles.length !== state.length) return false
+    for (let i = 0; i < articles.length; i++) {
+      if (articles[i] !== state[i]) return false
+    }
+    return true
+  }
 
   useEffect(() => {
-    api.articles.fetchAll().then((data) => setArticles(data))
-  }, [])
+    api.articles.fetchAll().then((data) => {
+      setIsLoader(false)
+      if (arrayСompare(data, state)) {
+        return setArticles(data)
+      } else {
+        return setArticles(state.articles)
+      }
+    })
+  }, [state])
 
   useEffect(() => {
     api.articles.getById(articleId).then((data) => {
@@ -23,6 +42,14 @@ export const withAllAdmin = (Component) => (props) => {
       setArticle(data)
     })
   }, [articleId]) // This articleID get's from handlerEdit(articleId)
+
+  const submitEdit = async (e, data) => {
+    e.preventDefault()
+    console.log(data)
+    const newArts = articles.map(article => (article.id === data.id) ? { ...data } : article)
+    await dispatch({ type: 'edit', payload: newArts })
+    handleCloseModalEdit()
+  }
 
   const handlerEdit = (articleId) => {
     setArticleId(articleId)
@@ -39,8 +66,11 @@ export const withAllAdmin = (Component) => (props) => {
     setSortBy(item)
   }
 
-  const handlerDelArticle = (articleId) => {
+  const handlerDelArticle = async (articleId) => {
     console.log(articleId)
+    setIsLoader(true)
+    const newArts = articles.filter(article => article.id !== articleId)
+    await dispatch({ type: 'delete', payload: newArts })
   }
 
   return (
@@ -57,7 +87,7 @@ export const withAllAdmin = (Component) => (props) => {
         </div>
       )}
       {(article || newArticle === 'addArt') && (
-        <ModalEdit article={article} onCloseModal={handleCloseModalEdit} />
+        <ModalEdit article={article} onCloseModal={handleCloseModalEdit} submitEdit={submitEdit} />
       )}
       {articles.length > 0 ? (
         <Component
@@ -66,7 +96,7 @@ export const withAllAdmin = (Component) => (props) => {
           sortBy={sortBy}
           handleSort={handleSort}
           handle
-          rDelArticle={handlerDelArticle}
+          DelArticle={handlerDelArticle}
           handlerEdit={handlerEdit}
           setNewArticle={setNewArticle}
         />

@@ -41,6 +41,7 @@ export const LoginForm = () => {
     if (!isValid) return
     console.log(data)
     login()
+    if (data.stayOn) localStorage.setItem('login', data.stayOn)
     history.push('/')
   }
 

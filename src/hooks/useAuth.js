@@ -8,6 +8,7 @@ export default function useAuth (initialValue) {
   }
   function logout () {
     setIsAuth(false)
+    localStorage.setItem('login', false)
   }
   return [isAuth, login, logout]
 }
