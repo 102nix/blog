@@ -18,8 +18,7 @@ module.exports = {
     'multiline-ternary': ['error', 'never'],
     'react/prop-types': [0],
     'react/display-name': [0],
-    'react-hooks/rules-of-hooks': 'error', // Проверяем правила хуков
-    'react-hooks/exhaustive-deps': 'warn'
+    'react-hooks/rules-of-hooks': 'error' // Проверяем правила хуков
   }
 }
 

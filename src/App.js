@@ -8,6 +8,7 @@ import { ArticlesContainer } from './components/ArticlesContainer/ArticlesContai
 import { ProtectedRoute } from './components/common/ProtectedRoute'
 import useAuth from './hooks/useAuth'
 import './App.scss'
+import { DataContext } from './components/common/DataContext'
 
 function App () {
   const [isAuth, login, logout] = useAuth(false)
@@ -15,14 +16,16 @@ function App () {
   console.log(isAuth)
   return (
     <div className="container">
-      <NavbarContainer auth={isAuth} logout={logout} />
-      <div className="content">
-        <Route exact path='/' component={StartContainer} />
-        <Route path='/articles/:articleId?' component={ArticlesContainer} />
-        <Route path='/auth/:type?' render={() => <Auth login={login} />} />
-        {/* <Route path='/admin' component={AdminContainer} /> */}
-        <ProtectedRoute path='/admin' component={AdminContainer} auth={isAuth} />
-      </div>
+      <DataContext.Provider value = {{ isAuth, login, logout }}>
+        <NavbarContainer />
+        <div className="content">
+          <Route exact path='/' component={StartContainer} />
+          <Route path='/articles/:articleId?' component={ArticlesContainer} />
+          <Route path='/auth/:type?' component={Auth} />
+          {/* <Route path='/admin' component={AdminContainer} /> */}
+          <ProtectedRoute path='/admin' component={AdminContainer} auth={isAuth} />
+        </div>
+      </DataContext.Provider>
     </div>
   )
 }

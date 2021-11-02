@@ -5,10 +5,12 @@ import Loader from '../common/Loader/Loader'
 export const withArticle = (Component) => (props) => {
   const [article, setArticle] = useState()
 
+  const { id } = props
+
   useEffect(() => {
     console.log('testing...')
     api.articles.getById(props.id).then(data => setArticle(data))
-  }, [props.id])
+  }, [id])
 
   return (
     <>

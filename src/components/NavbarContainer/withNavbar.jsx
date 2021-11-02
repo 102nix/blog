@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { DataContext } from '../common/DataContext'
 
 export const withNavbar = (Component) => (props) => {
   const [showMenu, setShowMenu] = useState(['header__menu'])
   const [clsBurger, setClsBurger] = useState(['header__burger'])
+  const { isAuth, logout } = useContext(DataContext)
 
   const handlerVisibleMenu = () => {
     if (showMenu.indexOf('actived') === -1) {
@@ -18,7 +20,7 @@ export const withNavbar = (Component) => (props) => {
       showMenu={showMenu}
       clsBurger={clsBurger}
       handlerVisibleMenu={handlerVisibleMenu}
-      auth={props.auth}
-      logout={props.logout}
+      auth={isAuth}
+      logout={logout}
     />)
 }
