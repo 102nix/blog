@@ -18,6 +18,11 @@ export function reducer (state, action) {
       ...state,
       article: action.article
     }
+  case 'downloadMainInfo':
+    return {
+      ...state,
+      mainInfo: action.startInfo
+    }
   case 'add':
     return {
       ...state,

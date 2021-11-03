@@ -1,17 +1,22 @@
-import React, { useState, useEffect } from 'react'
+import React, { useReducer, useEffect } from 'react'
 import api from '../../api'
 import Loader from '../common/Loader/Loader'
+import { reducer, initialState } from '../../state/state'
 
 export const withStartPage = (Component) => (props) => {
-  const [startInfo, setStartInfo] = useState([])
+  const [state, dispatch] = useReducer(reducer, initialState)
 
   useEffect(() => {
-    api.articles.fetchAllMain().then(data => setStartInfo(data))
+    (async () => {
+      const startInfo = await api.articles.fetchAllMain()
+      dispatch({ type: 'downloadMainInfo', startInfo })
+    })()
   }, [])
+
   return (
     <>
-      {startInfo.length > 0 ? (
-        <Component startInfo={startInfo} />
+      {state.mainInfo ? (
+        <Component startInfo={state.mainInfo} />
       ) : (
         <div className="loader-container">
           <Loader />
