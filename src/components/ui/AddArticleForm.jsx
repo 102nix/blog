@@ -3,9 +3,9 @@ import * as yup from 'yup'
 import { useHistory } from 'react-router-dom'
 import { TextField } from '../common/form/TextField'
 import { TextAreaField } from '../common/form/TextAreaField'
-import { handleChange, handleSubmit, handleKeyDown } from '../../static/funcsForForm'
+import { handleChange, handleKeyDown } from '../../static/funcsForForm'
 
-export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
+export const AddArticleForm = ({ article, onCloseModal, submitEdit, submitAdd }) => {
   console.log(article)
   const history = useHistory()
   const [data, setData] = useState({
@@ -33,7 +33,7 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
   }, [data])
 
   return (
-    <form className='form-add-article' onSubmit={submitEdit ? (e) => submitEdit(e, data, article.id) : (e) => handleSubmit(e, validate, data)}>
+    <form className='form-add-article' onSubmit={(e) => submitEdit(e, data)}>
       <TextField
         name="title"
         value={data.title}
@@ -53,6 +53,27 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
         error={errors.article}
         onChange={(target) => handleChange(setData, target)}
         placeholder="Содержание статьи..."
+        onKeyDown={(e) => handleKeyDown(e)}
+      />
+      <TextField
+        name="img"
+        label="Ссылка на IMG:"
+        value={data.img}
+        onChange={(target) => handleChange(setData, target)}
+        error={errors.img}
+        autoFocus
+        placeholder="Ссылка на изображение"
+        className="input-add-article"
+        onKeyDown={(e) => handleKeyDown(e)}
+      />
+      <TextField
+        name="id"
+        value={data.id}
+        onChange={(target) => handleChange(setData, target)}
+        error={errors.id}
+        autoFocus
+        placeholder="ID..."
+        className="input-add-article"
         onKeyDown={(e) => handleKeyDown(e)}
       />
       <div className="form-actions">

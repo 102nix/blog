@@ -4,64 +4,57 @@ import LoaderComponent from '../common/Loader/Loader'
 import _ from 'lodash'
 import { ModalEdit } from '../ModalEdit/ModalEdit'
 import Loader from 'react-loader-spinner'
-import { reducer, initialState } from '../../api/fake.api/articles.api'
+import { reducer, initialState } from '../../state/state'
 
 export const withAllAdmin = (Component) => (props) => {
-  const [articles, setArticles] = useState([])
   const [sortBy, setSortBy] = useState({ path: 'name', order: 'asc' })
-  const [article, setArticle] = useState(null)
   const [articleId, setArticleId] = useState(null)
   const [newArticle, setNewArticle] = useState(null)
   const [isLoader, setIsLoader] = useState(false)
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  console.log('Locking for state: ', state)
-
-  function arrayСompare (articles, state) {
-    if (articles.length !== state.length) return false
-    for (let i = 0; i < articles.length; i++) {
-      if (articles[i] !== state[i]) return false
-    }
-    return true
-  }
-
   useEffect(() => {
-    api.articles.fetchAll().then((data) => {
-      setIsLoader(false)
-      if (arrayСompare(data, state)) {
-        return setArticles(data)
-      } else {
-        return setArticles(state.articles)
-      }
-    })
-  }, [state])
-
+    (async () => {
+      const articles = await api.articles.fetchAll()
+      dispatch({ type: 'downloadAllArticles', articles })
+    })()
+  }, [])
   useEffect(() => {
-    api.articles.getById(articleId).then((data) => {
+    (async () => {
+      const article = await api.articles.getById(articleId)
+      dispatch({ type: 'downloadArticle', article })
       setIsLoader(false)
-      setArticle(data)
-    })
+    })()
   }, [articleId]) // This articleID get's from handlerEdit(articleId)
 
   const submitEdit = async (e, data) => {
     e.preventDefault()
     console.log(data)
-    const newArts = articles.map(article => (article.id === data.id) ? { ...data } : article)
-    await dispatch({ type: 'edit', payload: newArts })
+    let index = null
+    state.articles.forEach(article => {
+      if (article.id === data.id) index = data.id
+    })
+    if (index) {
+      const newArts = state.articles.map(article => (article.id === data.id) ? { ...data } : article)
+      await dispatch({ type: 'edit', payload: newArts })
+      // учесть запись по API в backEnd
+    } else {
+      await dispatch({ type: 'add', data })
+      // учесть запись по API в backEnd
+    }
     handleCloseModalEdit()
   }
-
   const handlerEdit = (articleId) => {
     setArticleId(articleId)
     setIsLoader(true)
   }
 
   const handleCloseModalEdit = () => {
-    setArticle(null)
     setNewArticle(null)
+    dispatch({ type: 'downloadArticle', article: null })
   }
 
-  const sortedArticles = _.orderBy(articles, [sortBy.path], [sortBy.order])
+  const sortedArticles = _.orderBy(state.articles, [sortBy.path], [sortBy.order])
   const handleSort = (item) => {
     setSortBy(item)
   }
@@ -69,7 +62,7 @@ export const withAllAdmin = (Component) => (props) => {
   const handlerDelArticle = async (articleId) => {
     console.log(articleId)
     setIsLoader(true)
-    const newArts = articles.filter(article => article.id !== articleId)
+    const newArts = state.articles.filter(article => article.id !== articleId)
     await dispatch({ type: 'delete', payload: newArts })
   }
 
@@ -86,10 +79,10 @@ export const withAllAdmin = (Component) => (props) => {
           />
         </div>
       )}
-      {(article || newArticle === 'addArt') && (
-        <ModalEdit article={article} onCloseModal={handleCloseModalEdit} submitEdit={submitEdit} />
+      {(state.article || newArticle === 'addArt') && (
+        <ModalEdit article={state.article} onCloseModal={handleCloseModalEdit} submitEdit={submitEdit} />
       )}
-      {articles.length > 0 ? (
+      {state.articles ? (
         <Component
           sortedArticles={sortedArticles}
           columns={props.columns}
