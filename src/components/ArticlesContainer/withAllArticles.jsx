@@ -1,18 +1,22 @@
-import React, { useState, useEffect } from 'react'
+import React, { useReducer, useEffect } from 'react'
 import api from '../../api'
 import Loader from '../common/Loader/Loader'
+import { reducer, initialState } from '../../state/state'
 
 export const withAllArticles = (Component) => (props) => {
-  const [articles, setArticles] = useState([])
+  const [state, dispatch] = useReducer(reducer, initialState)
 
   useEffect(() => {
-    api.articles.fetchAll().then(data => setArticles(data))
+    (async () => {
+      const articles = await api.articles.fetchAll()
+      dispatch({ type: 'downloadAllArticles', articles })
+    })()
   }, [])
 
   return (
     <>
-      {articles.length > 0 ? (
-        <Component articles={articles} {...props}/>
+      {state.articles ? (
+        <Component articles={state.articles} {...props}/>
       ) : (
         <div className="loader-container">
           <Loader />
