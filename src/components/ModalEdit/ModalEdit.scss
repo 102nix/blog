@@ -18,6 +18,10 @@
     .form-add-article{
       padding: 25px;
       box-shadow: 5px 3px 4px rgb(90, 89, 89);
+      label{
+        font-weight: bold;
+        font-size: 12px;     
+      }
       .input-add-article{
         width: 100%;
         box-sizing: border-box;

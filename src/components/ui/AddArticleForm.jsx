@@ -11,12 +11,14 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit, submitAdd })
   const [data, setData] = useState({
     title: article ? article.title : '',
     article: article ? article.article : '',
-    id: article ? article.id : '',
+    id: article ? article.id : Date.now(),
     img: article ? article.img : ''
   })
   const [errors, setErrors] = useState({})
 
   const validateScheme = yup.object().shape({
+    img: yup.string().required('Необходимо указать путь до IMG'),
+    id: yup.string().required('Необходимо указать ID статьи'),
     article: yup.string().required('Содержание статьи - обязательно'),
     title: yup.string().required('Необходимо указать название статьи')
   })
@@ -35,16 +37,18 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit, submitAdd })
   return (
     <form className='form-add-article' onSubmit={(e) => submitEdit(e, data)}>
       <TextField
+        label="Название статьи:"
         name="title"
         value={data.title}
         onChange={(target) => handleChange(setData, target)}
         error={errors.title}
         autoFocus
-        placeholder="Название статьи..."
+        placeholder="Новая..."
         className="input-add-article"
         onKeyDown={(e) => handleKeyDown(e)}
       />
       <TextAreaField
+        label="Текст статьи:"
         id="article"
         type="text"
         name="article"
@@ -52,26 +56,25 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit, submitAdd })
         value={data.article}
         error={errors.article}
         onChange={(target) => handleChange(setData, target)}
-        placeholder="Содержание статьи..."
+        placeholder="Содержание..."
         onKeyDown={(e) => handleKeyDown(e)}
       />
       <TextField
-        name="img"
         label="Ссылка на IMG:"
+        name="img"
         value={data.img}
         onChange={(target) => handleChange(setData, target)}
         error={errors.img}
-        autoFocus
-        placeholder="Ссылка на изображение"
+        placeholder="/static/media/*.png"
         className="input-add-article"
         onKeyDown={(e) => handleKeyDown(e)}
       />
       <TextField
+        label="Id сатьи:"
         name="id"
         value={data.id}
         onChange={(target) => handleChange(setData, target)}
         error={errors.id}
-        autoFocus
         placeholder="ID..."
         className="input-add-article"
         onKeyDown={(e) => handleKeyDown(e)}
