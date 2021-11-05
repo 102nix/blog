@@ -2,6 +2,7 @@ import React, { useReducer, useEffect } from 'react'
 import api from '../../api'
 import Loader from '../common/Loader/Loader'
 import { reducer, initialState } from '../../state/state'
+import { ACTIONS } from '../../state/constsAC'
 
 export const withAllArticles = (Component) => (props) => {
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -9,7 +10,7 @@ export const withAllArticles = (Component) => (props) => {
   useEffect(() => {
     (async () => {
       const articles = await api.articles.fetchAll()
-      dispatch({ type: 'downloadAllArticles', articles })
+      dispatch({ type: ACTIONS.FETCH_ARTICLES, articles })
     })()
   }, [])
 

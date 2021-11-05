@@ -1,5 +1,6 @@
 import React, { useReducer, useEffect } from 'react'
 import api from '../../api'
+import { ACTIONS } from '../../state/constsAC'
 import { reducer, initialState } from '../../state/state'
 import Loader from '../common/Loader/Loader'
 
@@ -11,7 +12,7 @@ export const withArticle = (Component) => (props) => {
   useEffect(() => {
     (async () => {
       const article = await api.articles.getById(id)
-      dispatch({ type: 'downloadArticle', article })
+      dispatch({ type: ACTIONS.FETCH_ARTICLE, article })
     })()
   }, [id])
 

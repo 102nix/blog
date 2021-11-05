@@ -5,6 +5,7 @@ import _ from 'lodash'
 import { ModalEdit } from '../ModalEdit/ModalEdit'
 import Loader from 'react-loader-spinner'
 import { reducer, initialState } from '../../state/state'
+import { ACTIONS } from '../../state/constsAC'
 
 export const withAllAdmin = (Component) => (props) => {
   const [sortBy, setSortBy] = useState({ path: 'name', order: 'asc' })
@@ -16,13 +17,13 @@ export const withAllAdmin = (Component) => (props) => {
   useEffect(() => {
     (async () => {
       const articles = await api.articles.fetchAll()
-      dispatch({ type: 'downloadAllArticles', articles })
+      dispatch({ type: ACTIONS.FETCH_ARTICLES, articles })
     })()
   }, [])
   useEffect(() => {
     (async () => {
       const article = await api.articles.getById(articleId)
-      dispatch({ type: 'downloadArticle', article })
+      dispatch({ type: ACTIONS.FETCH_ARTICLE, article })
       setIsLoader(false)
     })()
   }, [articleId]) // This articleID get's from handlerEdit(articleId)
@@ -51,7 +52,7 @@ export const withAllAdmin = (Component) => (props) => {
 
   const handleCloseModalEdit = () => {
     setNewArticle(null)
-    dispatch({ type: 'downloadArticle', article: null })
+    dispatch({ type: ACTIONS.FETCH_ARTICLE, article: null })
   }
 
   const sortedArticles = _.orderBy(state.articles, [sortBy.path], [sortBy.order])

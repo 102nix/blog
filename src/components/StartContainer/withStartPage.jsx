@@ -2,6 +2,7 @@ import React, { useReducer, useEffect } from 'react'
 import api from '../../api'
 import Loader from '../common/Loader/Loader'
 import { reducer, initialState } from '../../state/state'
+import { ACTIONS } from '../../state/constsAC'
 
 export const withStartPage = (Component) => (props) => {
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -9,7 +10,7 @@ export const withStartPage = (Component) => (props) => {
   useEffect(() => {
     (async () => {
       const startInfo = await api.articles.fetchAllMain()
-      dispatch({ type: 'downloadMainInfo', startInfo })
+      dispatch({ type: ACTIONS.FETCH_MAININFO, startInfo })
     })()
   }, [])
 

@@ -1,3 +1,5 @@
+import { ACTIONS } from './constsAC'
+
 export const initialState = {
   articles: null,
   mainInfo: null,
@@ -7,17 +9,17 @@ export const initialState = {
 export function reducer (state, action) {
   console.log(state, action)
   switch (action.type) {
-  case 'downloadAllArticles':
+  case ACTIONS.FETCH_ARTICLES:
     return {
       ...state,
       articles: action.articles
     }
-  case 'downloadArticle':
+  case ACTIONS.FETCH_ARTICLE:
     return {
       ...state,
       article: action.article
     }
-  case 'downloadMainInfo':
+  case ACTIONS.FETCH_MAININFO:
     return {
       ...state,
       mainInfo: action.startInfo
