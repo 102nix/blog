@@ -1,4 +1,3 @@
-
 export const initialState = {
   articles: null,
   mainInfo: null,
