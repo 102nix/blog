@@ -1,17 +1,14 @@
 import React, { useReducer, useEffect } from 'react'
-import api from '../../api'
 import Loader from '../common/Loader/Loader'
 import { reducer, initialState } from '../../state/state'
 import { ACTIONS } from '../../state/constsAC'
+import startInfoService from '../../services/startInfoService'
 
 export const withStartPage = (Component) => (props) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   useEffect(() => {
-    (async () => {
-      const startInfo = await api.articles.fetchAllMain()
-      dispatch({ type: ACTIONS.FETCH_MAININFO, startInfo })
-    })()
+    startInfoService.fetchAll().then(startInfo => dispatch({ type: ACTIONS.FETCH_MAININFO, startInfo }))
   }, [])
 
   return (

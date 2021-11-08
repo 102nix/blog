@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useReducer } from 'react'
-import api from '../../api'
 import LoaderComponent from '../common/Loader/Loader'
 import _ from 'lodash'
 import { ModalEdit } from '../ModalEdit/ModalEdit'
 import Loader from 'react-loader-spinner'
 import { reducer, initialState } from '../../state/state'
 import { ACTIONS } from '../../state/constsAC'
+// import articleService from '../../services/articleService'
+import { getArticle, getAllArticles } from '../../services/articleGeters'
 
 export const withAllAdmin = (Component) => (props) => {
   const [sortBy, setSortBy] = useState({ path: 'name', order: 'asc' })
@@ -14,18 +15,30 @@ export const withAllAdmin = (Component) => (props) => {
   const [isLoader, setIsLoader] = useState(false)
   const [state, dispatch] = useReducer(reducer, initialState)
 
+  // const getAllArticles = async () => {
+  //   try {
+  //     const allArticles = await articleService.fetchAllArticles()
+  //     return allArticles
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
+
+  // const getArticle = async (articleId) => {
+  //   try {
+  //     const article = await articleService.fetchArticle(articleId)
+  //     setIsLoader(false)
+  //     return article
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
+
   useEffect(() => {
-    (async () => {
-      const articles = await api.articles.fetchAll()
-      dispatch({ type: ACTIONS.FETCH_ARTICLES, articles })
-    })()
+    getAllArticles().then(articles => dispatch({ type: ACTIONS.FETCH_ARTICLES, articles }))
   }, [])
   useEffect(() => {
-    (async () => {
-      const article = await api.articles.getById(articleId)
-      dispatch({ type: ACTIONS.FETCH_ARTICLE, article })
-      setIsLoader(false)
-    })()
+    getArticle(articleId, setIsLoader).then(article => dispatch({ type: ACTIONS.FETCH_ARTICLE, article }))
   }, [articleId]) // This articleID get's from handlerEdit(articleId)
 
   const submitEdit = async (e, data) => {
