@@ -9,6 +9,8 @@ import { ProtectedRoute } from './components/common/ProtectedRoute'
 import useAuth from './hooks/useAuth'
 import './App.scss'
 import { DataContext } from './components/common/DataContext'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App () {
   const [isAuth, login, logout] = useAuth(JSON.parse(localStorage.getItem('login')) || false)
@@ -26,6 +28,7 @@ function App () {
           <ProtectedRoute path='/admin' component={AdminContainer} auth={isAuth} />
         </div>
       </DataContext.Provider>
+      <ToastContainer />
     </div>
   )
 }
