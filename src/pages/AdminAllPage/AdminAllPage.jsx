@@ -1,18 +1,20 @@
 import React from 'react'
-import Loader from '../../components/common/Loader/Loader'
+// import Loader from '../../components/common/Loader/Loader'
 import { TableHeader } from '../../components/common/table/TableHeader'
 import { TableBody } from '../../components/common/table/TableBody'
 import './AdminAllPage.scss'
+import { useAdmin } from '../../hooks/useAdmin'
 
-export const AdminAllPage = ({
-  columns,
-  sortedArticles,
-  handleSort,
-  sortBy,
-  DelArticle,
-  handlerEdit,
-  setNewArticle
-}) => {
+export const AdminAllPage = () => {
+  const {
+    columns,
+    sortedArticles,
+    handleSort,
+    sortBy,
+    DelArticle,
+    handlerEdit,
+    setNewArticle
+  } = useAdmin()
   return (
     <div className="admin-articles">
       <div className="admin-articles__header-block">
@@ -20,24 +22,19 @@ export const AdminAllPage = ({
           Создать статью
         </button>
       </div>
-      {columns ? (
-        <table className="table">
-          <TableHeader
-            onSort={handleSort}
-            selectedSort={sortBy}
-            columns={columns}
-          />
-          <TableBody
-            columns={columns}
-            data={sortedArticles}
-            onDelete={DelArticle}
-            onEdit={handlerEdit}
-          />
-        </table>
-      ) : (
-        <div className="loader-container">
-          <Loader />
-        </div>
-      )}
+
+      <table className="table">
+        <TableHeader
+          onSort={handleSort}
+          selectedSort={sortBy}
+          columns={columns}
+        />
+        <TableBody
+          columns={columns}
+          data={sortedArticles}
+          onDelete={DelArticle}
+          onEdit={handlerEdit}
+        />
+      </table>
     </div>)
 }

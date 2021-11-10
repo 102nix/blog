@@ -1,49 +1,37 @@
-import React, { useState, useEffect, useReducer } from 'react'
-import LoaderComponent from '../common/Loader/Loader'
-import _ from 'lodash'
-import { ModalEdit } from '../ModalEdit/ModalEdit'
+import React, { useState, useEffect, useReducer, useContext } from 'react'
+import LoaderComponent from '../components/common/Loader/Loader'
 import Loader from 'react-loader-spinner'
-import { reducer, initialState } from '../../state/state'
-import { ACTIONS } from '../../state/constsAC'
-// import articleService from '../../services/articleService'
-import { getArticle, getAllArticles } from '../../services/articleGeters'
+import _ from 'lodash'
+import { ModalEdit } from '../components/ModalEdit/ModalEdit'
+import { reducer, initialState } from '../state/state'
+import { ACTIONS } from '../state/constsAC'
+import { getArticle, getAllArticles } from '../services/articleGeters'
+import { columns } from '../static/sortData'
 
-export const withAllAdmin = (Component) => (props) => {
+const AdminContext = React.createContext()
+
+export const useAdmin = () => {
+  return useContext(AdminContext)
+}
+
+export const AdminProvider = ({ children }) => {
   const [sortBy, setSortBy] = useState({ path: 'name', order: 'asc' })
   const [articleId, setArticleId] = useState(null)
   const [newArticle, setNewArticle] = useState(null)
-  const [isLoader, setIsLoader] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [state, dispatch] = useReducer(reducer, initialState)
-
-  // const getAllArticles = async () => {
-  //   try {
-  //     const allArticles = await articleService.fetchAllArticles()
-  //     return allArticles
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-
-  // const getArticle = async (articleId) => {
-  //   try {
-  //     const article = await articleService.fetchArticle(articleId)
-  //     setIsLoader(false)
-  //     return article
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
 
   useEffect(() => {
     getAllArticles().then(articles => dispatch({ type: ACTIONS.FETCH_ARTICLES, articles }))
   }, [])
+
   useEffect(() => {
-    getArticle(articleId, setIsLoader).then(article => dispatch({ type: ACTIONS.FETCH_ARTICLE, article }))
+    getArticle(articleId, setIsLoading).then(article => dispatch({ type: ACTIONS.FETCH_ARTICLE, article }))
   }, [articleId]) // This articleID get's from handlerEdit(articleId)
 
   const submitEdit = async (e, data) => {
     e.preventDefault()
-    console.log(data)
+    console.log(isLoading)
     let index = null
     state.articles.forEach(article => {
       if (article.id === data.id) index = data.id
@@ -58,9 +46,10 @@ export const withAllAdmin = (Component) => (props) => {
     }
     handleCloseModalEdit()
   }
+
   const handlerEdit = (articleId) => {
     setArticleId(articleId)
-    setIsLoader(true)
+    setIsLoading(true)
   }
 
   const handleCloseModalEdit = () => {
@@ -75,14 +64,14 @@ export const withAllAdmin = (Component) => (props) => {
 
   const handlerDelArticle = async (articleId) => {
     console.log(articleId)
-    setIsLoader(true)
+    setIsLoading(true)
     const newArts = state.articles.filter(article => article.id !== articleId)
     await dispatch({ type: 'delete', payload: newArts })
   }
 
   return (
-    <>
-      {isLoader && (
+    <AdminContext.Provider value={{ sortedArticles, columns, sortBy, handleSort, handlerDelArticle, handlerEdit, setNewArticle }}>
+      {isLoading && (
         <div className='loader-container'>
           <Loader
             type='Bars'
@@ -96,22 +85,7 @@ export const withAllAdmin = (Component) => (props) => {
       {(state.article || newArticle === 'addArt') && (
         <ModalEdit article={state.article} onCloseModal={handleCloseModalEdit} submitEdit={submitEdit} />
       )}
-      {state.articles ? (
-        <Component
-          sortedArticles={sortedArticles}
-          columns={props.columns}
-          sortBy={sortBy}
-          handleSort={handleSort}
-          handle
-          DelArticle={handlerDelArticle}
-          handlerEdit={handlerEdit}
-          setNewArticle={setNewArticle}
-        />
-      ) : (
-        <div className='loader-container'>
-          <LoaderComponent />
-        </div>
-      ) }
-    </>
+      {state.articles ? children : <div className="loader-container"><LoaderComponent /></div>}
+    </AdminContext.Provider>
   )
 }
