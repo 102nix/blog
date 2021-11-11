@@ -51,6 +51,8 @@ export const StateProvider = ({ children }) => {
     history.push(`/articles/${articleId}`)
   }
 
+  const closeArticle = () => dispatch({ type: ACTIONS.CLOSE_ARTICLE })
+
   // useEffect(() => {
   //   if (articleId !== undefined) {
   //     setIsLoading(false)
@@ -63,7 +65,7 @@ export const StateProvider = ({ children }) => {
   //   }
   // }, [articleId])
   return (
-    <StoreContext.Provider value={{ articles: state.articles, blog: state.article, handleOpenArticle }}>
+    <StoreContext.Provider value={{ articles: state.articles, blog: state.article, handleOpenArticle, closeArticle }}>
       { isLoading ? children : <div className="loader-container"><Loader /></div> }
     </StoreContext.Provider>
   )

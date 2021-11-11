@@ -12,12 +12,18 @@ export function reducer (state, action) {
   case ACTIONS.FETCH_ARTICLES:
     return {
       ...state,
-      articles: action.articles
+      articles: action.articles,
+      article: null
     }
   case ACTIONS.FETCH_ARTICLE:
     return {
       ...state,
       article: action.article
+    }
+  case ACTIONS.CLOSE_ARTICLE:
+    return {
+      ...state,
+      article: null
     }
   case ACTIONS.FETCH_MAININFO:
     return {
