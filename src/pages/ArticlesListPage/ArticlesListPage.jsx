@@ -1,9 +1,11 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { SubTitle } from '../../components/common/typografy/SubTitle'
+import { useArticles } from '../../hooks/useArticles'
 import './ArticlesList.scss'
 
-export const ArticlesListPage = ({ articles }) => {
+export const ArticlesListPage = () => {
+  const { articles } = useArticles()
   const history = useHistory()
 
   const handlerOpenArticle = (articleId) => {
