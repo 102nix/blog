@@ -11,6 +11,7 @@ import './App.scss'
 import { DataContext } from './components/common/DataContext'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { StateProvider } from './hooks/useStore'
 
 function App () {
   const [isAuth, login, logout] = useAuth(JSON.parse(localStorage.getItem('login')) || false)
@@ -19,14 +20,16 @@ function App () {
   return (
     <div className="container">
       <DataContext.Provider value = {{ isAuth, login, logout }}>
-        <NavbarContainer />
-        <div className="content">
-          <Route exact path='/' component={StartContainer} />
-          <Route path='/articles/:articleId?' component={ArticlesContainer} />
-          <Route path='/auth/:type?' component={Auth} />
-          {/* <Route path='/admin' component={AdminContainer} /> */}
-          <ProtectedRoute path='/admin' component={AdminContainer} auth={isAuth} />
-        </div>
+        <StateProvider>
+          <NavbarContainer />
+          <div className="content">
+            <Route exact path='/' component={StartContainer} />
+            <Route path='/articles/:articleId?' component={ArticlesContainer} />
+            <Route path='/auth/:type?' component={Auth} />
+            {/* <Route path='/admin' component={AdminContainer} /> */}
+            <ProtectedRoute path='/admin' component={AdminContainer} auth={isAuth} />
+          </div>
+        </StateProvider>
       </DataContext.Provider>
       <ToastContainer />
     </div>

@@ -2,17 +2,18 @@ import React from 'react'
 import { ArticleText } from '../../components/common/typografy/ArticleText/ArticleText'
 import { LinkBack } from '../../components/common/typografy/LinkBack/LinkBack'
 import { SubTitle } from '../../components/common/typografy/SubTitle'
-import { useArticles } from '../../hooks/useArticles'
+// import { useArticles } from '../../hooks/useArticles'
+import { useStore } from '../../hooks/useStore'
 // import Loader from '../../components/common/Loader/Loader'
 import './ArticlePage.scss'
 
 export const ArticlePage = () => {
-  const { blog } = useArticles()
+  const { blog } = useStore()
   console.log('BLOG: ', blog)
   return (
     <>
       {
-        blog !== undefined &&
+        blog !== null &&
           <div className="current-article">
             <SubTitle>{blog.title}</SubTitle>
             <div className="current-article__body">

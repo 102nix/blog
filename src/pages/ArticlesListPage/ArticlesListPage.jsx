@@ -1,20 +1,21 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+// import { useHistory } from 'react-router-dom'
 import { SubTitle } from '../../components/common/typografy/SubTitle'
-import { useArticles } from '../../hooks/useArticles'
+import { useStore } from '../../hooks/useStore'
 import './ArticlesList.scss'
 
 export const ArticlesListPage = () => {
-  const { articles, blog } = useArticles()
-  const history = useHistory()
+  const { articles, blog, handleOpenArticle } = useStore()
+  // const history = useHistory()
 
-  const handlerOpenArticle = (articleId) => {
-    history.push(`/articles/${articleId}`)
-  }
+  // const handlerOpenArticle = (articleId) => {
+  //   getArticle(articleId)
+  //   history.push(`/articles/${articleId}`)
+  // }
 
   return (
     <>
-      {blog === undefined &&
+      {blog === null &&
       <>
         <SubTitle>Статьи</SubTitle>
         <div className="articles__articles-list">
@@ -26,7 +27,7 @@ export const ArticlesListPage = () => {
               </div>
               <button
                 className="btn btn-open-article"
-                onClick={() => handlerOpenArticle(article.id)}
+                onClick={() => handleOpenArticle(article.id)}
               >
                 Открыть
               </button>
