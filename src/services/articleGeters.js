@@ -1,6 +1,7 @@
 import articleService from './articleService'
 
 export const getAllArticles = async () => {
+  console.log('Getter for articles')
   try {
     const allArticles = await articleService.fetchAllArticles()
     return allArticles
@@ -8,10 +9,9 @@ export const getAllArticles = async () => {
     console.log(error)
   }
 }
-export const getArticle = async (articleId, setIsLoader) => {
+export const getArticle = async (articleId) => {
   try {
     const article = await articleService.fetchArticle(articleId)
-    if (setIsLoader) setIsLoader(false)
     return article
   } catch (error) {
     console.log(error)
