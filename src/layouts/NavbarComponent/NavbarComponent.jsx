@@ -1,15 +1,17 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import './NavbarComponent.scss'
+import { useNavbar } from '../../hooks/useNavbar'
 
-export const NavbarComponent = ({ showMenu, handlerVisibleMenu, clsBurger, auth, logout }) => {
+export const NavbarComponent = () => {
+  const { showMenu, handleVisibleMenu, clsBurger, isAuth, logout } = useNavbar()
   return (
     <div className="header">
       <div className="header__body">
         <div className="header__logo">БлогДжуна<span>_frontend</span></div>
         <div
           className={clsBurger.join(' ')}
-          onClick={handlerVisibleMenu}
+          onClick={() => handleVisibleMenu()}
         >
           <span></span>
         </div>
@@ -20,7 +22,7 @@ export const NavbarComponent = ({ showMenu, handlerVisibleMenu, clsBurger, auth,
                 exact
                 to="/"
                 className="header__list-link"
-                onClick={handlerVisibleMenu}
+                onClick={() => handleVisibleMenu('/')}
               >
                 Главная
               </NavLink>
@@ -29,7 +31,7 @@ export const NavbarComponent = ({ showMenu, handlerVisibleMenu, clsBurger, auth,
               <NavLink
                 to="/articles"
                 className="header__list-link"
-                onClick={handlerVisibleMenu}
+                onClick={() => handleVisibleMenu('articles')}
               >
                 Список статей
               </NavLink>
@@ -38,25 +40,25 @@ export const NavbarComponent = ({ showMenu, handlerVisibleMenu, clsBurger, auth,
               <NavLink
                 to="/admin"
                 className="header__list-link"
-                onClick={handlerVisibleMenu}
+                onClick={() => handleVisibleMenu('root')}
               >
                 RootДоступ
               </NavLink>
             </li>
           </ul>
-          {!auth ? (
+          {!isAuth ? (
             <div className='header__list-reg'>
               <NavLink
                 to='/auth/login'
                 className="header__list-link"
-                onClick={handlerVisibleMenu}
+                onClick={() => handleVisibleMenu('exit')}
               >
                 Вход
               </NavLink>
               <NavLink
                 to='/auth/register'
                 className="header__list-link"
-                onClick={handlerVisibleMenu}
+                onClick={() => handleVisibleMenu('reg')}
               >
                 Регистрация
               </NavLink>

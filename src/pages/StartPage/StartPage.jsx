@@ -1,10 +1,11 @@
 import React from 'react'
 import { SubTitle } from '../../components/common/typografy/SubTitle'
-import { useStartPage } from '../../hooks/useStartPage'
+// import { useStartPage } from '../../hooks/useStartPage'
+import { useStore } from '../../hooks/useStore'
 import './StartPage.scss'
 
 export const StartPage = () => {
-  const { startInfo } = useStartPage()
+  const { startInfo } = useStore()
   console.log(startInfo)
   return (
     <div className="start-container">

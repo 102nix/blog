@@ -1,9 +1,11 @@
-import React, { useReducer, useContext, useEffect, useState } from 'react'
+import React, { useReducer, useContext, useState, useEffect } from 'react'
 import { reducer, initialState } from '../state/state'
 import { ACTIONS } from '../state/constsAC'
-import { useHistory } from 'react-router'
+import { useHistory, useLocation } from 'react-router'
 import articleService from '../services/articleService'
+import startInfoService from '../services/startInfoService'
 import Loader from '../components/common/Loader/Loader'
+import { toast } from 'react-toastify'
 
 const StoreContext = React.createContext()
 
@@ -12,18 +14,31 @@ export const useStore = () => {
 }
 
 export const StateProvider = ({ children }) => {
-  console.log('useState')
   const [state, dispatch] = useReducer(reducer, initialState)
   const [isLoading, setIsLoading] = useState(false)
 
   const history = useHistory()
+  const location = useLocation()
+
+  console.log(state, location.pathname)
+
+  const getStartInfo = async () => {
+    try {
+      const startInfo = await startInfoService.fetchAll()
+      // return startInfo
+      dispatch({ type: ACTIONS.FETCH_MAININFO, startInfo })
+      setIsLoading(true)
+    } catch (error) {
+      toast(error)
+    }
+  }
 
   const getAllArticles = async () => {
-    console.log('Getter for articles')
     try {
       const allArticles = await articleService.fetchAllArticles()
-      console.log('All articles!!!: ', allArticles)
-      return allArticles
+      // return allArticles
+      dispatch({ type: ACTIONS.FETCH_ARTICLES, allArticles })
+      setIsLoading(true)
     } catch (error) {
       console.log(error)
     }
@@ -39,33 +54,32 @@ export const StateProvider = ({ children }) => {
       console.log(error)
     }
   }
-  useEffect(() => {
-    getAllArticles().then((articles) => {
-      dispatch({ type: ACTIONS.FETCH_ARTICLES, articles })
-      setIsLoading(true)
-    })
-  }, [])
 
   const handleOpenArticle = (articleId) => {
     getArticle(articleId)
     history.push(`/articles/${articleId}`)
   }
 
-  const closeArticle = () => dispatch({ type: ACTIONS.CLOSE_ARTICLE })
+  function checkLoadByURL () {
+    if (location.pathname === '/articles') {
+      getAllArticles()
+    } else if (location.pathname.indexOf('/articles/') !== -1) {
+      const arrUrl = location.pathname.split('/')
+      getArticle(arrUrl[2])
+    } else if (location.pathname === '/') {
+      getStartInfo()
+    }
+  }
 
-  // useEffect(() => {
-  //   if (articleId !== undefined) {
-  //     setIsLoading(false)
-  //     getArticle(articleId).then((article) => {
-  //       dispatch({ type: ACTIONS.FETCH_ARTICLE, article }) // setIsLoading(true)
-  //       setIsLoading(true)
-  //     })
-  //   } else {
-  //     getArticle(articleId).then(article => dispatch({ type: ACTIONS.FETCH_ARTICLE, article })) // setIsLoading(true)
-  //   }
-  // }, [articleId])
+  useEffect(() => {
+    checkLoadByURL()
+  }, [])
+  useEffect(() => {
+    checkLoadByURL()
+  }, [location.pathname])
+
   return (
-    <StoreContext.Provider value={{ articles: state.articles, blog: state.article, handleOpenArticle, closeArticle }}>
+    <StoreContext.Provider value={{ articles: state.articles, blog: state.article, startInfo: state.mainInfo, handleOpenArticle, setIsLoading }}>
       { isLoading ? children : <div className="loader-container"><Loader /></div> }
     </StoreContext.Provider>
   )
