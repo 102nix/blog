@@ -68,6 +68,12 @@ export const StateProvider = ({ children }) => {
       getArticle(arrUrl[2])
     } else if (location.pathname === '/') {
       getStartInfo()
+    } else if (location.pathname === '/auth/login') {
+      setIsLoading(true)
+      history.push('/auth/login')
+    } else if (location.pathname === '/auth/register') {
+      history.push('/auth/register')
+      setIsLoading(true)
     }
   }
 
