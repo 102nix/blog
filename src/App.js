@@ -6,9 +6,8 @@ import { Auth } from './layouts/Auth/Auth'
 import { AdminContainer } from './components/AdminContainer/AdminContainer'
 import { ArticlesContainer } from './components/ArticlesContainer/ArticlesContainer'
 import { ProtectedRoute } from './components/common/ProtectedRoute'
-import useAuth from './hooks/useAuth'
+import useAuth, { AuthContext } from './hooks/useAuth'
 import './App.scss'
-import { DataContext } from './components/common/DataContext'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { StateProvider } from './hooks/useStore'
@@ -22,7 +21,7 @@ function App () {
   console.log(isAuth, typeof JSON.parse(localStorage.getItem('login')), JSON.parse(localStorage.getItem('login')))
   return (
     <div className="container">
-      <DataContext.Provider value = {{ isAuth, login, logout }}>
+      <AuthContext.Provider value = {{ isAuth, login, logout }}>
         <StateProvider>
           <NavbarProvider>
             <NavbarComponent />
@@ -35,7 +34,7 @@ function App () {
             <ProtectedRoute path='/admin' component={AdminContainer} auth={isAuth} />
           </div>
         </StateProvider>
-      </DataContext.Provider>
+      </AuthContext.Provider>
       <ToastContainer />
     </div>
   )
