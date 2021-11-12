@@ -61,7 +61,7 @@ export const StateProvider = ({ children }) => {
   }
 
   function checkLoadByURL () {
-    if (location.pathname === '/articles') {
+    if (location.pathname === '/articles' || location.pathname === '/admin') {
       getAllArticles()
     } else if (location.pathname.indexOf('/articles/') !== -1) {
       const arrUrl = location.pathname.split('/')
@@ -79,7 +79,7 @@ export const StateProvider = ({ children }) => {
   }, [location.pathname])
 
   return (
-    <StoreContext.Provider value={{ articles: state.articles, blog: state.article, startInfo: state.mainInfo, handleOpenArticle, setIsLoading }}>
+    <StoreContext.Provider value={{ articles: state.articles, blog: state.article, startInfo: state.mainInfo, handleOpenArticle, setIsLoading, dispatch, getArticle }}>
       { isLoading ? children : <div className="loader-container"><Loader /></div> }
     </StoreContext.Provider>
   )
