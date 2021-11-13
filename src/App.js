@@ -12,8 +12,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { StateProvider } from './hooks/useStore'
 import { StartPage } from './pages/StartPage/StartPage'
-import { NavbarProvider } from './hooks/useNavbar'
-import { NavbarComponent } from './layouts/NavbarComponent/NavbarComponent'
+import { NavbarContainer } from './components/NavbarContainer/NavbarContainer'
 
 function App () {
   const [isAuth, login, logout] = useAuth(JSON.parse(localStorage.getItem('login')) || false)
@@ -23,9 +22,7 @@ function App () {
     <div className="container">
       <AuthContext.Provider value = {{ isAuth, login, logout }}>
         <StateProvider>
-          <NavbarProvider>
-            <NavbarComponent />
-          </NavbarProvider>
+          <NavbarContainer />
           <div className="content">
             <Route exact path='/' component={StartPage} />
             <Route path='/articles/:articleId?' component={ArticlesContainer} />
