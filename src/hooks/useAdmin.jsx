@@ -1,10 +1,8 @@
 import React, { useState, useContext } from 'react'
-// import LoaderComponent from '../components/common/Loader/Loader'
 import Loader from 'react-loader-spinner'
 import _ from 'lodash'
 import { ModalEdit } from '../components/ModalEdit/ModalEdit'
 import { ACTIONS } from '../state/constsAC'
-// import { getArticle, getAllArticles } from '../services/articleGeters'
 import { useStore } from './useStore'
 import { columns } from '../static/sortData'
 
@@ -16,9 +14,7 @@ export const useAdmin = () => {
 
 export const AdminProvider = ({ children }) => {
   const [sortBy, setSortBy] = useState({ path: 'name', order: 'asc' })
-  // const [articleId, setArticleId] = useState(null)
   const [newArticle, setNewArticle] = useState(null)
-  // const [isLoading, setIsLoading] = useState(false)
   const { articles, blog, getArticle, dispatch, isLoading, setIsLoading } = useStore()
 
   const submitEdit = async (e, data) => {
@@ -39,7 +35,7 @@ export const AdminProvider = ({ children }) => {
     handleCloseModalEdit()
   }
 
-  const handlerEdit = (articleId) => {
+  const handleEdit = (articleId) => {
     getArticle(articleId)
     setIsLoading(false)
   }
@@ -55,7 +51,7 @@ export const AdminProvider = ({ children }) => {
     setSortBy(item)
   }
 
-  const handlerDelArticle = async (articleId) => {
+  const handleDelArticle = async (articleId) => {
     console.log(articleId)
     setIsLoading(true)
     const newArts = articles.filter(article => article.id !== articleId)
@@ -63,7 +59,7 @@ export const AdminProvider = ({ children }) => {
   }
 
   return (
-    <AdminContext.Provider value={{ sortedArticles, columns, sortBy, handleSort, handlerDelArticle, handlerEdit, setNewArticle }}>
+    <AdminContext.Provider value={{ sortedArticles, columns, sortBy, handleSort, handleDelArticle, handleEdit, setNewArticle }}>
       {isLoading && (
         <div className='loader-container'>
           <Loader

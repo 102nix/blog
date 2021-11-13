@@ -11,8 +11,8 @@ export const AdminAllPage = () => {
     sortedArticles,
     handleSort,
     sortBy,
-    DelArticle,
-    handlerEdit,
+    handleDelArticle,
+    handleEdit,
     setNewArticle
   } = useAdmin()
   return (
@@ -32,8 +32,8 @@ export const AdminAllPage = () => {
         <TableBody
           columns={columns}
           data={sortedArticles}
-          onDelete={DelArticle}
-          onEdit={handlerEdit}
+          onDelete={handleDelArticle}
+          onEdit={handleEdit}
         />
       </table>
     </div>)
