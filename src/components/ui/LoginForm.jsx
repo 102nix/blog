@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import * as yup from 'yup'
 import { TextField } from '../common/form/TextField'
 import { CheckBoxField } from '../common/form/CheckBoxField'
 import { handleChange, handleKeyDown } from '../../static/funcsForForm'
-import { AuthContext } from '../../hooks/useAuth'
+import { useAuth } from '../../hooks/useAuth'
 
 export const LoginForm = () => {
   console.log('testing...')
   const history = useHistory()
-  const { login } = useContext(AuthContext)
+  const { login } = useAuth()
   const [data, setData] = useState({
     email: '', password: '', stayOn: false
   })

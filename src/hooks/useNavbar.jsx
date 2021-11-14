@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { AuthContext } from './useAuth'
+import { useAuth } from './useAuth'
 import { useStore } from './useStore'
 
 const NavbarContext = React.createContext()
@@ -11,7 +11,7 @@ export const useNavbar = () => {
 export const NavbarProvider = ({ children }) => {
   const [showMenu, setShowMenu] = useState(['header__menu'])
   const [clsBurger, setClsBurger] = useState(['header__burger'])
-  const { isAuth, logout } = useContext(AuthContext)
+  const { isAuth, logout } = useAuth()
   const { setIsLoading } = useStore()
 
   const handleVisibleMenu = () => {
