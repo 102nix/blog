@@ -21,6 +21,7 @@ export const AdminAllPage = () => {
         <button className="btn" onClick={() => setNewArticle('addArt')}>
           Создать статью
         </button>
+        <button className="btn">Download data</button>
       </div>
 
       <table className="table">

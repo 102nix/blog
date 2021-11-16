@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import Loader from 'react-loader-spinner'
+// import Loader from 'react-loader-spinner'
 import _ from 'lodash'
 import { ModalEdit } from '../components/ModalEdit/ModalEdit'
 import { ACTIONS } from '../state/constsAC'
@@ -60,21 +60,10 @@ export const AdminProvider = ({ children }) => {
 
   return (
     <AdminContext.Provider value={{ sortedArticles, columns, sortBy, handleSort, handleDelArticle, handleEdit, setNewArticle }}>
-      {isLoading && (
-        <div className='loader-container'>
-          <Loader
-            type='Bars'
-            color='#000'
-            height={50}
-            width={50}
-            timeout={3000} // 3 secs
-          />
-        </div>
-      )}
       {(blog || newArticle === 'addArt') && (
         <ModalEdit article={blog} onCloseModal={handleCloseModalEdit} submitEdit={submitEdit} />
       )}
-      { !isLoading ? children : <div className="loader-container"><Loader /></div> }
+      { children }
     </AdminContext.Provider>
   )
 }

@@ -4,7 +4,8 @@ import { ACTIONS } from '../state/constsAC'
 import { useHistory, useLocation } from 'react-router'
 import articleService from '../services/articleService'
 import startInfoService from '../services/startInfoService'
-import Loader from '../components/common/Loader/Loader'
+import LoadContainer from '../components/common/Loader/Loader'
+import Loader from 'react-loader-spinner'
 import { toast } from 'react-toastify'
 
 const StoreContext = React.createContext()
@@ -86,7 +87,16 @@ export const StateProvider = ({ children }) => {
 
   return (
     <StoreContext.Provider value={{ articles: state.articles, blog: state.article, startInfo: state.mainInfo, handleOpenArticle, setIsLoading, dispatch, getArticle }}>
-      { isLoading ? children : <div className="loader-container"><Loader /></div> }
+      {isLoading ? (
+        children
+      ) : (
+        state.articles?.length > 0 ? (
+          <><div className="loader-up-container"><Loader type="Bars" color="#000"/></div> {children}</>
+        ) : (
+          <div className="loader-container"><LoadContainer /></div>
+        )
+      )
+      }
     </StoreContext.Provider>
   )
 }
