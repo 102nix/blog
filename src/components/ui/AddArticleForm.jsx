@@ -11,13 +11,12 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit, submitAdd })
   const [data, setData] = useState({
     title: article ? article.title : '',
     article: article ? article.article : '',
-    id: article ? article.id : Date.now(),
-    img: article ? article.img : ''
+    id: article ? article.id : Date.now()
   })
+  const [dataUri, setDataUri] = useState('')
   const [errors, setErrors] = useState({})
 
   const validateScheme = yup.object().shape({
-    img: yup.string().required('Необходимо указать путь до IMG'),
     id: yup.string().required('Необходимо указать ID статьи'),
     article: yup.string().required('Содержание статьи - обязательно'),
     title: yup.string().required('Необходимо указать название статьи')
@@ -34,8 +33,32 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit, submitAdd })
     validate()
   }, [data])
 
+  // block for imgs:
+  const fileToDataUri = (file) => new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = (event) => {
+      resolve(event.target.result)
+    }
+    reader.readAsDataURL(file)
+  })
+  const fileUploadInputChange = (e) => {
+    // if (!file) {
+    //   setDataUri('')
+    //   return
+    // }
+
+    console.log(e)
+
+    fileToDataUri(e.target.files[0])
+      .then(dataUri => {
+        setDataUri(dataUri)
+        console.log(dataUri)
+      })
+  }
+  //
+
   return (
-    <form className='form-add-article' onSubmit={(e) => submitEdit(e, data)}>
+    <form className='form-add-article' onSubmit={(e) => submitEdit(e, data, dataUri)}>
       <TextField
         label="Название статьи:"
         name="title"
@@ -59,7 +82,14 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit, submitAdd })
         placeholder="Содержание..."
         onKeyDown={(e) => handleKeyDown(e)}
       />
-      <TextField
+      <input
+        label="Прикрепить IMG:"
+        name="img"
+        type="file"
+        onChange={(e) => fileUploadInputChange(e)}
+        className="input-add-article"
+      />
+      {/* <TextField
         label="Ссылка на IMG:"
         name="img"
         value={data.img}
@@ -68,7 +98,7 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit, submitAdd })
         placeholder="/static/media/*.png"
         className="input-add-article"
         onKeyDown={(e) => handleKeyDown(e)}
-      />
+      /> */}
       <TextField
         label="Id сатьи:"
         name="id"

@@ -6,6 +6,8 @@ import { ACTIONS } from '../state/constsAC'
 import { useStore } from './useStore'
 import { columns } from '../static/sortData'
 import { ModalDownload } from '../components/ModalDownload/ModalDownload'
+import httpService from '../services/http.service'
+import { toast } from 'react-toastify'
 
 const AdminContext = React.createContext()
 
@@ -17,23 +19,35 @@ export const AdminProvider = ({ children }) => {
   const [sortBy, setSortBy] = useState({ path: 'name', order: 'asc' })
   const [newArticle, setNewArticle] = useState(null)
   const [isDownload, setIsDownload] = useState(false)
-  const { articles, blog, getArticle, dispatch, isLoading, setIsLoading } = useStore()
+  const { articles, blog, getArticle, getAllArticles, dispatch, setIsLoading } = useStore()
 
-  const submitEdit = async (e, data) => {
+  const submitEdit = async (e, data, dataUri) => {
     e.preventDefault()
-    console.log(isLoading)
+    setIsLoading(false)
+    data.img = dataUri
     let index = null
     articles.forEach(article => {
       if (article.id === data.id) index = data.id
     })
     if (index) {
-      const newArts = articles.map(article => (article.id === data.id) ? { ...data } : article)
-      await dispatch({ type: 'edit', payload: newArts })
-      // учесть запись по API в backEnd
+      try {
+        await httpService.put('articles/' + data.id, data)
+        setIsLoading(true)
+      } catch (error) {
+        console.log(error)
+        toast.error(error)
+      }
     } else {
-      await dispatch({ type: 'add', data })
-      // учесть запись по API в backEnd
+      try {
+        const res = await httpService.put('articles/' + data.id, data)
+        console.log(res)
+        setIsLoading(true)
+      } catch (error) {
+        console.log(error)
+        toast.error(error)
+      }
     }
+    getAllArticles()
     handleCloseModalEdit()
   }
 
@@ -54,10 +68,14 @@ export const AdminProvider = ({ children }) => {
   }
 
   const handleDelArticle = async (articleId) => {
-    console.log(articleId)
-    setIsLoading(true)
-    const newArts = articles.filter(article => article.id !== articleId)
-    await dispatch({ type: 'delete', payload: newArts })
+    try {
+      await httpService.delete('articles/' + articleId)
+      getAllArticles()
+      setIsLoading(true)
+    } catch (error) {
+      console.log(error)
+      toast.error(error)
+    }
   }
 
   const setDownloadFB = () => {

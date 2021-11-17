@@ -46,7 +46,7 @@ export const StateProvider = ({ children }) => {
   }
 
   function getArticle (articleId) {
-    const article = state.articles.find(p => p.id === articleId)
+    const article = state.articles.find(p => String(p.id) === String(articleId))
     dispatch({ type: ACTIONS.FETCH_ARTICLE, article })
     setIsLoading(true)
   }
@@ -72,6 +72,7 @@ export const StateProvider = ({ children }) => {
       getAllArticles()
     } else if (location.pathname.indexOf('/articles/') !== -1) {
       const arrUrl = location.pathname.split('/')
+      getAllArticles()
       getArticle(arrUrl[2])
     } else if (location.pathname === '/') {
       getStartInfo()
@@ -92,7 +93,7 @@ export const StateProvider = ({ children }) => {
   }, [location.pathname])
 
   return (
-    <StoreContext.Provider value={{ articles: state.articles, blog: state.article, startInfo: state.mainInfo, handleOpenArticle, setIsLoading, dispatch, getArticle, checkLoadByURL }}>
+    <StoreContext.Provider value={{ articles: state.articles, blog: state.article, startInfo: state.mainInfo, handleOpenArticle, setIsLoading, dispatch, getArticle, getAllArticles, checkLoadByURL }}>
       {isLoading ? children : <div className="loader-container"><LoadContainer /></div> }
     </StoreContext.Provider>
   )
