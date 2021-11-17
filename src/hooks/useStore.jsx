@@ -35,25 +35,32 @@ export const StateProvider = ({ children }) => {
 
   const getAllArticles = async () => {
     try {
-      const allArticles = await articleService.fetchAllArticles()
+      const { content } = await articleService.get()
       // return allArticles
-      dispatch({ type: ACTIONS.FETCH_ARTICLES, allArticles })
+      console.log(content)
+      dispatch({ type: ACTIONS.FETCH_ARTICLES, content })
       setIsLoading(true)
     } catch (error) {
       console.log(error)
     }
   }
 
-  const getArticle = async (articleId) => {
-    setIsLoading(false)
-    try {
-      const article = await articleService.fetchArticle(articleId)
-      dispatch({ type: ACTIONS.FETCH_ARTICLE, article }) // setIsLoading(true)
-      setIsLoading(true)
-    } catch (error) {
-      console.log(error)
-    }
+  function getArticle (articleId) {
+    const article = state.articles.find(p => p.id === articleId)
+    dispatch({ type: ACTIONS.FETCH_ARTICLE, article })
+    setIsLoading(true)
   }
+
+  // const getArticle = async (articleId) => {
+  //   setIsLoading(false)
+  //   try {
+  //     const article = await articleService.fetchArticle(articleId)
+  //     dispatch({ type: ACTIONS.FETCH_ARTICLE, article }) // setIsLoading(true)
+  //     setIsLoading(true)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
   const handleOpenArticle = (articleId) => {
     getArticle(articleId)
@@ -85,7 +92,7 @@ export const StateProvider = ({ children }) => {
   }, [location.pathname])
 
   return (
-    <StoreContext.Provider value={{ articles: state.articles, blog: state.article, startInfo: state.mainInfo, handleOpenArticle, setIsLoading, dispatch, getArticle }}>
+    <StoreContext.Provider value={{ articles: state.articles, blog: state.article, startInfo: state.mainInfo, handleOpenArticle, setIsLoading, dispatch, getArticle, checkLoadByURL }}>
       {isLoading ? children : <div className="loader-container"><LoadContainer /></div> }
     </StoreContext.Provider>
   )

@@ -5,6 +5,7 @@ import { ModalEdit } from '../components/ModalEdit/ModalEdit'
 import { ACTIONS } from '../state/constsAC'
 import { useStore } from './useStore'
 import { columns } from '../static/sortData'
+import { ModalDownload } from '../components/ModalDownload/ModalDownload'
 
 const AdminContext = React.createContext()
 
@@ -15,6 +16,7 @@ export const useAdmin = () => {
 export const AdminProvider = ({ children }) => {
   const [sortBy, setSortBy] = useState({ path: 'name', order: 'asc' })
   const [newArticle, setNewArticle] = useState(null)
+  const [isDownload, setIsDownload] = useState(false)
   const { articles, blog, getArticle, dispatch, isLoading, setIsLoading } = useStore()
 
   const submitEdit = async (e, data) => {
@@ -37,7 +39,7 @@ export const AdminProvider = ({ children }) => {
 
   const handleEdit = (articleId) => {
     getArticle(articleId)
-    setIsLoading(false)
+    setIsLoading(true)
   }
 
   const handleCloseModalEdit = () => {
@@ -58,12 +60,19 @@ export const AdminProvider = ({ children }) => {
     await dispatch({ type: 'delete', payload: newArts })
   }
 
+  const setDownloadFB = () => {
+    setIsDownload(true)
+  }
+
   return (
-    <AdminContext.Provider value={{ sortedArticles, columns, sortBy, handleSort, handleDelArticle, handleEdit, setNewArticle }}>
+    <AdminContext.Provider value={{ sortedArticles, columns, sortBy, handleSort, handleDelArticle, handleEdit, setNewArticle, setDownloadFB }}>
       {(blog || newArticle === 'addArt') && (
         <ModalEdit article={blog} onCloseModal={handleCloseModalEdit} submitEdit={submitEdit} />
       )}
-      { children }
+      {isDownload &&
+        <ModalDownload />
+      }
+      {children }
     </AdminContext.Provider>
   )
 }

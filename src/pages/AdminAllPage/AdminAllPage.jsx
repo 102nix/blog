@@ -13,7 +13,8 @@ export const AdminAllPage = () => {
     sortBy,
     handleDelArticle,
     handleEdit,
-    setNewArticle
+    setNewArticle,
+    setDownloadFB
   } = useAdmin()
   return (
     <div className="admin-articles">
@@ -21,7 +22,7 @@ export const AdminAllPage = () => {
         <button className="btn" onClick={() => setNewArticle('addArt')}>
           Создать статью
         </button>
-        <button className="btn">Download data</button>
+        <button className="btn" onClick={setDownloadFB}>Download data</button>
       </div>
 
       <table className="table">

@@ -1,13 +1,12 @@
-import api from '../api'
+import httpService from './http.service'
+
+const professionEndpoint = 'articles/'
 
 const articleService = {
-  fetchAllArticles: async () => {
-    const articles = await api.articles.fetchAll()
-    return articles
-  },
-  fetchArticle: async (articleId) => {
-    const article = await api.articles.getById(articleId)
-    return article
+  get: async () => {
+    const { data } = await httpService.get(professionEndpoint)
+    console.log('__New: ', data)
+    return data
   }
 }
 

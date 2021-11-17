@@ -12,7 +12,8 @@ export function reducer (state, action) {
   case ACTIONS.FETCH_ARTICLES:
     return {
       ...state,
-      articles: action.allArticles
+      articles: action.content,
+      article: null
     }
   case ACTIONS.FETCH_ARTICLE:
     return {

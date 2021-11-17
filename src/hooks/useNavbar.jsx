@@ -12,10 +12,11 @@ export const NavbarProvider = ({ children }) => {
   const [showMenu, setShowMenu] = useState(['header__menu'])
   const [clsBurger, setClsBurger] = useState(['header__burger'])
   const { isAuth, logout } = useAuth()
-  const { setIsLoading } = useStore()
+  const { setIsLoading, checkLoadByURL } = useStore()
 
   const handleVisibleMenu = () => {
     setIsLoading(false)
+    checkLoadByURL()
     if (showMenu.indexOf('actived') === -1) {
       setShowMenu([...showMenu, 'actived'])
       setClsBurger([...clsBurger, 'actived'])
