@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import * as yup from 'yup'
-// import { useHistory } from 'react-router-dom'
 import { TextField } from '../common/form/TextField'
 import { TextAreaField } from '../common/form/TextAreaField'
 import { handleChange, handleKeyDown } from '../../static/funcsForForm'
 import { InputFile } from '../common/typografy/InputFile/InputFile'
 
 export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
-  console.log(article)
-  // const history = useHistory()
   const [data, setData] = useState({
     title: article ? article.title : '',
     article: article ? article.article : '',
@@ -17,6 +14,19 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
   const [dataUri, setDataUri] = useState(article?.img || '')
   const [errors, setErrors] = useState({})
   const [uploadName, setUploadName] = useState('')
+
+  const handleUserKeyPress = event => {
+    const { keyCode } = event
+    if (keyCode === 27) onCloseModal()
+  }
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleUserKeyPress)
+
+    return () => {
+      window.removeEventListener('keydown', handleUserKeyPress)
+    }
+  })
 
   const validateScheme = yup.object().shape({
     id: yup.string().required('Необходимо указать ID статьи'),
@@ -37,7 +47,7 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
 
   // block for prepare imgs for DB: ////////////////////////////////
   function fileUploadInputChange (e) {
-    setUploadName(e.target.value)
+    setUploadName(e.target.value.split('\\')[2])
     const reader = new FileReader()
     reader.onload = (e) => {
       setDataUri(e.target.result)
@@ -75,6 +85,7 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
         article={article}
         fileUploadInputChange={fileUploadInputChange}
         uploadName={uploadName}
+        dataUri={dataUri}
       />
       <TextField
         label="Id сатьи:"

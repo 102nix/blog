@@ -1,13 +1,18 @@
 import React from 'react'
 import './InputFile.scss'
 
-export const InputFile = ({ article, fileUploadInputChange, uploadName }) => {
+export const InputFile = ({ article, fileUploadInputChange, uploadName, dataUri }) => {
   return (
     <div className="custom-file-upload">
-      {article?.img &&
+      {article?.img && !dataUri ? (
         <div className="img-block">
           <img src={article.img} alt="" />
         </div>
+      ) : (
+        <div className="img-block">
+          <img src={dataUri} alt="" />
+        </div>
+      )
       }
       <div className="file-input">
         <input
