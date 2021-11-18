@@ -4,8 +4,9 @@ import { useHistory } from 'react-router-dom'
 import { TextField } from '../common/form/TextField'
 import { TextAreaField } from '../common/form/TextAreaField'
 import { handleChange, handleKeyDown } from '../../static/funcsForForm'
+import { InputFile } from '../common/typografy/InputFile/InputFile'
 
-export const AddArticleForm = ({ article, onCloseModal, submitEdit, submitAdd }) => {
+export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
   console.log(article)
   const history = useHistory()
   const [data, setData] = useState({
@@ -13,8 +14,9 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit, submitAdd })
     article: article ? article.article : '',
     id: article ? article.id : Date.now()
   })
-  const [dataUri, setDataUri] = useState('')
+  const [dataUri, setDataUri] = useState(article?.img || '')
   const [errors, setErrors] = useState({})
+  const [uploadName, setUploadName] = useState('')
 
   const validateScheme = yup.object().shape({
     id: yup.string().required('Необходимо указать ID статьи'),
@@ -34,28 +36,14 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit, submitAdd })
   }, [data])
 
   // block for prepare imgs for DB: ////////////////////////////////
-  // const fileToDataUrl = (file) => new Promise((resolve, reject) => {
-  //   const reader = new FileReader()
-  //   reader.onload = (event) => {
-  //     resolve(event.target.result)
-  //   }
-  //   reader.readAsDataURL(file)
-  // })
-  // const fileUploadInputChange = (e) => {
-  //   fileToDataUrl(e.target.files[0])
-  //     .then(dataUri => {
-  //       setDataUri(dataUri)
-  //       console.log(dataUri)
-  //     })
-  // }
   function fileUploadInputChange (e) {
+    setUploadName(e.target.value)
     const reader = new FileReader()
     reader.onload = (e) => {
       setDataUri(e.target.result)
     }
     reader.readAsDataURL(e.target.files[0])
   }
-
   // ////////////////////////////////////////////////////////////////
 
   return (
@@ -83,23 +71,11 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit, submitAdd })
         placeholder="Содержание..."
         onKeyDown={(e) => handleKeyDown(e)}
       />
-      <input
-        label="Прикрепить IMG:"
-        name="img"
-        type="file"
-        onChange={(e) => fileUploadInputChange(e)}
-        className="input-add-article"
+      <InputFile
+        article={article}
+        fileUploadInputChange={fileUploadInputChange}
+        uploadName={uploadName}
       />
-      {/* <TextField
-        label="Ссылка на IMG:"
-        name="img"
-        value={data.img}
-        onChange={(target) => handleChange(setData, target)}
-        error={errors.img}
-        placeholder="/static/media/*.png"
-        className="input-add-article"
-        onKeyDown={(e) => handleKeyDown(e)}
-      /> */}
       <TextField
         label="Id сатьи:"
         name="id"
