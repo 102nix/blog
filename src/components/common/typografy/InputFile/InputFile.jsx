@@ -5,9 +5,9 @@ export const InputFile = ({ article, fileUploadInputChange, uploadName }) => {
   return (
     <div className="custom-file-upload">
       {article?.img &&
-        <p className="img-block">
+        <div className="img-block">
           <img src={article.img} alt="" />
-        </p>
+        </div>
       }
       <div className="file-input">
         <input
