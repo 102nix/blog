@@ -1,12 +1,10 @@
 import React from 'react'
 import { SubTitle } from '../../components/common/typografy/SubTitle'
-// import { useStartPage } from '../../hooks/useStartPage'
 import { useStore } from '../../hooks/useStore'
 import './StartPage.scss'
 
 export const StartPage = () => {
   const { startInfo } = useStore()
-  console.log(startInfo)
   return (
     <div className="start-container">
       <SubTitle>Статьи, посвещенные Frontend-у: ReactJS, JS, ...</SubTitle>

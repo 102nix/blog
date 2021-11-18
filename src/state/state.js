@@ -7,7 +7,6 @@ export const initialState = {
 }
 
 export function reducer (state, action) {
-  console.log(state, action)
   switch (action.type) {
   case ACTIONS.FETCH_ARTICLES:
     return {

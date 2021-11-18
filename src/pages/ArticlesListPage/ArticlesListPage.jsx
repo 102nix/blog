@@ -6,12 +6,6 @@ import './ArticlesList.scss'
 
 export const ArticlesListPage = () => {
   const { articles, blog, handleOpenArticle } = useStore()
-  // const history = useHistory()
-
-  // const handlerOpenArticle = (articleId) => {
-  //   getArticle(articleId)
-  //   history.push(`/articles/${articleId}`)
-  // }
 
   return (
     <>

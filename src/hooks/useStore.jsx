@@ -21,14 +21,9 @@ export const StateProvider = ({ children }) => {
   const history = useHistory()
   const location = useLocation()
 
-  console.log(state, location.pathname)
-
-  // if (state.articles.length + state.mainInfo.length === 0) checkLoadByURL()
-
   const getStartInfo = async () => {
     try {
       const startInfo = await startInfoService.fetchAll()
-      // return startInfo
       dispatch({ type: ACTIONS.FETCH_MAININFO, startInfo })
       setIsLoading(true)
     } catch (error) {
@@ -39,7 +34,6 @@ export const StateProvider = ({ children }) => {
   const getAllArticles = async () => {
     try {
       const { content } = await articlesService.get()
-      // return allArticles
       dispatch({ type: ACTIONS.FETCH_ARTICLES, content })
       setIsLoading(true)
     } catch (error) {
@@ -61,17 +55,6 @@ export const StateProvider = ({ children }) => {
     }
   }
 
-  // const getArticle = async (articleId) => {
-  //   setIsLoading(false)
-  //   try {
-  //     const article = await articleService.fetchArticle(articleId)
-  //     dispatch({ type: ACTIONS.FETCH_ARTICLE, article }) // setIsLoading(true)
-  //     setIsLoading(true)
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-
   const handleOpenArticle = (articleId) => {
     getArticle(articleId)
     history.push(`/articles/${articleId}`)
@@ -79,6 +62,7 @@ export const StateProvider = ({ children }) => {
 
   function checkLoadByURL () {
     if (location.pathname === '/articles' || location.pathname === '/admin') {
+      setIsLoading(false)
       getAllArticles()
     } else if (location.pathname.indexOf('/articles/') !== -1) {
       const arrUrl = location.pathname.split('/')

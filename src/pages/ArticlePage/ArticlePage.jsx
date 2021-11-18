@@ -1,7 +1,6 @@
 import React from 'react'
 import { ArticleText } from '../../components/common/typografy/ArticleText/ArticleText'
 import { SubTitle } from '../../components/common/typografy/SubTitle'
-// import { useArticles } from '../../hooks/useArticles'
 import { useStore } from '../../hooks/useStore'
 // import Loader from '../../components/common/Loader/Loader'
 import './ArticlePage.scss'
