@@ -47,7 +47,7 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
 
   // block for prepare imgs for DB: ////////////////////////////////
   function fileUploadInputChange (e) {
-    setUploadName(e.target.value.split('\\')[2])
+    setUploadName(e.target.value.split('\\')[2]) // display file name
     const reader = new FileReader()
     reader.onload = (e) => {
       setDataUri(e.target.result)
