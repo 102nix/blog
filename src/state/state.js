@@ -18,7 +18,7 @@ export function reducer (state, action) {
   case ACTIONS.FETCH_ARTICLE:
     return {
       ...state,
-      article: action.article
+      article: action.content
     }
   case ACTIONS.CLOSE_ARTICLE:
     return {

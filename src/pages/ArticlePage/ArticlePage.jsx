@@ -1,6 +1,5 @@
 import React from 'react'
 import { ArticleText } from '../../components/common/typografy/ArticleText/ArticleText'
-import { LinkBack } from '../../components/common/typografy/LinkBack/LinkBack'
 import { SubTitle } from '../../components/common/typografy/SubTitle'
 // import { useArticles } from '../../hooks/useArticles'
 import { useStore } from '../../hooks/useStore'
@@ -9,7 +8,6 @@ import './ArticlePage.scss'
 
 export const ArticlePage = () => {
   const { blog } = useStore()
-  console.log('BLOG: ', blog)
   return (
     <>
       {
@@ -24,7 +22,6 @@ export const ArticlePage = () => {
                 <ArticleText key={textBlog}>{textBlog}</ArticleText>
               ))}
             </div>
-            <LinkBack />
           </div>
       }
     </>

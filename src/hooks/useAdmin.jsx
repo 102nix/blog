@@ -79,7 +79,7 @@ export const AdminProvider = ({ children }) => {
   }
 
   const setDownloadFB = () => {
-    setIsDownload(true)
+    setIsDownload(prevState => !prevState)
   }
 
   return (
@@ -88,7 +88,7 @@ export const AdminProvider = ({ children }) => {
         <ModalEdit article={blog} onCloseModal={handleCloseModalEdit} submitEdit={submitEdit} />
       )}
       {isDownload &&
-        <ModalDownload />
+        <ModalDownload setDownloadFB={setDownloadFB} />
       }
       {children }
     </AdminContext.Provider>

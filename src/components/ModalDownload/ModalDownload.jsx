@@ -3,7 +3,7 @@ import './ModalDownload.scss'
 import { SubTitle } from '../common/typografy/SubTitle'
 import { useMockData } from '../../hooks/useMockData'
 
-export const ModalDownload = () => {
+export const ModalDownload = ({ setDownloadFB }) => {
   const { error, initialize, progress, status } = useMockData()
   const handleClick = () => {
     initialize()
@@ -17,7 +17,10 @@ export const ModalDownload = () => {
           <li>Progress: {progress}%</li>
           { error && <li>Error: {error}</li> }
         </ul>
-        <button className="btn btn-primary" onClick={handleClick}>Инициализировать</button>
+        <div className="actions-block">
+          <button className="btn btn-primary" onClick={handleClick}>Загрузить в FB</button>
+          <button className="btn btn-cansel" onClick={setDownloadFB}>Отмена</button>
+        </div>
       </div>
     </div>
   )

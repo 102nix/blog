@@ -33,29 +33,30 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit, submitAdd })
     validate()
   }, [data])
 
-  // block for imgs:
-  const fileToDataUri = (file) => new Promise((resolve, reject) => {
+  // block for prepare imgs for DB: ////////////////////////////////
+  // const fileToDataUrl = (file) => new Promise((resolve, reject) => {
+  //   const reader = new FileReader()
+  //   reader.onload = (event) => {
+  //     resolve(event.target.result)
+  //   }
+  //   reader.readAsDataURL(file)
+  // })
+  // const fileUploadInputChange = (e) => {
+  //   fileToDataUrl(e.target.files[0])
+  //     .then(dataUri => {
+  //       setDataUri(dataUri)
+  //       console.log(dataUri)
+  //     })
+  // }
+  function fileUploadInputChange (e) {
     const reader = new FileReader()
-    reader.onload = (event) => {
-      resolve(event.target.result)
+    reader.onload = (e) => {
+      setDataUri(e.target.result)
     }
-    reader.readAsDataURL(file)
-  })
-  const fileUploadInputChange = (e) => {
-    // if (!file) {
-    //   setDataUri('')
-    //   return
-    // }
-
-    console.log(e)
-
-    fileToDataUri(e.target.files[0])
-      .then(dataUri => {
-        setDataUri(dataUri)
-        console.log(dataUri)
-      })
+    reader.readAsDataURL(e.target.files[0])
   }
-  //
+
+  // ////////////////////////////////////////////////////////////////
 
   return (
     <form className='form-add-article' onSubmit={(e) => submitEdit(e, data, dataUri)}>

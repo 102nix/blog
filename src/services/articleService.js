@@ -1,10 +1,10 @@
 import httpService from './http.service'
 
-const professionEndpoint = 'articles/'
+const articleEndpoint = 'articles'
 
 const articleService = {
-  get: async () => {
-    const { data } = await httpService.get(professionEndpoint)
+  get: async (id) => {
+    const { data } = await httpService.get(`${articleEndpoint}/${id}`)
     console.log('__New: ', data)
     return data
   }

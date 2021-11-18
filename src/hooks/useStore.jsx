@@ -2,6 +2,7 @@ import React, { useReducer, useContext, useState, useEffect } from 'react'
 import { reducer, initialState } from '../state/state'
 import { ACTIONS } from '../state/constsAC'
 import { useHistory, useLocation } from 'react-router'
+import articlesService from '../services/articlesService'
 import articleService from '../services/articleService'
 import startInfoService from '../services/startInfoService'
 import LoadContainer from '../components/common/Loader/Loader'
@@ -22,6 +23,8 @@ export const StateProvider = ({ children }) => {
 
   console.log(state, location.pathname)
 
+  // if (state.articles.length + state.mainInfo.length === 0) checkLoadByURL()
+
   const getStartInfo = async () => {
     try {
       const startInfo = await startInfoService.fetchAll()
@@ -35,9 +38,8 @@ export const StateProvider = ({ children }) => {
 
   const getAllArticles = async () => {
     try {
-      const { content } = await articleService.get()
+      const { content } = await articlesService.get()
       // return allArticles
-      console.log(content)
       dispatch({ type: ACTIONS.FETCH_ARTICLES, content })
       setIsLoading(true)
     } catch (error) {
@@ -45,10 +47,18 @@ export const StateProvider = ({ children }) => {
     }
   }
 
-  function getArticle (articleId) {
-    const article = state.articles.find(p => String(p.id) === String(articleId))
-    dispatch({ type: ACTIONS.FETCH_ARTICLE, article })
-    setIsLoading(true)
+  async function getArticle (articleId) {
+    // const article = state.articles.find(p => String(p.id) === String(articleId))
+    // dispatch({ type: ACTIONS.FETCH_ARTICLE, article })
+    // setIsLoading(true)
+    try {
+      const content = await articleService.get(articleId)
+      // return allArticles
+      dispatch({ type: ACTIONS.FETCH_ARTICLE, content })
+      setIsLoading(true)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   // const getArticle = async (articleId) => {
@@ -72,7 +82,7 @@ export const StateProvider = ({ children }) => {
       getAllArticles()
     } else if (location.pathname.indexOf('/articles/') !== -1) {
       const arrUrl = location.pathname.split('/')
-      getAllArticles()
+      // getAllArticles()
       getArticle(arrUrl[2])
     } else if (location.pathname === '/') {
       getStartInfo()

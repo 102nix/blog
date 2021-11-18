@@ -153,7 +153,7 @@ const fetchAllMain = () =>
   new Promise((resolve) => {
     window.setTimeout(function () {
       resolve(mainInfo)
-    }, 2000)
+    }, 0)
   })
 
 const getById = (id) =>
