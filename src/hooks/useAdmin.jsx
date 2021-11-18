@@ -7,6 +7,7 @@ import { columns } from '../static/sortData'
 import { ModalDownload } from '../components/ModalDownload/ModalDownload'
 import httpService from '../services/http.service'
 import { toast } from 'react-toastify'
+import { ACTIONS } from '../state/constsAC'
 
 const AdminContext = React.createContext()
 
@@ -18,7 +19,7 @@ export const AdminProvider = ({ children }) => {
   const [sortBy, setSortBy] = useState({ path: 'name', order: 'asc' })
   const [newArticle, setNewArticle] = useState(null)
   const [isDownload, setIsDownload] = useState(false)
-  const { articles, blog, getArticle, getAllArticles, setIsLoading } = useStore()
+  const { articles, blog, getArticle, getAllArticles, setIsLoading, dispatch } = useStore()
 
   const submitEdit = async (e, data, dataUri) => {
     e.preventDefault()
@@ -40,7 +41,7 @@ export const AdminProvider = ({ children }) => {
 
   const handleCloseModalEdit = () => {
     setNewArticle(null)
-    setIsLoading(true)
+    dispatch({ type: ACTIONS.CLOSE_ARTICLE })
   }
 
   const sortedArticles = _.orderBy(articles, [sortBy.path], [sortBy.order])

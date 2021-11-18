@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import * as yup from 'yup'
-import { useHistory } from 'react-router-dom'
+// import { useHistory } from 'react-router-dom'
 import { TextField } from '../common/form/TextField'
 import { TextAreaField } from '../common/form/TextAreaField'
 import { handleChange, handleKeyDown } from '../../static/funcsForForm'
@@ -8,7 +8,7 @@ import { InputFile } from '../common/typografy/InputFile/InputFile'
 
 export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
   console.log(article)
-  const history = useHistory()
+  // const history = useHistory()
   const [data, setData] = useState({
     title: article ? article.title : '',
     article: article ? article.article : '',
@@ -94,18 +94,13 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
         >
           Сохранить
         </button>
-        {onCloseModal ? (
-          <button
-            type="button"
-            className="btn btn-cansel"
-            onClick={onCloseModal}
-          >
-            Отмена
-          </button>
-        ) : (
-          <button className="btn btn-cansel" onClick={() => history.goBack()}>Отмена</button>
-        )
-        }
+        <button
+          type="button"
+          className="btn btn-cansel"
+          onClick={onCloseModal}
+        >
+          Отмена
+        </button>
       </div>
     </form>
   )
