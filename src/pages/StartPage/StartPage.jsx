@@ -5,6 +5,8 @@ import './StartPage.scss'
 
 export const StartPage = () => {
   const { startInfo } = useStore()
+  const date = new Date()
+  console.log(date.toLocaleString())
   return (
     <div className="start-container">
       <SubTitle>Статьи, посвещенные Frontend-у: ReactJS, JS, ...</SubTitle>

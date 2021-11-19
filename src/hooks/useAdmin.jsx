@@ -16,7 +16,7 @@ export const useAdmin = () => {
 }
 
 export const AdminProvider = ({ children }) => {
-  const [sortBy, setSortBy] = useState({ path: 'name', order: 'asc' })
+  const [sortBy, setSortBy] = useState({ path: 'date', order: 'desc' })
   const [newArticle, setNewArticle] = useState(null)
   const [isDownload, setIsDownload] = useState(false)
   const { articles, blog, getArticle, getAllArticles, setIsLoading, dispatch } = useStore()
@@ -24,6 +24,7 @@ export const AdminProvider = ({ children }) => {
   const submitEdit = async (e, data, dataUri) => {
     e.preventDefault()
     data.img = dataUri
+    data.date = new Date().toLocaleString()
     try {
       await httpService.put('articles/' + data.id, data)
     } catch (error) {

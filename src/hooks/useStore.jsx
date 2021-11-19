@@ -7,6 +7,7 @@ import articleService from '../services/articleService'
 import startInfoService from '../services/startInfoService'
 import LoadContainer from '../components/common/Loader/Loader'
 import { toast } from 'react-toastify'
+import _ from 'lodash'
 
 const StoreContext = React.createContext()
 
@@ -17,6 +18,12 @@ export const useStore = () => {
 export const StateProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const [isLoading, setIsLoading] = useState(false)
+  // const [sortBy, setSortBy] = useState({ path: 'date', order: 'desc' })
+
+  const sortedArticles = _.orderBy(state.articles, ['date'], ['desc'])
+  // const handleSort = (item) => {
+  //   setSortBy(item)
+  // }
 
   const history = useHistory()
   const location = useLocation()
@@ -87,7 +94,7 @@ export const StateProvider = ({ children }) => {
   }, [location.pathname])
 
   return (
-    <StoreContext.Provider value={{ articles: state.articles, blog: state.article, startInfo: state.mainInfo, handleOpenArticle, setIsLoading, dispatch, getArticle, getAllArticles, checkLoadByURL }}>
+    <StoreContext.Provider value={{ articles: sortedArticles, blog: state.article, startInfo: state.mainInfo, handleOpenArticle, setIsLoading, dispatch, getArticle, getAllArticles, checkLoadByURL }}>
       {isLoading ? children : <div className="loader-container"><LoadContainer /></div> }
     </StoreContext.Provider>
   )
