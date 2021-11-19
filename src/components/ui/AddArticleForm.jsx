@@ -8,8 +8,7 @@ import { InputFile } from '../common/typografy/InputFile/InputFile'
 export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
   const [data, setData] = useState({
     title: article ? article.title : '',
-    article: article ? article.article : '',
-    id: article ? article.id : Date.now()
+    article: article ? article.article : ''
   })
   const [dataUri, setDataUri] = useState(article?.img || '')
   const [errors, setErrors] = useState({})
@@ -29,7 +28,6 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
   })
 
   const validateScheme = yup.object().shape({
-    id: yup.string().required('Необходимо указать ID статьи'),
     article: yup.string().required('Содержание статьи - обязательно'),
     title: yup.string().required('Необходимо указать название статьи')
   })
@@ -86,16 +84,6 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
         fileUploadInputChange={fileUploadInputChange}
         uploadName={uploadName}
         dataUri={dataUri}
-      />
-      <TextField
-        label="Id сатьи:"
-        name="id"
-        value={data.id}
-        onChange={(target) => handleChange(setData, target)}
-        error={errors.id}
-        placeholder="ID..."
-        className="input-add-article"
-        onKeyDown={(e) => handleKeyDown(e)}
       />
       <div className="form-actions">
         <button

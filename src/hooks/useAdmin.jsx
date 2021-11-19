@@ -25,6 +25,7 @@ export const AdminProvider = ({ children }) => {
     e.preventDefault()
     data.img = dataUri
     data.date = new Date().toLocaleString()
+    data.id = Date.now()
     try {
       await httpService.put('articles/' + data.id, data)
     } catch (error) {
