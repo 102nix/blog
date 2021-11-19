@@ -25,8 +25,15 @@ export const NavbarProvider = ({ children }) => {
       setClsBurger([...clsBurger.splice(clsBurger.indexOf('header__burger'), 1)])
     }
   }
+  const values = {
+    showMenu,
+    clsBurger,
+    handleVisibleMenu,
+    isAuth,
+    logout
+  }
   return (
-    <NavbarContext.Provider value={{ showMenu, clsBurger, handleVisibleMenu, isAuth, logout }}>
+    <NavbarContext.Provider value={values}>
       { children }
     </NavbarContext.Provider>
   )

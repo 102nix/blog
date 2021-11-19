@@ -65,8 +65,18 @@ export const AdminProvider = ({ children }) => {
     setIsDownload(prevState => !prevState)
   }
 
+  const values = {
+    sortedArticles,
+    columns,
+    sortBy,
+    handleSort,
+    handleDelArticle,
+    handleEdit,
+    setNewArticle,
+    setDownloadFB
+  }
   return (
-    <AdminContext.Provider value={{ sortedArticles, columns, sortBy, handleSort, handleDelArticle, handleEdit, setNewArticle, setDownloadFB }}>
+    <AdminContext.Provider value={values}>
       {(blog || newArticle === 'addArt') && (
         <ModalEdit article={blog} onCloseModal={handleCloseModalEdit} submitEdit={submitEdit} />
       )}
