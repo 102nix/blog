@@ -8,7 +8,8 @@ import { InputFile } from '../common/typografy/InputFile/InputFile'
 export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
   const [data, setData] = useState({
     title: article ? article.title : '',
-    article: article ? article.article : ''
+    article: article ? article.article : '',
+    id: article ? article.id : Date.now()
   })
   const [dataUri, setDataUri] = useState(article?.img || '')
   const [errors, setErrors] = useState({})

@@ -23,9 +23,8 @@ export const AdminProvider = ({ children }) => {
 
   const submitEdit = async (e, data, dataUri) => {
     e.preventDefault()
-    data.img = dataUri
-    data.date = new Date().toLocaleString()
-    data.id = Date.now()
+    data.img = dataUri // not match with pattern-> const [data, setData] = useState({...}) + handleChange()
+    data.date = new Date().toLocaleString() // see up
     try {
       await httpService.put('articles/' + data.id, data)
     } catch (error) {
@@ -37,6 +36,7 @@ export const AdminProvider = ({ children }) => {
   }
 
   const handleEdit = (articleId) => {
+    console.log(articleId)
     getArticle(articleId)
     setIsLoading(true)
   }

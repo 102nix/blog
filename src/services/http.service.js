@@ -23,7 +23,7 @@ function transformData (data) {
 axios.interceptors.response.use(
   res => {
     if (!res.data) return res
-    if (configFile.isFirebase && Object.keys(res.data).length > 4) {
+    if (configFile.isFirebase && Object.keys(res.data).length > 5) {
       res.data = { content: transformData(res.data) }
     }
     return res
