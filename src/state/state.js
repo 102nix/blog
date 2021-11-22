@@ -27,7 +27,7 @@ export function reducer (state, action) {
   case ACTIONS.FETCH_MAININFO:
     return {
       ...state,
-      mainInfo: action.startInfo
+      mainInfo: action.mainInfo
     }
   case 'add':
     return {

@@ -4,7 +4,8 @@ import { ACTIONS } from '../state/constsAC'
 import { useHistory, useLocation } from 'react-router'
 import articlesService from '../services/articlesService'
 import articleService from '../services/articleService'
-import startInfoService from '../services/startInfoService'
+// import startInfoService from '../services/startInfoService'
+import { mainInfo } from '../api/fake.api/articles.api'
 import LoadContainer from '../components/common/Loader/Loader'
 import { toast } from 'react-toastify'
 import _ from 'lodash'
@@ -24,15 +25,20 @@ export const StateProvider = ({ children }) => {
   const history = useHistory()
   const location = useLocation()
 
-  const getStartInfo = async () => {
-    try {
-      const startInfo = await startInfoService.fetchAll()
-      dispatch({ type: ACTIONS.FETCH_MAININFO, startInfo })
-      setIsLoading(true)
-    } catch (error) {
-      toast(error)
-    }
+  const getStartInfo = () => {
+    dispatch({ type: ACTIONS.FETCH_MAININFO, mainInfo })
+    setIsLoading(true)
   }
+
+  // const getStartInfo = async () => {
+  //   try {
+  //     const startInfo = await startInfoService.fetchAll()
+  //     dispatch({ type: ACTIONS.FETCH_MAININFO, startInfo })
+  //     setIsLoading(true)
+  //   } catch (error) {
+  //     toast(error)
+  //   }
+  // }
 
   const getAllArticles = async () => {
     try {
@@ -41,6 +47,7 @@ export const StateProvider = ({ children }) => {
       setIsLoading(true)
     } catch (error) {
       console.log(error)
+      toast(error)
     }
   }
 
@@ -55,6 +62,7 @@ export const StateProvider = ({ children }) => {
       setIsLoading(true)
     } catch (error) {
       console.log(error)
+      toast(error)
     }
   }
 

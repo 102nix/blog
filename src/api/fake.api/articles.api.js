@@ -125,7 +125,7 @@ const articles = [
   }
 ]
 
-const mainInfo = [
+export const mainInfo = [
   {
     id: '67rdca3eeb7f6fgeed000001',
     img: reactWiresImage,
@@ -149,12 +149,12 @@ const fetchAll = () =>
       resolve(articles)
     }, 2000)
   })
-const fetchAllMain = () =>
-  new Promise((resolve) => {
-    window.setTimeout(function () {
-      resolve(mainInfo)
-    }, 0)
-  })
+// const fetchAllMain = () =>
+//   new Promise((resolve) => {
+//     window.setTimeout(function () {
+//       resolve(mainInfo)
+//     }, 0)
+//   })
 
 const getById = (id) =>
   new Promise(resolve => {
@@ -165,6 +165,6 @@ const getById = (id) =>
 
 export default {
   fetchAll,
-  fetchAllMain,
+  // fetchAllMain,
   getById
 }
