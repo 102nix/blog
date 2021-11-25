@@ -14,6 +14,7 @@ export const LoginForm = () => {
     email: '', password: '', stayOn: false
   })
 
+  const { signIn } = useAuth()
   const [errors, setErrors] = useState({})
 
   const validateScheme = yup.object().shape({
@@ -35,14 +36,19 @@ export const LoginForm = () => {
     validate()
   }, [data])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const isValid = validate()
     if (!isValid) return
     console.log(data)
-    login()
-    if (data.stayOn) localStorage.setItem('login', data.stayOn)
-    history.push('/')
+    try {
+      await signIn(data)
+      login()
+      if (data.stayOn) localStorage.setItem('login', data.stayOn)
+      history.push('/')
+    } catch (error) {
+      setErrors(error)
+    }
   }
 
   return (

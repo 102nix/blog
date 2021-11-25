@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import * as yup from 'yup'
 import { TextField } from '../common/form/TextField'
-import { handleChange, handleSubmit, handleKeyDown } from '../../static/funcsForForm'
+import { handleChange, handleKeyDown } from '../../static/funcsForForm'
+import { useAuth } from '../../hooks/useAuth'
 
 export const RegisterForm = () => {
   const history = useHistory()
@@ -12,7 +13,7 @@ export const RegisterForm = () => {
     password: '',
     confirmpassword: ''
   })
-
+  const { signUp } = useAuth()
   const [errors, setErrors] = useState({})
 
   const validateScheme = yup.object().shape({
@@ -39,8 +40,20 @@ export const RegisterForm = () => {
     validate()
   }, [data])
 
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const isValid = validate()
+    if (!isValid) return
+    try {
+      await signUp(data)
+      history.push('/auth/login')
+    } catch (error) {
+      setErrors(error)
+    }
+  }
+
   return (
-    <form className="form-auth" onSubmit={(e) => handleSubmit(e, validate, data)}>
+    <form className="form-auth" onSubmit={handleSubmit}>
       <TextField
         label="Электронная почта"
         name="email"
