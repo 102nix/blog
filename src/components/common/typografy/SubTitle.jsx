@@ -6,7 +6,8 @@ export const SubTitle = ({ children }) => {
       style={{
         textAlign: 'center',
         marginTop: 10,
-        marginBottom: 15
+        marginBottom: 15,
+        color: 'rgb(83, 82, 82)'
       }}
     >
       <h3>{children}</h3>
