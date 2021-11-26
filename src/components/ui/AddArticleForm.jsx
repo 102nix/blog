@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import * as yup from 'yup'
-import { TextField } from '../common/form/TextField'
+import { ComponentInput } from '../common/form/TextField'
 import { TextAreaField } from '../common/form/TextAreaField'
 import { handleChange, handleKeyDown } from '../../static/funcsForForm'
 import { InputFile } from '../common/typografy/InputFile/InputFile'
@@ -57,7 +57,7 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
 
   return (
     <form className='form-add-article' onSubmit={(e) => submitEdit(e, data, dataUri)}>
-      <TextField
+      <ComponentInput
         label="Название статьи:"
         name="title"
         value={data.title}

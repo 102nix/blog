@@ -3,30 +3,45 @@ import { LoginForm } from '../../components/ui/LoginForm'
 import { RegisterForm } from '../../components/ui/RegisterForm'
 import { useParams } from 'react-router'
 import { NavLink } from 'react-router-dom'
-import './Auth.scss'
+// import './Auth.scss'
+import { SubTitle } from '../../components/common/typografy/SubTitle'
+import { Box } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 
+const useStyles = makeStyles((theme) => ({
+  authBlock: {
+    border: '2px solid #0012ff',
+    borderRadius: '3px',
+    padding: '10px 40px 40px 40px',
+    marginTop: '10px'
+  },
+  linkAuth: {
+    textDecoration: 'none',
+    color: '#0012ff'
+  }
+}))
 export const Auth = () => {
   const { type } = useParams()
-
+  const classes = useStyles()
   return (
-    <div className="auth">
+    <Box className={classes.authBlock}>
       {type === 'register' ? (
         <>
-          <h2>Регистрация</h2>
+          <SubTitle>Регистрация</SubTitle>
           <RegisterForm />
-          <div className="form-links">
-            <NavLink to='/auth/login' className='link-reg'>Есть логин?</NavLink>
-          </div>
+          <Box sx={{ textAlign: 'center' }}>
+            <NavLink to='/auth/login' className={classes.linkAuth}>Есть логин?</NavLink>
+          </Box>
         </>
       ) : (
         <>
-          <h2>Вход</h2>
+          <SubTitle>Вход</SubTitle>
           <LoginForm />
-          <div className="form-links">
-            <NavLink to='/auth/register' className='link-auth'>Нет логина?</NavLink>
-          </div>
+          <Box sx={{ textAlign: 'center' }}>
+            <NavLink to='/auth/register' className={classes.linkAuth}>Нет логина?</NavLink>
+          </Box>
         </>
       )}
-    </div>
+    </Box>
   )
 }

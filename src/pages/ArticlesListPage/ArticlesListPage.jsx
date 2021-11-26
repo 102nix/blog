@@ -15,12 +15,12 @@ export const ArticlesListPage = () => {
           <Grid container spacing={4}>
             {articles.map(article => (
               <Grid item key={article.id} xs={ 12 } md={ 4 }>
-                <Card>
+                <Card sx={{ height: '100%' }}>
                   <CardMedia
                     component="img"
                     height="150px"
                     image={article.img}
-                    alt="green iguana"
+                    alt=""
                   />
                   <CardContent sx={{ p: 0 }}>
                     <Typography gutterBottom variant="h5" component="div">

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import * as yup from 'yup'
-import { TextField } from '../common/form/TextField'
+import { ComponentInput } from '../common/form/TextField'
 import { handleChange, handleKeyDown } from '../../static/funcsForForm'
 import { useAuth } from '../../hooks/useAuth'
+import { Box, Button } from '@mui/material'
 
 export const RegisterForm = () => {
   const history = useHistory()
@@ -53,8 +54,18 @@ export const RegisterForm = () => {
   }
 
   return (
-    <form className="form-auth" onSubmit={handleSubmit}>
-      <TextField
+    <Box
+      component="form"
+      sx={{
+        '& > :not(style)': { m: 1, width: '25ch' },
+        display: 'flex',
+        flexDirection: 'column'
+      }}
+      noValidate
+      autoComplete="off"
+      onSubmit={handleSubmit}
+    >
+      <ComponentInput
         label="Электронная почта"
         name="email"
         value={data.email}
@@ -64,7 +75,7 @@ export const RegisterForm = () => {
         autoFocus
         onKeyDown={(e) => handleKeyDown(e)}
       />
-      <TextField
+      <ComponentInput
         label="Пароль"
         type="password"
         name="password"
@@ -74,7 +85,7 @@ export const RegisterForm = () => {
         className="input-auth-form"
         onKeyDown={(e) => handleKeyDown(e)}
       />
-      <TextField
+      <ComponentInput
         label="Повторить пароль"
         type="password"
         name="confirmpassword"
@@ -85,15 +96,15 @@ export const RegisterForm = () => {
         onKeyDown={(e) => handleKeyDown(e)}
       />
       <div className="form-actions">
-        <button
+        <Button
           type="submit"
           disabled={!isValid}
-          className="btn btn-login"
+          variant="contained"
         >
           Submit
-        </button>
-        <button className="btn btn-cansel" onClick={() => { history.push('/') }}>Отмена</button>
+        </Button>
+        <Button variant="outlined" onClick={() => { history.push('/') }}>Отмена</Button>
       </div>
-    </form>
+    </Box>
   )
 }
