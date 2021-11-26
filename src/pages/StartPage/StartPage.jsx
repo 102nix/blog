@@ -38,7 +38,7 @@ export const StartPage = () => {
   return (
     <Box sx={{ pl: 2, pr: 2, color: '#3f51b5' }}>
       <SubTitle>Статьи, посвещенные Frontend-у: ReactJS, JS, ...</SubTitle>
-      {startInfo.map(blog => (
+      {startInfo?.map(blog => (
         <div key={blog.img} className={classes.blog}>
           <div className={classes.imgBlock}>
             <img className={classes.img} src={blog.img} alt=""/>
