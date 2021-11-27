@@ -1,15 +1,45 @@
 import React from 'react'
-import './ModalEdit.scss'
+import { Box, Modal } from '@mui/material/'
 import { SubTitle } from '../common/typografy/SubTitle'
+import { useAdmin } from '../../hooks/useAdmin'
+import { useStore } from '../../hooks/useStore'
 import { AddArticleForm } from '../ui/AddArticleForm'
 
-export const ModalEdit = ({ article, onCloseModal, submitEdit }) => {
+const style = {
+  modalWindow: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 700,
+    bgcolor: 'rgb(190, 190, 190)',
+    boxShadow: 24,
+    p: 10
+  },
+  blockActions: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginTop: '30px'
+  }
+}
+export const ModalEdit = () => {
+  const { blog } = useStore()
+  const { handleCloseModalEdit, submitEdit, newArticle } = useAdmin()
+
   return (
-    <div className="modal-window">
-      <div className="modal_container">
-        <SubTitle>Редактирование</SubTitle>
-        <AddArticleForm article={article} onCloseModal={onCloseModal} submitEdit={submitEdit} />
-      </div>
+    <div>
+      <Modal
+        open={blog || newArticle}
+        onClose={handleCloseModalEdit}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style.modalWindow}>
+          <SubTitle>Редактирование</SubTitle>
+          <AddArticleForm article={blog} onCloseModal={handleCloseModalEdit} submitEdit={submitEdit} />
+        </Box>
+      </Modal>
     </div>
   )
 }

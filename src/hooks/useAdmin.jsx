@@ -19,7 +19,7 @@ export const AdminProvider = ({ children }) => {
   const [sortBy, setSortBy] = useState({ path: 'date', order: 'desc' })
   const [newArticle, setNewArticle] = useState(null)
   const [isDownload, setIsDownload] = useState(false)
-  const { articles, blog, getArticle, getAllArticles, setIsLoading, dispatch } = useStore()
+  const { articles, getArticle, getAllArticles, setIsLoading, dispatch } = useStore()
 
   const submitEdit = async (e, data, dataUri) => {
     e.preventDefault()
@@ -74,17 +74,20 @@ export const AdminProvider = ({ children }) => {
     handleDelArticle,
     handleEdit,
     setNewArticle,
-    setDownloadFB
+    isDownload,
+    setDownloadFB,
+    submitEdit,
+    newArticle,
+    handleCloseModalEdit
   }
   return (
     <AdminContext.Provider value={values}>
-      {(blog || newArticle === 'addArt') && (
+      {/* {(blog || newArticle === 'addArt') && (
         <ModalEdit article={blog} onCloseModal={handleCloseModalEdit} submitEdit={submitEdit} />
-      )}
-      {isDownload &&
-        <ModalDownload setDownloadFB={setDownloadFB} isDownload={isDownload} />
-      }
-      {children }
+      )} */}
+      <ModalEdit />
+      <ModalDownload/>
+      { children }
     </AdminContext.Provider>
   )
 }

@@ -98,7 +98,8 @@ export const LoginForm = () => {
         display: 'flex',
         justifyContent: 'space-between',
         marginBottom: '10px'
-      }}>        <Button
+      }}>
+        <Button
           type="submit"
           disabled={!isValid}
           variant="contained"
