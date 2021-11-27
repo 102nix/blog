@@ -1,4 +1,5 @@
 import React from 'react'
+import { Checkbox } from '@mui/material/'
 
 export const CheckBoxField = ({ name, value, onChange, children, error, ...rest }) => {
   const handleChange = () => {
@@ -11,7 +12,7 @@ export const CheckBoxField = ({ name, value, onChange, children, error, ...rest 
 
   return (
     <div className="form-check">
-      <input
+      <Checkbox
         className="input-checkbox"
         type="checkbox"
         value=""

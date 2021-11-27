@@ -1,40 +1,45 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { Box } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+
+const useStyles = makeStyles((theme) => ({
+  taAddArticle: {
+    background: 'transparent',
+    border: '1px solid rgb(90, 89, 89)',
+    width: '100%',
+    padding: '10px',
+    fontSize: '17px',
+    outline: 'none',
+    fontFamily: 'inherit',
+    marginBottom: '10px'
+  },
+  errText: {
+    color: '#eb4242'
+  }
+}))
 
 export const TextAreaField = ({ label, name, className, value, onChange, error, ...rest }) => {
+  const classes = useStyles()
   const handleChange = ({ target }) => {
     onChange({ name: target.name, value: target.value })
   }
 
-  // const getInputClasses = () => {
-  //   return "form-control" + (error ? " is-invalid" : "")
-  // }
   return (
-    <div className="mb-4">
+    <Box sx={{ marginBottom: '4px' }}>
       <label htmlFor={name}> {label}</label>
-      <div className="input-group">
-        <textarea
-          id={name}
-          name={name}
-          value={value}
-          onChange={handleChange}
-          className={className}
-          {...rest}
-          rows="10"
-        />
-      </div>
+      <Box
+        component="textarea"
+        id={name}
+        name={name}
+        value={value}
+        onChange={handleChange}
+        className={classes.taAddArticle}
+        {...rest}
+        rows="10"
+      />
       {error &&
-        <div className="error-field-form">{error}</div>
+        <Box className={classes.errText} component="div">{error}</Box>
       }
-    </div>
+    </Box>
   )
-}
-
-TextAreaField.propTypes = {
-  label: PropTypes.string,
-  type: PropTypes.string,
-  name: PropTypes.string,
-  value: PropTypes.string,
-  onChange: PropTypes.func,
-  error: PropTypes.string
 }

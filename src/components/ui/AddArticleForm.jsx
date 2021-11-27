@@ -4,6 +4,23 @@ import { ComponentInput } from '../common/form/TextField'
 import { TextAreaField } from '../common/form/TextAreaField'
 import { handleChange, handleKeyDown } from '../../static/funcsForForm'
 import { InputFile } from '../common/typografy/InputFile/InputFile'
+import { Box, Button } from '@mui/material'
+import SaveIcon from '@mui/icons-material/Save'
+import { makeStyles } from '@material-ui/core/styles'
+
+const useStyles = makeStyles((theme) => ({
+  errText: {
+    color: '#eb4242'
+  },
+  titleArticle: {
+    width: '100%'
+  },
+  formActions: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: '10px'
+  }
+}))
 
 export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
   const [data, setData] = useState({
@@ -11,6 +28,7 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
     article: article ? article.article : '',
     id: article ? article.id : Date.now()
   })
+  const classes = useStyles()
   const [dataUri, setDataUri] = useState(article?.img || '')
   const [errors, setErrors] = useState({})
   const [uploadName, setUploadName] = useState('')
@@ -56,7 +74,16 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
   // ////////////////////////////////////////////////////////////////
 
   return (
-    <form className='form-add-article' onSubmit={(e) => submitEdit(e, data, dataUri)}>
+    <Box
+      component="form"
+      sx={{
+        display: 'flex',
+        flexDirection: 'column'
+      }}
+      noValidate
+      autoComplete="off"
+      onSubmit={(e) => submitEdit(e, data, dataUri)}
+    >
       <ComponentInput
         label="Название статьи:"
         name="title"
@@ -65,7 +92,7 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
         error={errors.title}
         autoFocus
         placeholder="Новая..."
-        className="input-add-article"
+        className={classes.titleArticle}
         onKeyDown={(e) => handleKeyDown(e)}
       />
       <TextAreaField
@@ -73,7 +100,6 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
         id="article"
         type="text"
         name="article"
-        className="ta-add-article"
         value={data.article}
         error={errors.article}
         onChange={(target) => handleChange(setData, target)}
@@ -86,22 +112,17 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
         uploadName={uploadName}
         dataUri={dataUri}
       />
-      <div className="form-actions">
-        <button
+      <Box className={classes.formActions}>
+        <Button
           type="submit"
           disabled={!isValid}
-          className={isValid ? 'btn btn-save-article' : 'btn-disabled' }
+          variant="contained"
+          endIcon={<SaveIcon />}
         >
           Сохранить
-        </button>
-        <button
-          type="button"
-          className="btn btn-cansel"
-          onClick={onCloseModal}
-        >
-          Отмена
-        </button>
-      </div>
-    </form>
+        </Button>
+        <Button variant="outlined" type="button" onClick={onCloseModal}>Отмена</Button>
+      </Box>
+    </Box>
   )
 }

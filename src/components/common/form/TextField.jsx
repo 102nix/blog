@@ -1,11 +1,18 @@
 import React, { useState } from 'react'
 // import { handleKeyDown } from '../../../static/funcsForForm'
-import { TextField, FormControl, InputAdornment, IconButton } from '@mui/material'
+import { TextField, OutlinedInput, FormControl, InputAdornment, IconButton, InputLabel } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material/'
+import { FormHelperText } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 
+const useStyles = makeStyles((theme) => ({
+  errText: {
+    color: '#eb4242'
+  }
+}))
 export const ComponentInput = ({ label, type, name, className, value, onChange, error, ...rest }) => {
   const [showPassword, setShowPassword] = useState(false)
-
+  const classes = useStyles()
   const handleChange = ({ target }) => {
     onChange({ name: target.name, value: target.value })
   }
@@ -20,15 +27,14 @@ export const ComponentInput = ({ label, type, name, className, value, onChange, 
     <>
       {type === 'password' ? (
         <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-          <TextField
+          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+          <OutlinedInput
             error={!!error}
-            label={label}
             id={name}
             type={showPassword ? 'text' : type}
             name={name}
             value={value}
             onChange={handleChange}
-            helperText={error}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -41,7 +47,9 @@ export const ComponentInput = ({ label, type, name, className, value, onChange, 
                 </IconButton>
               </InputAdornment>
             }
+            label="Password"
           />
+          <FormHelperText className={classes.errText}>{error}</FormHelperText>
         </FormControl>
       ) : (
         <TextField

@@ -5,6 +5,7 @@ import { ComponentInput } from '../common/form/TextField'
 import { handleChange, handleKeyDown } from '../../static/funcsForForm'
 import { useAuth } from '../../hooks/useAuth'
 import { Box, Button } from '@mui/material'
+import SendIcon from '@mui/icons-material/Send'
 
 export const RegisterForm = () => {
   const history = useHistory()
@@ -57,7 +58,7 @@ export const RegisterForm = () => {
     <Box
       component="form"
       sx={{
-        '& > :not(style)': { m: 1, width: '25ch' },
+        '& > :not(style)': { m: 1, width: '35ch' },
         display: 'flex',
         flexDirection: 'column'
       }}
@@ -95,16 +96,22 @@ export const RegisterForm = () => {
         className="input-auth-form"
         onKeyDown={(e) => handleKeyDown(e)}
       />
-      <div className="form-actions">
+      <Box sx={{
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'space-between',
+        marginBottom: '10px'
+      }}>
         <Button
           type="submit"
           disabled={!isValid}
           variant="contained"
+          endIcon={<SendIcon />}
         >
-          Submit
+          Отправить
         </Button>
         <Button variant="outlined" onClick={() => { history.push('/') }}>Отмена</Button>
-      </div>
+      </Box>
     </Box>
   )
 }

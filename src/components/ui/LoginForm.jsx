@@ -6,6 +6,7 @@ import { CheckBoxField } from '../common/form/CheckBoxField'
 import { handleChange, handleKeyDown } from '../../static/funcsForForm'
 import { useAuth } from '../../hooks/useAuth'
 import { Box, Button } from '@mui/material'
+import LoginIcon from '@mui/icons-material/Login'
 
 export const LoginForm = () => {
   console.log('testing...')
@@ -56,7 +57,7 @@ export const LoginForm = () => {
     <Box
       component="form"
       sx={{
-        '& > :not(style)': { m: 1, width: '25ch' },
+        '& > :not(style)': { m: 1, width: '35ch' },
         display: 'flex',
         flexDirection: 'column'
       }}
@@ -92,15 +93,20 @@ export const LoginForm = () => {
       >
         Оставаться в системе
       </CheckBoxField>
-      <div className="form-actions">
-        <Button
+      <Box sx={{
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'space-between',
+        marginBottom: '10px'
+      }}>        <Button
           type="submit"
           disabled={!isValid}
           variant="contained"
+          endIcon={<LoginIcon />}
         >
-          Submit
+          Войти
         </Button>
         <Button variant="outlined" onClick={() => { history.push('/') }}>Отмена</Button>
-      </div>
+      </Box>
     </Box>)
 }
