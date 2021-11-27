@@ -82,7 +82,7 @@ export const AdminProvider = ({ children }) => {
         <ModalEdit article={blog} onCloseModal={handleCloseModalEdit} submitEdit={submitEdit} />
       )}
       {isDownload &&
-        <ModalDownload setDownloadFB={setDownloadFB} />
+        <ModalDownload setDownloadFB={setDownloadFB} isDownload={isDownload} />
       }
       {children }
     </AdminContext.Provider>
