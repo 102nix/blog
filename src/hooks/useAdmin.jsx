@@ -8,6 +8,7 @@ import { ModalDownload } from '../components/ModalDownload/ModalDownload'
 import httpService from '../services/http.service'
 import { toast } from 'react-toastify'
 import { ACTIONS } from '../state/constsAC'
+import SimpleSnackbar from '../components/common/Snackbar'
 
 const AdminContext = React.createContext()
 
@@ -20,6 +21,13 @@ export const AdminProvider = ({ children }) => {
   const [newArticle, setNewArticle] = useState(null)
   const [isDownload, setIsDownload] = useState(false)
   const { articles, getArticle, getAllArticles, setIsLoading, dispatch } = useStore()
+  const [open, setOpen] = useState(false)
+  const [textSnackBar, setTextSnackBar] = useState('')
+
+  const handleSnackbar = (text) => {
+    setOpen(true)
+    setTextSnackBar(text)
+  }
 
   const submitEdit = async (e, data, dataUri) => {
     e.preventDefault()
@@ -27,12 +35,12 @@ export const AdminProvider = ({ children }) => {
     data.date = new Date().toLocaleString() // see up
     try {
       await httpService.put('articles/' + data.id, data)
+      getAllArticles().then(() => handleSnackbar('Статьи обновлены!'))
+      handleCloseModalEdit()
     } catch (error) {
       console.log(error)
       toast.error(error)
     }
-    getAllArticles()
-    handleCloseModalEdit()
   }
 
   const handleEdit = (articleId) => {
@@ -54,7 +62,7 @@ export const AdminProvider = ({ children }) => {
   const handleDelArticle = async (articleId) => {
     try {
       await httpService.delete('articles/' + articleId)
-      getAllArticles()
+      getAllArticles().then(() => handleSnackbar('Статья удалена!'))
       setIsLoading(true)
     } catch (error) {
       console.log(error)
@@ -78,7 +86,10 @@ export const AdminProvider = ({ children }) => {
     setDownloadFB,
     submitEdit,
     newArticle,
-    handleCloseModalEdit
+    handleCloseModalEdit,
+    open,
+    handleClose: () => setOpen(false),
+    textSnackBar
   }
   return (
     <AdminContext.Provider value={values}>
@@ -88,6 +99,7 @@ export const AdminProvider = ({ children }) => {
       <ModalEdit />
       <ModalDownload/>
       { children }
+      <SimpleSnackbar />
     </AdminContext.Provider>
   )
 }
