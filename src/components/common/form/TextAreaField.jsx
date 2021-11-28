@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '17px',
     outline: 'none',
     fontFamily: 'inherit',
-    marginBottom: '10px'
+    margin: '10px 0'
   },
   errText: {
     color: '#eb4242'
@@ -25,7 +25,7 @@ export const TextAreaField = ({ label, name, className, value, onChange, error, 
   }
 
   return (
-    <Box sx={{ marginBottom: '4px' }}>
+    <Box sx={{ margin: '10px 0' }}>
       <label htmlFor={name}> {label}</label>
       <Box
         component="textarea"

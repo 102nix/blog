@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import './NavbarComponent.scss'
+// import './NavbarComponent.scss'
 import { useNavbar } from '../../hooks/useNavbar'
 import { AppBar, Toolbar, Typography, IconButton, Button, Menu, MenuItem } from '@material-ui/core'
 import MenuIcon from '@mui/icons-material/Menu'
@@ -8,6 +8,9 @@ import { makeStyles } from '@material-ui/core/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
 const useStyles = makeStyles((theme) => ({
+  rootNav: {
+    width: '100%'
+  },
   menuButton: {
     flexGrow: 0
   },
@@ -36,7 +39,7 @@ export const NavbarComponent = () => {
     setAnchorEl(null)
   }
   return (
-    <AppBar position="static">
+    <AppBar position="static" className={classes.rootNav}>
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
           БлогFrontend

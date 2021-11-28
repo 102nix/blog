@@ -8,13 +8,14 @@ import { AddArticleForm } from '../ui/AddArticleForm'
 const style = {
   modalWindow: {
     position: 'absolute',
-    top: '50%',
+    top: '55%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 700,
+    maxWidth: '650px',
+    width: '100%',
     bgcolor: 'rgb(190, 190, 190)',
     boxShadow: 24,
-    p: 10
+    p: '10px 30px 30px 30px'
   },
   blockActions: {
     display: 'flex',
@@ -30,12 +31,12 @@ export const ModalEdit = () => {
   return (
     <div>
       <Modal
-        open={blog || newArticle}
+        open={!!blog || !!newArticle}
         onClose={handleCloseModalEdit}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style.modalWindow}>
+        <Box sx={style.modalWindow} component="div">
           <SubTitle>Редактирование</SubTitle>
           <AddArticleForm article={blog} onCloseModal={handleCloseModalEdit} submitEdit={submitEdit} />
         </Box>

@@ -11,7 +11,8 @@ const style = {
     top: '40%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 700,
+    maxWidth: 700,
+    width: '100%',
     bgcolor: 'rgb(190, 190, 190)',
     boxShadow: 24,
     p: 10
@@ -33,7 +34,7 @@ export const ModalDownload = () => {
   return (
     <div>
       <Modal
-        open={isDownload}
+        open={!!isDownload}
         onClose={setDownloadFB}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"

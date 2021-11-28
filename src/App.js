@@ -12,24 +12,26 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { StateProvider } from './hooks/useStore'
 import { StartPage } from './pages/StartPage/StartPage'
-import { Grid, Box } from '@material-ui/core'
+import { Container } from '@material-ui/core'
 
 function App () {
   const { isAuth } = useAuth()
   return (
-    <Grid container spacing={0}>
+    <>
       <StateProvider>
-        <NavbarContainer />
-        <Box sx={{ maxWidth: '970px', margin: 'auto' }}>
-          <Route exact path='/' component={StartPage} />
-          <Route path='/articles/:articleId?' component={ArticlesContainer} />
-          <Route path='/auth/:type?' component={Auth} />
-          {/* <Route path='/admin' component={AdminContainer} /> */}
-          <ProtectedRoute path='/admin' component={AdminContainer} auth={isAuth} />
-        </Box>
+        <>
+          <NavbarContainer />
+          <Container maxWidth="md">
+            <Route exact path='/' component={StartPage} />
+            <Route path='/articles/:articleId?' component={ArticlesContainer} />
+            <Route path='/auth/:type?' component={Auth} />
+            {/* <Route path='/admin' component={AdminContainer} /> */}
+            <ProtectedRoute path='/admin' component={AdminContainer} auth={isAuth} />
+          </Container>
+        </>
       </StateProvider>
       <ToastContainer />
-    </Grid>
+    </>
   )
 }
 
