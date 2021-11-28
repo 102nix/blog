@@ -1,10 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 // images:
-import DeletePNG from '../../../assets/imgs/delete1x.png'
-import EditPNG from '../../../assets/imgs/edit1x.png'
-import { TableBody, TableRow, TableCell } from '@mui/material/'
+// import DeletePNG from '../../../assets/imgs/delete1x.png'
+// import EditPNG from '../../../assets/imgs/edit1x.png'
+import { TableBody, TableRow, TableCell, IconButton, Tooltip } from '@mui/material/'
 import { makeStyles } from '@material-ui/core/styles'
+import DeleteIcon from '@mui/icons-material/Delete'
+import EditIcon from '@mui/icons-material/Edit'
 
 const useStyles = makeStyles((theme) => ({
   tdStyle: {
@@ -28,15 +30,22 @@ export const TblBody = ({ data, columns, onDelete, onEdit }) => {
               onClick={() => onEdit(item.id)}
               key={column}
             >
-              <img src={EditPNG} alt=''/>
+              <Tooltip title="Edit">
+                <IconButton>
+                  <EditIcon />
+                </IconButton>
+              </Tooltip>
             </TableCell>
           ) : column === 'delete' ? (
             <TableCell
-              className={classes.tdStyle}
               onClick={() => onDelete(item.id)}
               key={column}
             >
-              <img src={DeletePNG} alt=''/>
+              <Tooltip title="Delete">
+                <IconButton>
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
             </TableCell>
           ) : (
             <TableCell key={column}>
