@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-
 *{
   margin: 0;
   padding: 0;
@@ -11,79 +10,7 @@ body{
   font-size: 16px;
   font-family: 'Roboto', sans-serif;
 }
-// .content{
-//   max-width: 970px;
-//   margin: 0 auto;
-// }
-.btn{
-  padding: 10px;
-  cursor: pointer;
-  border: none;
-  font-family: inherit;
-  border-radius: 3px;
-  &:hover{
-    opacity: 0.8;
-    transition: all .3s ease-out 0s;
-  }
-}
-.btn-disabled{
-  padding: 10px;
-  cursor: pointer;
-  border: none;
-  font-family: inherit;
-  border-radius: 3px;
-}
-.btn-login{
-  padding: 10px 20px;
-}
-.btn-cansel{
-  padding: 10px 20px;
-  background-color: rgb(233, 201, 201);
-}
-.btn-delete{
-  border-radius: 50%;
-  background-color: rgb(236, 77, 77);
-  color: #fff;
-  padding: 4px 7px;
-}
-.btn-span{
-  background-color: transparent;
-  border-bottom: 1px solid rgb(26, 25, 25);
-  border-radius: 0px;
-}
 .loader-container{
   width: 100%;
   text-align: center;
-}
-.loader-up-container{
-  position: fixed;
-  top: 100px;
-  width: 100%;
-  text-align: center;
-}
-.form-group {
-  margin-bottom: 15px;
-}
-.form-actions{
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-}
-.form-links{
-  text-align: center;
-}
-.input-group{
-  display: flex;
-  width: 100%;
-}
-input {outline: none;}
-input:-webkit-autofill {
-    -webkit-box-shadow: inset 0 0 0 50px #c8d9fd !important; /* Цвет фона */
-}
-
-@media (max-width: 768px){
-  .loader-container{
-    padding-top: 150px;
-    margin-left: -20px;
-  }
 }
