@@ -3,22 +3,24 @@ import * as yup from 'yup'
 import { ComponentInput } from '../common/form/TextField'
 import { TextAreaField } from '../common/form/TextAreaField'
 import { handleChange, handleKeyDown } from '../../static/funcsForForm'
-import { InputFile } from '../common/typografy/InputFile/InputFile'
-import { Box, Button } from '@mui/material'
+import { InputFile } from '../common/form/InputFile'
+import { Button } from '@mui/material'
 import SaveIcon from '@mui/icons-material/Save'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
-  errText: {
-    color: '#eb4242'
+  root: {
+    '& > :not(style)': { m: 'auto', width: '100%' },
+    display: 'flex',
+    flexDirection: 'column'
   },
-  titleArticle: {
-    width: '100%'
-  },
-  formActions: {
+  divActions: {
     display: 'flex',
     justifyContent: 'space-between',
     padding: '10px'
+  },
+  errText: {
+    color: '#eb4242'
   }
 }))
 
@@ -74,12 +76,9 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
   // ////////////////////////////////////////////////////////////////
 
   return (
-    <Box
+    <form
       component="form"
-      sx={{
-        display: 'flex',
-        flexDirection: 'column'
-      }}
+      className={ classes.root }
       noValidate
       autoComplete="off"
       onSubmit={(e) => submitEdit(e, data, dataUri)}
@@ -92,7 +91,6 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
         error={errors.title}
         autoFocus
         placeholder="Новая..."
-        className={classes.titleArticle}
         onKeyDown={(e) => handleKeyDown(e)}
       />
       <TextAreaField
@@ -112,7 +110,7 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
         uploadName={uploadName}
         dataUri={dataUri}
       />
-      <Box className={classes.formActions}>
+      <div className={classes.divActions}>
         <Button
           type="submit"
           disabled={!isValid}
@@ -122,7 +120,7 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
           Сохранить
         </Button>
         <Button variant="outlined" type="button" onClick={onCloseModal}>Отмена</Button>
-      </Box>
-    </Box>
+      </div>
+    </form>
   )
 }

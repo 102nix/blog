@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '17px',
     outline: 'none',
     fontFamily: 'inherit',
-    margin: '10px 0'
+    marginTop: theme.spacing(2)
   },
   errText: {
     color: '#eb4242'

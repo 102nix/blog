@@ -1,8 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-// images:
-// import DeletePNG from '../../../assets/imgs/delete1x.png'
-// import EditPNG from '../../../assets/imgs/edit1x.png'
 import { TableBody, TableRow, TableCell, IconButton, Tooltip } from '@mui/material/'
 import { makeStyles } from '@material-ui/core/styles'
 import DeleteIcon from '@mui/icons-material/Delete'
@@ -56,9 +52,4 @@ export const TblBody = ({ data, columns, onDelete, onEdit }) => {
       </TableRow>)}
     </TableBody>
   )
-}
-
-TableBody.protoTypes = {
-  data: PropTypes.array.isRequired,
-  columns: PropTypes.object.isRequired
 }

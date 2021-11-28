@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 // images:
 import downPNG from '../../../assets/imgs/down.png'
 import upPNG from '../../../assets/imgs/up.png'
@@ -7,12 +6,6 @@ import { TableHead, TableRow, TableCell } from '@mui/material/'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
-  headTh: {
-    [theme.breakpoints.down('xs')]: {
-      padding: 0,
-      fontSize: '10px'
-    }
-  },
   sortHeader: {
     cursor: 'pointer',
     transform: 'scaleX(1)',
@@ -43,7 +36,7 @@ export const TableHeader = ({ onSort, selectedSort, columns }) => {
           <TableCell
             key={column}
             onClick={columns[column].path ? () => handleSort(columns[column].path) : undefined}
-            className={columns[column].path ? `${classes.sortHeader} ${classes.headTh}` : classes.headTh}
+            className={columns[column].path && classes.sortHeader}
           >
             {(columns[column].path === selectedSort.path && selectedSort.order === 'desc') &&
               <div><img src={upPNG} alt=''/></div>
@@ -57,10 +50,4 @@ export const TableHeader = ({ onSort, selectedSort, columns }) => {
       </TableRow>
     </TableHead>
   )
-}
-
-TableHeader.propTypes = {
-  onSort: PropTypes.func.isRequired,
-  selectedSort: PropTypes.object.isRequired,
-  columns: PropTypes.object.isRequired
 }

@@ -6,14 +6,9 @@ export const CheckBoxField = ({ name, value, onChange, children, error, ...rest 
     onChange({ name: name, value: !value })
   }
 
-  // const getInputClasses = () => {
-  //   return "form-check-input" + (error ? " is-invalid" : "")
-  // }
-
   return (
     <div className="form-check">
       <Checkbox
-        className="input-checkbox"
         type="checkbox"
         value=""
         onChange={handleChange}

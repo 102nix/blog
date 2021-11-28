@@ -1,6 +1,4 @@
 import React from 'react'
-// import './InputFile.scss'
-import { Box } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
@@ -10,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    marginBottom: '10px',
+    marginBottom: theme.spacing(2),
     border: '1px solid #ccc',
     padding: '10px 12px'
   },
@@ -60,18 +58,18 @@ const useStyles = makeStyles((theme) => ({
 export const InputFile = ({ article, fileUploadInputChange, uploadName, dataUri }) => {
   const classes = useStyles()
   return (
-    <Box className={classes.customFileUpload} component="div">
+    <div className={classes.customFileUpload}>
       {article?.img && !dataUri ? (
-        <Box className={classes.imgBlock} component="div">
+        <div className={classes.imgBlock}>
           <img src={article.img} alt="" className={classes.img}/>
-        </Box>
+        </div>
       ) : (
-        <Box className={classes.imgBlock} component="div">
+        <div className={classes.imgBlock}>
           <img src={dataUri} alt="" className={classes.img}/>
-        </Box>
+        </div>
       )
       }
-      <Box className={classes.fileInput} component="div">
+      <div className={classes.fileInput}>
         <input
           type="file"
           id="file"
@@ -80,7 +78,7 @@ export const InputFile = ({ article, fileUploadInputChange, uploadName, dataUri 
         />
         <label htmlFor="file" className={classes.fileInputLabel}>Select file</label>
         <p>{uploadName}</p>
-      </Box>
-    </Box>
+      </div>
+    </div>
   )
 }
