@@ -13,7 +13,8 @@ const useStyles = makeStyles((theme) => ({
     border: '2px solid #0012ff',
     borderRadius: '3px',
     padding: '10px 40px 40px 40px',
-    marginTop: '10px'
+    margin: '20px auto',
+    maxWidth: '550px'
   },
   linkAuth: {
     textDecoration: 'none',

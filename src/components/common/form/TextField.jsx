@@ -6,11 +6,14 @@ import { FormHelperText } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    marginBottom: theme.spacing(2)
+  },
   errText: {
     color: '#eb4242'
   }
 }))
-export const ComponentInput = ({ label, type, name, className, value, onChange, error, ...rest }) => {
+export const ComponentInput = ({ label, type, name, value, onChange, error, ...rest }) => {
   const [showPassword, setShowPassword] = useState(false)
   const classes = useStyles()
   const handleChange = ({ target }) => {
@@ -31,6 +34,7 @@ export const ComponentInput = ({ label, type, name, className, value, onChange, 
           <OutlinedInput
             error={!!error}
             id={name}
+            className={classes.root}
             type={showPassword ? 'text' : type}
             name={name}
             value={value}
@@ -57,10 +61,12 @@ export const ComponentInput = ({ label, type, name, className, value, onChange, 
           error={!!error}
           type={showPassword ? 'text' : type}
           id={name}
+          className={classes.root}
           name={name}
           value={value}
           onChange={handleChange}
           helperText={error}
+          fullwidth
           {...rest}
         />
       )}

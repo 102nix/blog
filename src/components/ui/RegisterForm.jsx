@@ -4,8 +4,7 @@ import * as yup from 'yup'
 import { ComponentInput } from '../common/form/TextField'
 import { handleChange, handleKeyDown } from '../../static/funcsForForm'
 import { useAuth } from '../../hooks/useAuth'
-import { Box, Button } from '@mui/material'
-import SendIcon from '@mui/icons-material/Send'
+import { FormTemplate } from '../common/form/FormTemplate'
 
 export const RegisterForm = () => {
   const history = useHistory()
@@ -55,17 +54,7 @@ export const RegisterForm = () => {
   }
 
   return (
-    <Box
-      component="form"
-      sx={{
-        '& > :not(style)': { m: 1, width: '35ch' },
-        display: 'flex',
-        flexDirection: 'column'
-      }}
-      noValidate
-      autoComplete="off"
-      onSubmit={handleSubmit}
-    >
+    <FormTemplate handleSubmit={handleSubmit} isValid={isValid}>
       <ComponentInput
         label="Электронная почта"
         name="email"
@@ -96,22 +85,6 @@ export const RegisterForm = () => {
         className="input-auth-form"
         onKeyDown={(e) => handleKeyDown(e)}
       />
-      <Box sx={{
-        width: '100%',
-        display: 'flex',
-        justifyContent: 'space-between',
-        marginBottom: '10px'
-      }}>
-        <Button
-          type="submit"
-          disabled={!isValid}
-          variant="contained"
-          endIcon={<SendIcon />}
-        >
-          Отправить
-        </Button>
-        <Button variant="outlined" onClick={() => { history.push('/') }}>Отмена</Button>
-      </Box>
-    </Box>
+    </FormTemplate>
   )
 }

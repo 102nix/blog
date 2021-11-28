@@ -5,8 +5,7 @@ import { ComponentInput } from '../common/form/TextField'
 import { CheckBoxField } from '../common/form/CheckBoxField'
 import { handleChange, handleKeyDown } from '../../static/funcsForForm'
 import { useAuth } from '../../hooks/useAuth'
-import { Box, Button } from '@mui/material'
-import LoginIcon from '@mui/icons-material/Login'
+import { FormTemplate } from '../common/form/FormTemplate'
 
 export const LoginForm = () => {
   console.log('testing...')
@@ -54,24 +53,13 @@ export const LoginForm = () => {
   }
 
   return (
-    <Box
-      component="form"
-      sx={{
-        '& > :not(style)': { m: 1, width: '35ch' },
-        display: 'flex',
-        flexDirection: 'column'
-      }}
-      noValidate
-      autoComplete="off"
-      onSubmit={handleSubmit}
-    >
+    <FormTemplate handleSubmit={handleSubmit} isValid={isValid}>
       <ComponentInput
         label="Электронная почта"
         name="email"
         value={data.email}
         onChange={(target) => handleChange(setData, target)}
         error={errors.email}
-        className="input-auth-form"
         autoFocus
         onKeyDown={(e) => handleKeyDown(e)}
       />
@@ -93,21 +81,5 @@ export const LoginForm = () => {
       >
         Оставаться в системе
       </CheckBoxField>
-      <Box sx={{
-        width: '100%',
-        display: 'flex',
-        justifyContent: 'space-between',
-        marginBottom: '10px'
-      }}>
-        <Button
-          type="submit"
-          disabled={!isValid}
-          variant="contained"
-          endIcon={<LoginIcon />}
-        >
-          Войти
-        </Button>
-        <Button variant="outlined" onClick={() => { history.push('/') }}>Отмена</Button>
-      </Box>
-    </Box>)
+    </FormTemplate>)
 }

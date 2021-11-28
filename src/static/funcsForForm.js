@@ -2,7 +2,7 @@ export const handleChange = (setData, target) => {
   console.log(target)
   setData(prevSate => ({
     ...prevSate,
-    [target.name]: target.value
+    [target.name]: typeof target.value === 'boolean' ? target.value : target.value.trim()
   }))
 }
 
