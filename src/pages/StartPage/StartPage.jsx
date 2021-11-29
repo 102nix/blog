@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(4),
     border: '1px solid #fff',
     borderRadius: '5px',
-    boxShadow: '3px 5px 7px #fff'
+    boxShadow: '1px 3px 9px 8px #fff'
   },
   imgBlock: {
     maxWidth: '550px',
@@ -37,7 +37,7 @@ export const StartPage = () => {
   const classes = useStyles()
   return (
     <div>
-      <SubTitle>Статьи, посвещенные Frontend-у: ReactJS, JS, ...</SubTitle>
+      <SubTitle>О Frontend: ReactJS, JS, ...</SubTitle>
       {startInfo?.map(blog => (
         <div key={blog.img} className={classes.blog}>
           <div className={classes.imgBlock}>
