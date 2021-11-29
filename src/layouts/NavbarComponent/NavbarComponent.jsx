@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, NavLink } from 'react-router-dom'
 // import './NavbarComponent.scss'
 import { useNavbar } from '../../hooks/useNavbar'
 import { AppBar, Toolbar, Typography, IconButton, Button, Menu, MenuItem } from '@material-ui/core'
@@ -15,12 +15,15 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 0
   },
   menuList: {
+    '& a.active': {
+      fontWeight: 'bold',
+      textDecoration: 'underline'
+    },
     display: 'flex',
     flexGrow: 1
   },
   title: {
     flexGrow: 1
-    // marginRight: theme.spacing(2)
   }
 }))
 
@@ -91,13 +94,13 @@ export const NavbarComponent = () => {
         ) : (
           <>
             <div className={classes.menuList}>
-              <MenuItem onClick={() => handleMenuClick('/')}>
+              <MenuItem exact to='/' component={NavLink}>
                 Главная
               </MenuItem>
-              <MenuItem onClick={() => handleMenuClick('/articles')}>
+              <MenuItem to='/articles' component={NavLink}>
                 Список статей
               </MenuItem>
-              <MenuItem onClick={() => handleMenuClick('/admin')}>
+              <MenuItem to='/admin' component={NavLink}>
                 RootДоступ
               </MenuItem>
             </div>
