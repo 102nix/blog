@@ -1,9 +1,10 @@
-export const handleChange = (setData, target) => {
+export const handleChange = (setData, target, setEnterErrors) => {
   console.log(target)
   setData(prevSate => ({
     ...prevSate,
     [target.name]: typeof target.value === 'boolean' ? target.value : target.value.trim()
   }))
+  setEnterErrors(null)
 }
 
 export const handleSubmit = (e, validate, data) => {

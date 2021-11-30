@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from '@mui/material'
+import { Button, Typography } from '@mui/material'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
@@ -14,9 +14,12 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-evenly',
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2)
+  },
+  enterCls: {
+    color: 'red'
   }
 }))
-export const FormTemplate = ({ handleSubmit, isValid, children }) => {
+export const FormTemplate = ({ handleSubmit, isValid, enterErrors, children }) => {
   const classes = useStyles()
   return (
     <form
@@ -30,11 +33,12 @@ export const FormTemplate = ({ handleSubmit, isValid, children }) => {
       <div className={ classes.divActions}>
         <Button
           type="submit"
-          disabled={!isValid}
+          disabled={!isValid || enterErrors}
           variant="outlined"
         >
           Войти
         </Button>
+        {enterErrors && <Typography className={classes.enterCls} variant="body2" gutterBottom>{enterErrors}</Typography>}
         <Button variant="outlined" onClick={() => { history.push('/') }}>Отмена</Button>
       </div>
     </form>

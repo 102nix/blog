@@ -8,7 +8,6 @@ import { useAuth } from '../../hooks/useAuth'
 import { FormTemplate } from '../common/form/FormTemplate'
 
 export const LoginForm = () => {
-  console.log('testing...')
   const history = useHistory()
   const { login } = useAuth()
   const [data, setData] = useState({
@@ -17,13 +16,11 @@ export const LoginForm = () => {
 
   const { signIn } = useAuth()
   const [errors, setErrors] = useState({})
+  const [enterErrors, setEnterErrors] = useState(null)
 
   const validateScheme = yup.object().shape({
-    password: yup.string().required('Пароль обязателен для заполнения')
-      .matches(/(?=.*[A-Z])/, 'Пароль должен содержать хотябы 1 заглавную букву')
-      .matches(/(?=.*[0-9])/, 'Пароль должен содержать хотябы 1 число')
-      .matches(/(?=.{8,})/, 'Пароль должен состоять минимум из 8 символов'),
-    email: yup.string().required('Email обязательно для заполнения').email('Email введён некорректно')
+    password: yup.string().required('Пароль обязателен для заполнения'),
+    email: yup.string().required('Email обязательно для заполнения')
   })
 
   const validate = () => {
@@ -49,16 +46,17 @@ export const LoginForm = () => {
       history.push('/')
     } catch (error) {
       setErrors(error)
+      setEnterErrors(error.message)
     }
   }
 
   return (
-    <FormTemplate handleSubmit={handleSubmit} isValid={isValid}>
+    <FormTemplate handleSubmit={handleSubmit} isValid={isValid} enterErrors={enterErrors}>
       <ComponentInput
         label="Электронная почта"
         name="email"
         value={data.email}
-        onChange={(target) => handleChange(setData, target)}
+        onChange={(target) => handleChange(setData, target, setEnterErrors)}
         error={errors.email}
         autoFocus
         onKeyDown={(e) => handleKeyDown(e)}
@@ -68,14 +66,14 @@ export const LoginForm = () => {
         type="password"
         name="password"
         value={data.password}
-        onChange={(target) => handleChange(setData, target)}
+        onChange={(target) => handleChange(setData, target, setEnterErrors)}
         error={errors.password}
         className="input-auth-form"
         onKeyDown={(e) => handleKeyDown(e)}
       />
       <CheckBoxField
         value={data.stayOn}
-        onChange={(target) => handleChange(setData, target)}
+        onChange={(target) => handleChange(setData, target, setEnterErrors)}
         name='stayOn'
         onKeyDown={(e) => handleKeyDown(e)}
       >

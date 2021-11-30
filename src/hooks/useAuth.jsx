@@ -3,7 +3,12 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import { setTokens } from '../services/localStorage.service'
 
-const httpAuth = axios.create()
+const httpAuth = axios.create({
+  baseURL: 'https://identitytoolkit.googleapis.com/v1/',
+  params: {
+    key: process.env.REACT_APP_FIREBASE_KET
+  }
+})
 const AuthContext = React.createContext()
 
 export const useAuth = () => {
@@ -21,9 +26,8 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('login', false)
   }
   async function signUp ({ email, password }) {
-    const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_FIREBASE_KET}`
     try {
-      const { data } = await httpAuth.post(url, { email, password, returnSecureToken: true })
+      const { data } = await httpAuth.post('accounts:signUp', { email, password, returnSecureToken: true })
       setTokens(data)
       console.log(data)
     } catch (error) {
@@ -40,26 +44,23 @@ export const AuthProvider = ({ children }) => {
     }
   }
   async function signIn ({ email, password, ...rest }) {
-    const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_FIREBASE_KET}`
     try {
-      const { data } = await httpAuth.post(url, { email, password, returnSecureToken: true })
+      const { data } = await httpAuth.post('accounts:signInWithPassword', { email, password, returnSecureToken: true })
       setTokens(data)
       console.log(data)
     } catch (error) {
       errorCatcher(error)
       console.log(error.response.data.error)
-      const { code } = error.response.data.error
-      if (code === 400) {
-        // if (message === 'INVALID_PASSWORD') {
-        //   const errorObject = {
-        //     email: 'Неверный Email или пароль'
-        //   }
-        //   throw errorObject
-        // }
-        const errorObject = {
-          email: 'Неверный Email или пароль'
+      const { code, message } = error.response.data.error
+      if (code === 400) { // EMAIL_NOT_FOUND
+        switch (message) {
+        case 'INVALID_PASSWORD':
+          throw new Error('Неверный Email или пароль!')
+        case 'EMAIL_NOT_FOUND':
+          throw new Error('Введенный Email не найден!')
+        default:
+          throw new Error('Слишком много попыток входа. Попробуйте позднее!')
         }
-        throw errorObject
       }
     }
   }

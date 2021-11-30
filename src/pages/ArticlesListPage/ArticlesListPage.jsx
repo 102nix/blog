@@ -26,7 +26,7 @@ export const ArticlesListPage = () => {
                     <Typography gutterBottom variant="h5" component="div">
                       {article.title}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2">
                       {article.article.slice(0, 59)}...
                     </Typography>
                   </CardContent>

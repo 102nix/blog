@@ -52,10 +52,10 @@ export const ArticlePage = () => {
                 <img src={blog.img} alt="" className={classes.img} />
               </div>
               {blog.article.split(' ~ ').map(textBlog => (
-                <Typography variant="body1" gutterBottom key={textBlog.id}>{textBlog}</Typography>
+                <Typography variant="body1" gutterBottom key={textBlog}>{textBlog}</Typography>
               ))}
             </div>
-            <Button size="big" color="primary" className={classes.btnBack} onClick={() => history.goBack()}>
+            <Button size="medium" color="primary" className={classes.btnBack} onClick={() => history.goBack()}>
               Назад
             </Button>
           </div>

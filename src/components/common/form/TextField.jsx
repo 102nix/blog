@@ -66,7 +66,6 @@ export const ComponentInput = ({ label, type, name, value, onChange, error, ...r
           value={value}
           onChange={handleChange}
           helperText={error}
-          fullwidth
           {...rest}
         />
       )}
