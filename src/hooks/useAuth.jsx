@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
       }
     }
   }
-  async function signIn ({ email, password, ...rest }) {
+  async function signIn ({ email, password }) {
     try {
       const { data } = await httpAuth.post('accounts:signInWithPassword', { email, password, returnSecureToken: true })
       setTokens(data)
@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
       errorCatcher(error)
       console.log(error.response.data.error)
       const { code, message } = error.response.data.error
-      if (code === 400) { // EMAIL_NOT_FOUND
+      if (code === 400) {
         switch (message) {
         case 'INVALID_PASSWORD':
           throw new Error('Неверный Email или пароль!')

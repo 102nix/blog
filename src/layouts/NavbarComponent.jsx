@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory, NavLink } from 'react-router-dom'
 // import './NavbarComponent.scss'
-import { useNavbar } from '../../hooks/useNavbar'
+import { useAuth } from '../hooks/useAuth'
 import { AppBar, Toolbar, Typography, IconButton, Button, Menu, MenuItem } from '@material-ui/core'
 import MenuIcon from '@mui/icons-material/Menu'
 import { makeStyles } from '@material-ui/core/styles'
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const NavbarComponent = () => {
   const [anchorEl, setAnchorEl] = useState(null)
-  const { isAuth, logout } = useNavbar()
+  const { isAuth, logout } = useAuth()
   const classes = useStyles()
   const history = useHistory()
   const matches = useMediaQuery('(max-width:768px)')

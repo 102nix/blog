@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-import { NavbarContainer } from './components/NavbarContainer/NavbarContainer'
+import { NavbarContainer } from './components/NavbarContainer'
 // import { StartContainer } from './components/StartContainer/StartContainer'
 import { Auth } from './layouts/Auth/Auth'
 import { AdminContainer } from './components/AdminContainer/AdminContainer'

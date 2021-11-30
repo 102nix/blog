@@ -1,6 +1,6 @@
 import React from 'react'
-import { NavbarProvider } from '../../hooks/useNavbar'
-import { NavbarComponent } from '../../layouts/NavbarComponent/NavbarComponent'
+import { NavbarProvider } from '../hooks/useNavbar'
+import { NavbarComponent } from '../layouts/NavbarComponent'
 
 export const NavbarContainer = () => {
   return (
