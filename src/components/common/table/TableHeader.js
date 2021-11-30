@@ -8,10 +8,10 @@ import { makeStyles } from '@material-ui/core/styles'
 const useStyles = makeStyles((theme) => ({
   sortHeader: {
     cursor: 'pointer',
-    transform: 'scaleX(1)',
+    transition: 'all .2s ease-in-out',
     '&:hover': {
-      transition: 'all .2s ease',
-      transform: 'scaleX(1.05)'
+      transition: 'all .2s ease-in',
+      transform: 'scale(1.015)'
     }
   }
 }))

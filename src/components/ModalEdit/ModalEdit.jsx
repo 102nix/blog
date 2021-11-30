@@ -8,7 +8,7 @@ import { AddArticleForm } from '../ui/AddArticleForm'
 const style = {
   modalWindow: {
     position: 'absolute',
-    top: '55%',
+    top: '49%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     maxWidth: '650px',

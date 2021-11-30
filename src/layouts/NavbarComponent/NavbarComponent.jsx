@@ -6,6 +6,8 @@ import { AppBar, Toolbar, Typography, IconButton, Button, Menu, MenuItem } from 
 import MenuIcon from '@mui/icons-material/Menu'
 import { makeStyles } from '@material-ui/core/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import LogoutIcon from '@mui/icons-material/Logout'
+import LoginIcon from '@mui/icons-material/Login'
 
 const useStyles = makeStyles((theme) => ({
   rootNav: {
@@ -77,7 +79,7 @@ export const NavbarComponent = () => {
             </div>
           ) : (
             <MenuItem onClick={logout}>
-              Выход
+              <LogoutIcon fontSize="inherit" /> Выход
             </MenuItem>
           ) }
         </Menu>
@@ -105,9 +107,9 @@ export const NavbarComponent = () => {
               </MenuItem>
             </div>
             {!isAuth ? (
-              <Button color="inherit" onClick={() => handleMenuClick('/auth/login')}>Login</Button>
+              <Button color="inherit" onClick={() => handleMenuClick('/auth/login')}><LoginIcon fontSize="inherit" />Login</Button>
             ) : (
-              <Button color="inherit" onClick={logout}>Выход</Button>
+              <Button color="inherit" onClick={logout}><LogoutIcon fontSize="inherit" /> Выход</Button>
             )}
           </>
         )
