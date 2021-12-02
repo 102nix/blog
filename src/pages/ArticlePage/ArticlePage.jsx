@@ -1,7 +1,5 @@
 import React from 'react'
-// import { ArticleText } from '../../components/common/typografy/ArticleText/ArticleText'
 import { SubTitle } from '../../components/common/typografy/SubTitle'
-import { useStore } from '../../hooks/useStore'
 import { useHistory } from 'react-router'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography, Button } from '@material-ui/core'
@@ -37,29 +35,23 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export const ArticlePage = () => {
-  const { blog } = useStore()
+export const ArticlePage = ({ blog }) => {
   const classes = useStyles()
   const history = useHistory()
   return (
-    <>
-      {
-        blog !== null &&
-          <div className={classes.root}>
-            <SubTitle>{blog.title}</SubTitle>
-            <div className={classes.currentArticleBody}>
-              <div className={classes.imgBlock}>
-                <img src={blog.img} alt="" className={classes.img} />
-              </div>
-              {blog.article.split(' ~ ').map(textBlog => (
-                <Typography variant="body1" gutterBottom key={textBlog}>{textBlog}</Typography>
-              ))}
-            </div>
-            <Button size="medium" color="primary" className={classes.btnBack} onClick={() => history.goBack()}>
-              Назад
-            </Button>
-          </div>
-      }
-    </>
+    <div className={classes.root}>
+      <SubTitle>{blog.title}</SubTitle>
+      <div className={classes.currentArticleBody}>
+        <div className={classes.imgBlock}>
+          <img src={blog.img} alt="" className={classes.img} />
+        </div>
+        {blog.article.split(' ~ ').map(textBlog => (
+          <Typography variant="body1" gutterBottom key={textBlog}>{textBlog}</Typography>
+        ))}
+      </div>
+      <Button size="medium" color="primary" className={classes.btnBack} onClick={() => history.goBack()}>
+        Назад
+      </Button>
+    </div>
   )
 }
