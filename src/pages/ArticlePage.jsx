@@ -1,5 +1,5 @@
 import React from 'react'
-import { SubTitle } from '../../components/common/typografy/SubTitle'
+import { SubTitle } from '../components/common/typografy/SubTitle'
 import { useHistory } from 'react-router'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography, Button } from '@material-ui/core'

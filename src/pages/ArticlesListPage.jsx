@@ -1,5 +1,5 @@
 import React from 'react'
-import { SubTitle } from '../../components/common/typografy/SubTitle'
+import { SubTitle } from '../components/common/typografy/SubTitle'
 import { Grid, Card, CardMedia, CardContent, Button, Typography, CardActions } from '@material-ui/core'
 
 export const ArticlesListPage = ({ articles, handleOpenArticle }) => {

@@ -1,6 +1,6 @@
 import React from 'react'
-import { ArticlesListPage } from '../pages/ArticlesListPage/ArticlesListPage'
-import { ArticlePage } from '../pages/ArticlePage/ArticlePage'
+import { ArticlesListPage } from '../pages/ArticlesListPage'
+import { ArticlePage } from '../pages/ArticlePage'
 import { useStore } from '../hooks/useStore'
 
 export const ArticlesContainer = () => {
