@@ -77,7 +77,6 @@ export const StateProvider = ({ children }) => {
       getAllArticles()
     } else if (location.pathname.indexOf('/articles/') !== -1) {
       const arrUrl = location.pathname.split('/')
-      // getAllArticles()
       getArticle(arrUrl[2])
     } else if (location.pathname === '/') {
       getStartInfo()

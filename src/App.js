@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-import { NavbarContainer } from './components/NavbarContainer'
+import { NavbarComponent } from './layouts/NavbarComponent'
 // import { StartContainer } from './components/StartContainer/StartContainer'
 import { Auth } from './layouts/Auth/Auth'
 import { AdminContainer } from './components/AdminContainer/AdminContainer'
@@ -11,7 +11,7 @@ import './App.scss'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { StateProvider } from './hooks/useStore'
-import { StartPage } from './pages/StartPage/StartPage'
+import { StartPage } from './pages/StartPage'
 import { Container } from '@material-ui/core'
 
 function App () {
@@ -20,7 +20,7 @@ function App () {
     <>
       <StateProvider>
         <>
-          <NavbarContainer />
+          <NavbarComponent />
           <Container maxWidth="md">
             <Route exact path='/' component={StartPage} />
             <Route path='/articles/:articleId?' component={ArticlesContainer} />

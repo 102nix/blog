@@ -5,7 +5,6 @@ const articlesEndpoint = 'articles/'
 const articlesService = {
   get: async () => {
     const { data } = await httpService.get(articlesEndpoint)
-    console.log('__New: ', data)
     return data
   }
 }

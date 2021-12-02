@@ -1,9 +1,8 @@
 import React from 'react'
-import { SubTitle } from '../../components/common/typografy/SubTitle'
-import { useStore } from '../../hooks/useStore'
+import { SubTitle } from '../components/common/typografy/SubTitle'
+import { useStore } from '../hooks/useStore'
 import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-// import './StartPage.scss'
 
 const useStyles = makeStyles((theme) => ({
   title: {
