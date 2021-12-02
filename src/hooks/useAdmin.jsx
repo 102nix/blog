@@ -1,10 +1,9 @@
 import React, { useState, useContext } from 'react'
-// import Loader from 'react-loader-spinner'
 import _ from 'lodash'
-import { ModalEdit } from '../components/ModalEdit/ModalEdit'
+import { ModalEdit } from '../components/ModalEdit'
 import { useStore } from './useStore'
 import { columns } from '../static/sortData'
-import { ModalDownload } from '../components/ModalDownload/ModalDownload'
+import { ModalDownload } from '../components/ModalDownload'
 import httpService from '../services/http.service'
 import { toast } from 'react-toastify'
 import { ACTIONS } from '../state/constsAC'
@@ -44,7 +43,6 @@ export const AdminProvider = ({ children }) => {
   }
 
   const handleEdit = (articleId) => {
-    console.log(articleId)
     getArticle(articleId)
     setIsLoading(true)
   }
@@ -93,9 +91,6 @@ export const AdminProvider = ({ children }) => {
   }
   return (
     <AdminContext.Provider value={values}>
-      {/* {(blog || newArticle === 'addArt') && (
-        <ModalEdit article={blog} onCloseModal={handleCloseModalEdit} submitEdit={submitEdit} />
-      )} */}
       <ModalEdit />
       <ModalDownload/>
       { children }

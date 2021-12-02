@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(4),
     border: '1px solid #fff',
     borderRadius: '2px',
-    boxShadow: '1px 3px 7px 5px #64678b'
+    boxShadow: '7px 9px 11px rgb(8, 8, 8)'
   },
   imgBlock: {
     maxWidth: '550px',

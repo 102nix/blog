@@ -1,9 +1,9 @@
 import React from 'react'
 import { Box, Modal } from '@mui/material/'
-import { SubTitle } from '../common/typografy/SubTitle'
-import { useAdmin } from '../../hooks/useAdmin'
-import { useStore } from '../../hooks/useStore'
-import { AddArticleForm } from '../ui/AddArticleForm'
+import { SubTitle } from './common/typografy/SubTitle'
+import { useAdmin } from '../hooks/useAdmin'
+import { useStore } from '../hooks/useStore'
+import { AddArticleForm } from './ui/AddArticleForm'
 
 const style = {
   modalWindow: {

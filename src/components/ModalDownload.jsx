@@ -1,9 +1,9 @@
 import React from 'react'
 import { Box, Button, Modal, Typography } from '@mui/material/'
-import { SubTitle } from '../common/typografy/SubTitle'
-import { useMockData } from '../../hooks/useMockData'
+import { SubTitle } from './common/typografy/SubTitle'
+import { useMockData } from '../hooks/useMockData'
 import UploadIcon from '@mui/icons-material/Upload'
-import { useAdmin } from '../../hooks/useAdmin'
+import { useAdmin } from '../hooks/useAdmin'
 
 const style = {
   modalWindow: {
