@@ -13,6 +13,8 @@ import 'react-toastify/dist/ReactToastify.css'
 import { StateProvider } from './hooks/useStore'
 import { StartPage } from './pages/StartPage'
 import { Container } from '@material-ui/core'
+import { About } from './pages/About'
+import { Author } from './pages/Author'
 
 function App () {
   const { isAuth } = useAuth()
@@ -25,6 +27,8 @@ function App () {
             <Route exact path='/' component={StartPage} />
             <Route path='/articles/:articleId?' component={ArticlesContainer} />
             <Route path='/auth/:type?' component={Auth} />
+            <Route path='/about' component={About} />
+            <Route path='/author' component={Author} />
             {/* <Route path='/admin' component={AdminContainer} /> */}
             <ProtectedRoute path='/admin' component={AdminContainer} auth={isAuth} />
           </Container>

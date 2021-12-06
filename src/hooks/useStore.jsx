@@ -86,6 +86,12 @@ export const StateProvider = ({ children }) => {
     } else if (location.pathname === '/auth/register') {
       history.push('/auth/register')
       setIsLoading(true)
+    } else if (location.pathname === '/about') {
+      history.push('/about')
+      setIsLoading(true)
+    } else if (location.pathname === '/author') {
+      history.push('/author')
+      setIsLoading(true)
     }
   }
 

@@ -68,6 +68,12 @@ export const NavbarComponent = () => {
           <MenuItem onClick={() => handleMenuClick('/admin')}>
             RootДоступ
           </MenuItem>
+          <MenuItem onClick={() => handleMenuClick('/about')}>
+            О проекте
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuClick('/author')}>
+            Автор
+          </MenuItem>
           {!isAuth ? (
             <div>
               <MenuItem onClick={() => handleMenuClick('/auth/login')}>
@@ -104,6 +110,12 @@ export const NavbarComponent = () => {
               </MenuItem>
               <MenuItem to='/admin' component={NavLink}>
                 RootДоступ
+              </MenuItem>
+              <MenuItem to='/about' component={NavLink}>
+                О проекте
+              </MenuItem>
+              <MenuItem to='/author' component={NavLink}>
+                Автор
               </MenuItem>
             </div>
             {!isAuth ? (
