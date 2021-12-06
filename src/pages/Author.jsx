@@ -5,6 +5,7 @@ import instagramPNG from '../assets/imgs/author/instagram.png'
 import emailPNG from '../assets/imgs/author/email.png'
 import telegramPNG from '../assets/imgs/author/telegram.png'
 import hhPNG from '../assets/imgs/author/hh.png'
+import gitPNG from '../assets/imgs/author/git.png'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,6 +51,11 @@ export const Author = () => {
         <li>
           <a href='https://ufa.hh.ru/resume/b432f9e6ff078ff3680039ed1f5543336b6155' target="blank">
             <img src={hhPNG} alt="" />
+          </a>
+        </li>
+        <li>
+          <a href='https://github.com/102nix/blog/tree/feature/portfo' target="blank">
+            <img src={gitPNG} alt="" />
           </a>
         </li>
         <li>
