@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center'
   },
   blog: {
+    backgroundColor: '#f2f5fd',
     padding: '20px',
     marginBottom: theme.spacing(4),
     border: '1px solid #fff',
