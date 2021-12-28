@@ -8,6 +8,7 @@ import httpService from '../services/http.service'
 import { toast } from 'react-toastify'
 import { ACTIONS } from '../state/constsAC'
 import SimpleSnackbar from '../components/common/Snackbar'
+// import { getUserId } from '../services/localStorage.service'
 
 const AdminContext = React.createContext()
 
@@ -33,7 +34,8 @@ export const AdminProvider = ({ children }) => {
     data.img = dataUri // not match with pattern-> const [data, setData] = useState({...}) + handleChange()
     data.date = new Date().toLocaleString() // see up
     try {
-      await httpService.put('articles/' + data.id, data)
+      // const userId = getUserId()
+      await httpService.put(`articles/${data.id}`, data)
       getAllArticles().then(() => handleSnackbar('Статьи обновлены!'))
       handleCloseModalEdit()
     } catch (error) {

@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
-import { setTokens } from '../services/localStorage.service'
+import localStorageService from '../services/localStorage.service'
 
-const httpAuth = axios.create({
+export const httpAuth = axios.create({
   baseURL: 'https://identitytoolkit.googleapis.com/v1/',
   params: {
     key: process.env.REACT_APP_FIREBASE_KET
@@ -16,19 +16,41 @@ export const useAuth = () => {
 }
 export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null)
-  const [isAuth, setIsAuth] = useState(JSON.parse(localStorage.getItem('login')) || false)
+  // const [isAuth, setIsAuth] = useState(JSON.parse(localStorage.getItem('user-stay-on')) || false)
 
-  function login () {
-    setIsAuth(true)
-  }
+  // function login () {
+  //   setIsAuth(true)
+  // }
+  const [isAuth, setAuth] = useState(false)
+  const expiresDate = localStorageService.getExpiresToken()
+  const refreshToken = localStorageService.getRefreshToken()
+  const stayOn = localStorageService.getStayOn()
+  console.log(expiresDate, refreshToken, stayOn)
+
+  // const checkLogin = () => {
+  //   console.log('UseEffect1', expiresDate, refreshToken)
+  //   if (refreshToken && expiresDate && stayOn) {
+  //     setAuth(true)
+  //   } else if (refreshToken && expiresDate > Date.now()) {
+  //     setAuth(true)
+  //   } else {
+  //     setAuth(false)
+  //     console.log('UseEffect1 - NOT')
+  //   }
+  // }
+
+  useEffect(() => {
+    localStorageService.checkLogin(setAuth)
+  }, [])
+
   function logout () {
-    setIsAuth(false)
-    localStorage.setItem('login', false)
+    setAuth(false)
+    localStorageService.removeAuthData()
   }
   async function signUp ({ email, password }) {
     try {
       const { data } = await httpAuth.post('accounts:signUp', { email, password, returnSecureToken: true })
-      setTokens(data)
+      localStorage.setTokens(data)
       console.log(data)
     } catch (error) {
       errorCatcher(error)
@@ -43,11 +65,12 @@ export const AuthProvider = ({ children }) => {
       }
     }
   }
-  async function signIn ({ email, password }) {
+  async function signIn ({ email, password, stayOn }) {
     try {
       const { data } = await httpAuth.post('accounts:signInWithPassword', { email, password, returnSecureToken: true })
-      setTokens(data)
+      data.stayOn = stayOn
       console.log(data)
+      localStorageService.setTokens(data, setAuth)
     } catch (error) {
       errorCatcher(error)
       console.log(error.response.data.error)
@@ -75,7 +98,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, [error])
   return (
-    <AuthContext.Provider value={{ signUp, signIn, isAuth, login, logout }}>
+    <AuthContext.Provider value={{ signUp, signIn, isAuth, logout }}>
       { children }
     </AuthContext.Provider>
   )
