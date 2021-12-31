@@ -9,6 +9,7 @@ import { mainInfo } from '../api/fake.api/articles.api'
 import LoadContainer from '../components/common/Loader/Loader'
 import { toast } from 'react-toastify'
 import _ from 'lodash'
+// import localStorageService from '../services/localStorage.service'
 
 const StoreContext = React.createContext()
 
@@ -48,6 +49,8 @@ export const StateProvider = ({ children }) => {
     } catch (error) {
       console.log(error)
       toast(error)
+      // localStorageService.removeAuthData()
+      // history.push('/articles')
     }
   }
 

@@ -9,7 +9,6 @@ import { FormTemplate } from '../common/form/FormTemplate'
 
 export const LoginForm = () => {
   const history = useHistory()
-  // const { login } = useAuth()
   const [data, setData] = useState({
     email: '', password: '', stayOn: false
   })
@@ -31,6 +30,7 @@ export const LoginForm = () => {
   const isValid = Object.keys(errors).length === 0
 
   useEffect(() => {
+    setEnterErrors(null)
     validate()
   }, [data])
 
@@ -41,8 +41,6 @@ export const LoginForm = () => {
     console.log(data)
     try {
       await signIn(data)
-      // login()
-      // if (data.stayOn) localStorage.setItem('login', data.stayOn)
       history.push('/admin')
     } catch (error) {
       setErrors(error)
@@ -56,7 +54,7 @@ export const LoginForm = () => {
         label="Электронная почта"
         name="email"
         value={data.email}
-        onChange={(target) => handleChange(setData, target, setEnterErrors)}
+        onChange={(target) => handleChange(setData, target)}
         error={errors.email}
         autoFocus
         onKeyDown={(e) => handleKeyDown(e)}

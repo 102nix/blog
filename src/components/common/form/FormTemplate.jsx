@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button, Typography } from '@mui/material'
 import { makeStyles } from '@material-ui/core/styles'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 export const FormTemplate = ({ handleSubmit, isValid, enterErrors, children }) => {
+  const history = useHistory()
   const classes = useStyles()
   return (
     <form
@@ -33,7 +35,7 @@ export const FormTemplate = ({ handleSubmit, isValid, enterErrors, children }) =
       <div className={ classes.divActions}>
         <Button
           type="submit"
-          disabled={!isValid || enterErrors}
+          disabled={!isValid || !!enterErrors}
           variant="outlined"
         >
           Войти

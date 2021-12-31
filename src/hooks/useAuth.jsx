@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import localStorageService from '../services/localStorage.service'
+import { useLocation } from 'react-router-dom'
 
 export const httpAuth = axios.create({
   baseURL: 'https://identitytoolkit.googleapis.com/v1/',
@@ -16,30 +17,19 @@ export const useAuth = () => {
 }
 export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null)
-  // const [isAuth, setIsAuth] = useState(JSON.parse(localStorage.getItem('user-stay-on')) || false)
-
-  // function login () {
-  //   setIsAuth(true)
-  // }
   const [isAuth, setAuth] = useState(false)
-  const expiresDate = localStorageService.getExpiresToken()
-  const refreshToken = localStorageService.getRefreshToken()
-  const stayOn = localStorageService.getStayOn()
-  console.log(expiresDate, refreshToken, stayOn)
-
-  // const checkLogin = () => {
-  //   console.log('UseEffect1', expiresDate, refreshToken)
-  //   if (refreshToken && expiresDate && stayOn) {
-  //     setAuth(true)
-  //   } else if (refreshToken && expiresDate > Date.now()) {
-  //     setAuth(true)
-  //   } else {
-  //     setAuth(false)
-  //     console.log('UseEffect1 - NOT')
-  //   }
-  // }
+  const location = useLocation()
 
   useEffect(() => {
+    console.log('Run useAuth by the location.path')
+    const url = location.pathname || ''
+    if (url === '/articles' || url === '/admin') {
+      localStorageService.checkLogin(setAuth)
+    }
+  }, [location.pathname])
+
+  useEffect(() => {
+    console.log('First run useAuth')
     localStorageService.checkLogin(setAuth)
   }, [])
 
@@ -50,7 +40,7 @@ export const AuthProvider = ({ children }) => {
   async function signUp ({ email, password }) {
     try {
       const { data } = await httpAuth.post('accounts:signUp', { email, password, returnSecureToken: true })
-      localStorage.setTokens(data)
+      // localStorage.setTokens(data)
       console.log(data)
     } catch (error) {
       errorCatcher(error)
@@ -98,7 +88,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, [error])
   return (
-    <AuthContext.Provider value={{ signUp, signIn, isAuth, logout }}>
+    <AuthContext.Provider value={{ signUp, signIn, isAuth, setAuth, logout }}>
       { children }
     </AuthContext.Provider>
   )

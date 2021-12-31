@@ -2,12 +2,14 @@ import React, { useState, useContext } from 'react'
 import _ from 'lodash'
 import { ModalEdit } from '../components/ModalEdit'
 import { useStore } from './useStore'
+// import { useAuth } from './useAuth'
 import { columns } from '../static/sortData'
 import { ModalDownload } from '../components/ModalDownload'
 import httpService from '../services/http.service'
 import { toast } from 'react-toastify'
 import { ACTIONS } from '../state/constsAC'
 import SimpleSnackbar from '../components/common/Snackbar'
+// import localStorageService from '../services/localStorage.service'
 // import { getUserId } from '../services/localStorage.service'
 
 const AdminContext = React.createContext()
@@ -23,6 +25,11 @@ export const AdminProvider = ({ children }) => {
   const { articles, getArticle, getAllArticles, setIsLoading, dispatch } = useStore()
   const [open, setOpen] = useState(false)
   const [textSnackBar, setTextSnackBar] = useState('')
+  // const { setAuth } = useAuth()
+
+  // useEffect(() => {
+  //   localStorageService.checkLogin(setAuth)
+  // }, [])
 
   const handleSnackbar = (text) => {
     setOpen(true)

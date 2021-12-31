@@ -11,14 +11,7 @@ export function setTokens ({ refreshToken, idToken, localId, stayOn = false, exp
   localStorage.setItem(REFRESH_KEY, refreshToken)
   localStorage.setItem(EXPIRES_KEY, expiresDate)
   localStorage.setItem(STAY_ON, stayOn)
-  // if (getRefreshToken() && getExpiresToken() && getStayOn()) {
-  //   setAuth(true)
-  // } else if (getRefreshToken() && getExpiresToken() > Date.now()) {
-  //   setAuth(true)
-  // } else {
-  //   setAuth(false)
-  // }
-  checkLogin(setAuth)
+  if (setAuth) checkLogin(setAuth)
 }
 export function getAccessToken () {
   return localStorage.getItem(TOKEN_KEY)
@@ -43,12 +36,22 @@ export function removeAuthData () {
   localStorage.removeItem(STAY_ON)
 }
 export function checkLogin (setAuth) {
-  if ((getRefreshToken() && getExpiresToken() && getStayOn()) === true) {
+  console.log('Run checkLogin')
+  const expiresDate = getExpiresToken()
+  const refreshToken = getRefreshToken()
+  const stayOn = getStayOn()
+  console.log(typeof stayOn, stayOn)
+  if (expiresDate && refreshToken && stayOn !== 'false') {
+    console.log('CheckLogin val1')
     setAuth(true)
-  } else if (getRefreshToken() && getExpiresToken() > Date.now()) {
+  } else if (refreshToken && Number(expiresDate) > Date.now()) {
+    console.log('CheckLogin val2', Number(expiresDate), Date.now())
     setAuth(true)
   } else {
+    console.log('CheckLogin val4')
+    console.log('set false')
     setAuth(false)
+    removeAuthData()
   }
 }
 const localStorageService = {
