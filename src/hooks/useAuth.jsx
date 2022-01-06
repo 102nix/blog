@@ -21,7 +21,6 @@ export const AuthProvider = ({ children }) => {
   const location = useLocation()
 
   useEffect(() => {
-    console.log('Run useAuth by the location.path')
     const url = location.pathname || ''
     if (url === '/articles' || url === '/admin') {
       localStorageService.checkLogin(setAuth)
@@ -29,7 +28,6 @@ export const AuthProvider = ({ children }) => {
   }, [location.pathname])
 
   useEffect(() => {
-    console.log('First run useAuth')
     localStorageService.checkLogin(setAuth)
   }, [])
 
@@ -37,6 +35,7 @@ export const AuthProvider = ({ children }) => {
     setAuth(false)
     localStorageService.removeAuthData()
   }
+
   async function signUp ({ email, password }) {
     try {
       const { data } = await httpAuth.post('accounts:signUp', { email, password, returnSecureToken: true })
@@ -63,7 +62,6 @@ export const AuthProvider = ({ children }) => {
       localStorageService.setTokens(data, setAuth)
     } catch (error) {
       errorCatcher(error)
-      console.log(error.response.data.error)
       const { code, message } = error.response.data.error
       if (code === 400) {
         switch (message) {

@@ -40,7 +40,6 @@ export function checkLogin (setAuth) {
   const expiresDate = getExpiresToken()
   const refreshToken = getRefreshToken()
   const stayOn = getStayOn()
-  console.log(typeof stayOn, stayOn)
   if (expiresDate && refreshToken && stayOn !== 'false') {
     console.log('CheckLogin val1')
     setAuth(true)

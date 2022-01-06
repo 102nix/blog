@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Route, useLocation } from 'react-router-dom'
 import { NavbarComponent } from './layouts/NavbarComponent'
 // import { StartContainer } from './components/StartContainer/StartContainer'
 import { Auth } from './layouts/Auth'
@@ -13,9 +13,11 @@ import 'react-toastify/dist/ReactToastify.css'
 import { StateProvider } from './hooks/useStore'
 import { StartPage } from './pages/StartPage'
 import { Container } from '@material-ui/core'
+import { FooterPage } from './layouts/FooterPage'
 
 function App () {
   const { isAuth } = useAuth()
+  const location = useLocation()
   return (
     <>
       <StateProvider>
@@ -28,6 +30,9 @@ function App () {
             {/* <Route path='/admin' component={AdminContainer} /> */}
             <ProtectedRoute path='/admin' component={AdminContainer} auth={isAuth} />
           </Container>
+          {
+            (location.pathname === '/articles' || location.pathname === '/') && <FooterPage />
+          }
         </>
       </StateProvider>
       <ToastContainer />

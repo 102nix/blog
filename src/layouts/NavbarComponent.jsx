@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory, NavLink } from 'react-router-dom'
-// import './NavbarComponent.scss'
 import { useAuth } from '../hooks/useAuth'
+// material-ui:
 import { AppBar, Toolbar, Typography, IconButton, Button, Menu, MenuItem } from '@material-ui/core'
 import MenuIcon from '@mui/icons-material/Menu'
 import { makeStyles } from '@material-ui/core/styles'
@@ -36,6 +36,7 @@ export const NavbarComponent = () => {
   const history = useHistory()
   const matches = useMediaQuery('(max-width:768px)')
   const open = Boolean(anchorEl)
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
   }
