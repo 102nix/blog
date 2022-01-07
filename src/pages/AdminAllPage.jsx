@@ -31,8 +31,8 @@ export const AdminAllPage = () => {
     sortBy,
     handleDelArticle,
     handleEdit,
-    setNewArticle,
-    setDownloadFB
+    setNewArticle
+    // setDownloadFB
   } = useAdmin()
   return (
     <div className={classes.rootAdmin}>
@@ -40,9 +40,9 @@ export const AdminAllPage = () => {
         <Button variant="contained" endIcon={<CreateIcon />} onClick={() => setNewArticle('addArt')}>
           Создать статью
         </Button>
-        <Button variant="contained" component="span" onClick={setDownloadFB}>
+        {/* <Button variant="contained" component="span" onClick={setDownloadFB}>
           Upload
-        </Button>
+        </Button> */}
       </div>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
