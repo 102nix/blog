@@ -2,7 +2,7 @@ export const handleChange = (setData, target) => {
   console.log(target)
   setData(prevSate => ({
     ...prevSate,
-    [target.name]: typeof target.value === 'boolean' ? target.value : target.value.trim()
+    [target.name]: target.value
   }))
 }
 
@@ -14,7 +14,8 @@ export const handleSubmit = (e, validate, data) => {
 }
 
 export const handleKeyDown = (e) => {
-  if (e.keyCode === 13) {
+  // if (e.keyCode === 13) {
+  if (e.code === 'Tab') {
     e.preventDefault()
     const form = e.target.form
     const indexField = Array.prototype.indexOf.call(form, e.target)
