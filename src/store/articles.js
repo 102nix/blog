@@ -21,7 +21,6 @@ const articlesSlice = createSlice({
       state.entities = action.payload
       state.lastFetch = Date.now()
       state.isLoading = false
-      state.currentArticle = null
     },
     articlesCreated: (state, action) => {
       state.entities.push(action.payload)
@@ -40,7 +39,7 @@ const articlesSlice = createSlice({
       state.isLoading = false
     },
     currentArticleReceived: (state, action) => {
-      state.currentArticle = state.entities.filter(a => a.id === action.payload)
+      state.currentArticle = state.entities.filter(a => Number(a.id) === Number(action.payload))
     },
     currentArticleReseted: (state) => {
       state.currentArticle = null
@@ -94,6 +93,7 @@ export const goRegPage = () => (dispatch) => {
 }
 
 export const getOpenArticle = (articleId) => (dispatch) => {
+  console.log(articleId)
   dispatch(currentArticleReceived(articleId))
 }
 

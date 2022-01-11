@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export const ArticlePage = ({ blog }) => {
+  console.log(blog)
   const classes = useStyles()
   const history = useHistory()
   const dispatch = useDispatch()
@@ -48,12 +49,12 @@ export const ArticlePage = ({ blog }) => {
   }
   return (
     <div className={classes.root}>
-      <SubTitle>{blog.title}</SubTitle>
+      <SubTitle>{blog[0].title}</SubTitle>
       <div className={classes.currentArticleBody}>
         <div className={classes.imgBlock}>
-          <img src={blog.img} alt="" className={classes.img} />
+          <img src={blog[0].img} alt="" className={classes.img} />
         </div>
-        {blog.article.split(' ~ ').map(textBlog => (
+        {blog[0].article.split(' ~ ').map(textBlog => (
           <Typography variant="body1" gutterBottom key={textBlog}>{textBlog}</Typography>
         ))}
       </div>

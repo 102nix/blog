@@ -11,7 +11,7 @@ export const ArticlesContainer = () => {
   const blog = useSelector(getCurrentArticle())
   return (
     <div className="articles">
-      {blog ? (
+      {blog?.length > 0 ? (
         <ArticlePage blog={blog}/>
       ) : (
         // <ArticlesListPage articles={articles} handleOpenArticle={handleOpenArticle} />
