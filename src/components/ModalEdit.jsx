@@ -1,9 +1,9 @@
 import React from 'react'
 import { Box, Modal } from '@mui/material/'
 import { SubTitle } from './common/typografy/SubTitle'
-import { useAdmin } from '../hooks/useAdmin'
-import { useStore } from '../hooks/useStore'
 import { AddArticleForm } from './ui/AddArticleForm'
+import { useSelector, useDispatch } from 'react-redux'
+import { getCurrentArticle, getIsModal, setCloseModal, updateArticle } from '../store/articles'
 
 const style = {
   modalWindow: {
@@ -24,21 +24,26 @@ const style = {
     marginTop: '30px'
   }
 }
-export const ModalEdit = () => {
-  const { blog } = useStore()
-  const { handleCloseModalEdit, submitEdit, newArticle } = useAdmin()
+export const ModalEdit = ({ handleSnackbar }) => {
+  const blog = useSelector(getCurrentArticle())
+  const dispatch = useDispatch()
+  const isModal = useSelector(getIsModal())
 
   return (
     <div>
       <Modal
-        open={!!blog || !!newArticle}
-        onClose={handleCloseModalEdit}
+        open={!!blog || isModal}
+        onClose={() => dispatch(setCloseModal())}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style.modalWindow} component="div">
           <SubTitle>Редактирование</SubTitle>
-          <AddArticleForm article={blog} onCloseModal={handleCloseModalEdit} submitEdit={submitEdit} />
+          <AddArticleForm
+            article={blog}
+            onCloseModal={() => dispatch(setCloseModal())}
+            submitEdit={(e, data, dataUri, checkEdit) => dispatch(updateArticle(e, data, dataUri, checkEdit, handleSnackbar))}
+          />
         </Box>
       </Modal>
     </div>

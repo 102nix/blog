@@ -1,8 +1,19 @@
 import React from 'react'
 import { SubTitle } from '../components/common/typografy/SubTitle'
 import { Grid, Card, CardMedia, CardContent, Button, Typography, CardActions } from '@material-ui/core'
+import { useSelector, useDispatch } from 'react-redux'
+import { getArticles, getOpenArticle } from '../store/articles'
+import { useHistory } from 'react-router-dom'
 
-export const ArticlesListPage = ({ articles, handleOpenArticle }) => {
+export const ArticlesListPage = () => {
+  const articles = useSelector(getArticles())
+  const dispatch = useDispatch()
+  const history = useHistory()
+
+  const openArticle = (id) => {
+    history.push(`/articles/${id}`)
+    dispatch(getOpenArticle(id))
+  }
   return (
     <>
       <SubTitle>Статьи</SubTitle>
@@ -25,7 +36,7 @@ export const ArticlesListPage = ({ articles, handleOpenArticle }) => {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" color="primary" onClick={() => handleOpenArticle(article.id)}>
+                <Button size="small" color="primary" onClick={() => openArticle(article.id) }>
                   Открыть
                 </Button>
               </CardActions>

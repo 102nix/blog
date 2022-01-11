@@ -3,6 +3,8 @@ import { SubTitle } from '../components/common/typografy/SubTitle'
 import { useHistory } from 'react-router'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography, Button } from '@material-ui/core'
+import { useDispatch } from 'react-redux'
+import { goArticlesListPage } from '../store/articles'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,6 +40,12 @@ const useStyles = makeStyles((theme) => ({
 export const ArticlePage = ({ blog }) => {
   const classes = useStyles()
   const history = useHistory()
+  const dispatch = useDispatch()
+
+  const backToArticles = () => {
+    dispatch(goArticlesListPage())
+    history.push('/articles')
+  }
   return (
     <div className={classes.root}>
       <SubTitle>{blog.title}</SubTitle>
@@ -49,7 +57,7 @@ export const ArticlePage = ({ blog }) => {
           <Typography variant="body1" gutterBottom key={textBlog}>{textBlog}</Typography>
         ))}
       </div>
-      <Button size="medium" color="primary" className={classes.btnBack} onClick={() => history.goBack()}>
+      <Button size="medium" color="primary" className={classes.btnBack} onClick={backToArticles}>
         Назад
       </Button>
     </div>

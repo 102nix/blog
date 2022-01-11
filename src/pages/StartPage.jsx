@@ -1,8 +1,9 @@
 import React from 'react'
 import { SubTitle } from '../components/common/typografy/SubTitle'
-import { useStore } from '../hooks/useStore'
+import { useSelector } from 'react-redux'
 import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { getStartInfo } from '../store/startInfo'
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export const StartPage = () => {
-  const { startInfo } = useStore()
+  const startInfo = useSelector(getStartInfo())
   const classes = useStyles()
   return (
     <div>

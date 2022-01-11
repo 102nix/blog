@@ -26,14 +26,15 @@ const useStyles = makeStyles((theme) => ({
 
 export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
   const [data, setData] = useState({
-    title: article ? article.title : '',
-    article: article ? article.article : '',
-    id: article ? article.id : Date.now()
+    title: article ? article[0].title : '',
+    article: article ? article[0].article : '',
+    id: article ? article[0].id : Date.now()
   })
   const classes = useStyles()
   const [dataUri, setDataUri] = useState(article?.img || '')
   const [errors, setErrors] = useState({})
   const [uploadName, setUploadName] = useState('')
+  const checkEdit = article
 
   const handleUserKeyPress = event => {
     const { keyCode } = event
@@ -81,7 +82,7 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
       className={ classes.root }
       noValidate
       autoComplete="off"
-      onSubmit={(e) => submitEdit(e, data, dataUri)}
+      onSubmit={(e) => submitEdit(e, data, dataUri, checkEdit)}
     >
       <ComponentInput
         label="Название статьи:"
