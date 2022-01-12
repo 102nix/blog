@@ -8,6 +8,7 @@ import { goArticlesListPage } from '../store/articles'
 import { getComments } from '../store/comments'
 import { prepareComments } from '../static/prepareComments'
 import Divider from '@mui/material/Divider'
+import { AddCommentForm } from '../components/ui/AddCommentForm'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,7 +60,6 @@ const useStyles = makeStyles((theme) => ({
 export const ArticlePage = ({ blog }) => {
   const comments = useSelector(getComments())
   const currentComments = prepareComments(comments, blog[0].id)
-  console.log('comments:', comments, currentComments)
   const classes = useStyles()
   const history = useHistory()
   const dispatch = useDispatch()
@@ -80,25 +80,25 @@ export const ArticlePage = ({ blog }) => {
         ))}
       </div>
       <div className={classes.blockComments}>
-        {currentComments?.length > 0 &&
-          <>
-            <p>Комментарии:</p>
-            <ul>
-              {currentComments.map(c => ((
-                <>
-                  <li key={c.id}>
-                    <p>
-                      <span className={classes.dateComments} >{c.date} </span>
-                      <span className={classes.emailComments}>{c.email}, пишет: </span>
-                    </p>
-                    <p>{c.commentText}</p>
-                  </li>
-                  <Divider />
-                </>
-              )))}
-            </ul>
-          </>
+        {currentComments?.length > 0 ? <>
+          <p>Комментарии:</p>
+          <ul>
+            {currentComments.map(c => ((
+              <div key={c.id}>
+                <li>
+                  <p>
+                    <span className={classes.dateComments} >{c.date} </span>
+                    <span className={classes.emailComments}>{c.email}, пишет: </span>
+                  </p>
+                  <p>{c.commentText}</p>
+                </li>
+                <Divider />
+              </div>
+            )))}
+          </ul>
+        </> : <p>На данный момент комментариев нет</p>
         }
+        <AddCommentForm/>
       </div>
       <Button size="medium" color="primary" className={classes.btnBack} onClick={backToArticles}>
         Назад
