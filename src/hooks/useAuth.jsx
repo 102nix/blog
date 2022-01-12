@@ -3,6 +3,7 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import localStorageService from '../services/localStorage.service'
 import { useLocation } from 'react-router-dom'
+import Loader from '../components/common/Loader/Loader'
 
 export const httpAuth = axios.create({
   baseURL: 'https://identitytoolkit.googleapis.com/v1/',
@@ -19,6 +20,7 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null)
   const [isAuth, setAuth] = useState(false)
   const [currentUser, setCurrentUser] = useState(localStorageService.getEmailUser() || null)
+  const [isLoading, setLoading] = useState(false)
   const location = useLocation()
 
   useEffect(() => {
@@ -38,10 +40,12 @@ export const AuthProvider = ({ children }) => {
   }
 
   async function signUp ({ email, password }) {
+    setLoading(true)
     try {
       const { data } = await httpAuth.post('accounts:signUp', { email, password, returnSecureToken: true })
       // localStorage.setTokens(data)
       console.log(data)
+      setLoading(false)
     } catch (error) {
       errorCatcher(error)
       const { code, message } = error.response.data.error
@@ -56,12 +60,14 @@ export const AuthProvider = ({ children }) => {
     }
   }
   async function signIn ({ email, password, stayOn }) {
+    setLoading(true)
     try {
       const { data } = await httpAuth.post('accounts:signInWithPassword', { email, password, returnSecureToken: true })
       data.stayOn = stayOn
       console.log(data)
       localStorageService.setTokens(data, setAuth)
       setCurrentUser(localStorageService.getEmailUser())
+      setLoading(false)
     } catch (error) {
       errorCatcher(error)
       const { code, message } = error.response.data.error
@@ -89,7 +95,7 @@ export const AuthProvider = ({ children }) => {
   }, [error])
   return (
     <AuthContext.Provider value={{ signUp, signIn, isAuth, setAuth, logout, currentUser }}>
-      { children }
+      { !isLoading ? children : <div className="loader-container"><Loader /></div> }
     </AuthContext.Provider>
   )
 }
