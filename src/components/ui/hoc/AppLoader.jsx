@@ -25,6 +25,7 @@ export const AppLoader = ({ children }) => {
     } else if (location.pathname.indexOf('/articles/') !== -1) {
       const arrUrl = location.pathname.split('/')
       await dispatch(loadArticlesList())
+      await dispatch(loadCommentsList())
       dispatch(getOpenArticle(arrUrl[2]))
     } else if (location.pathname === '/') {
       dispatch(loadStartInfo())

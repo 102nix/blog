@@ -96,7 +96,6 @@ export const goRegPage = () => (dispatch) => {
 }
 
 export const getOpenArticle = (articleId) => (dispatch) => {
-  console.log(articleId)
   dispatch(currentArticleReceived(articleId))
 }
 

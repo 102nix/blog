@@ -6,6 +6,8 @@ import { Typography, Button } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import { goArticlesListPage } from '../store/articles'
 import { getComments } from '../store/comments'
+import { prepareComments } from '../static/prepareComments'
+import Divider from '@mui/material/Divider'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,13 +37,29 @@ const useStyles = makeStyles((theme) => ({
   btnBack: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(3)
+  },
+  blockComments: {
+    marginTop: theme.spacing(2),
+    textAlign: 'center',
+    padding: '10px',
+    '& li': {
+      listStyleType: 'none',
+      marginTop: theme.spacing(3)
+    }
+  },
+  dateComments: {
+    fontSize: '12px',
+    color: 'grey'
+  },
+  emailComments: {
+    fontSize: '19px'
   }
 }))
 
 export const ArticlePage = ({ blog }) => {
-  console.log(blog)
   const comments = useSelector(getComments())
-  console.log('comments:', comments)
+  const currentComments = prepareComments(comments, blog[0].id)
+  console.log('comments:', comments, currentComments)
   const classes = useStyles()
   const history = useHistory()
   const dispatch = useDispatch()
@@ -60,6 +78,27 @@ export const ArticlePage = ({ blog }) => {
         {blog[0].article.split(' ~ ').map(textBlog => (
           <Typography variant="body1" gutterBottom key={textBlog}>{textBlog}</Typography>
         ))}
+      </div>
+      <div className={classes.blockComments}>
+        {currentComments?.length > 0 &&
+          <>
+            <p>Комментарии:</p>
+            <ul>
+              {currentComments.map(c => ((
+                <>
+                  <li key={c.id}>
+                    <p>
+                      <span className={classes.dateComments} >{c.date} </span>
+                      <span className={classes.emailComments}>{c.email}, пишет: </span>
+                    </p>
+                    <p>{c.commentText}</p>
+                  </li>
+                  <Divider />
+                </>
+              )))}
+            </ul>
+          </>
+        }
       </div>
       <Button size="medium" color="primary" className={classes.btnBack} onClick={backToArticles}>
         Назад

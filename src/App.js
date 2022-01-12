@@ -18,7 +18,7 @@ import { FooterPage } from './layouts/FooterPage'
 import { AppLoader } from './components/ui/hoc/AppLoader'
 
 function App () {
-  const { isAuth } = useAuth()
+  const { isAuth, currentUser } = useAuth()
   const location = useLocation()
   return (
     <>
@@ -30,7 +30,7 @@ function App () {
             <Route path='/articles/:articleId?' component={ArticlesContainer} />
             <Route path='/auth/:type?' component={Auth} />
             {/* <Route path='/admin' component={AdminContainer} /> */}
-            <ProtectedRoute path='/admin' component={AdminAllPage} auth={isAuth} />
+            <ProtectedRoute path='/admin' component={AdminAllPage} auth={isAuth} currentUser={currentUser} />
           </Container>
           {
             (location.pathname === '/articles' || location.pathname === '/') && <FooterPage />

@@ -3,14 +3,16 @@ const REFRESH_KEY = 'jwt-refresh-token'
 const EXPIRES_KEY = 'jwt-expires'
 const USERID_KEY = 'user-local-id'
 const STAY_ON = 'user-stay-on'
+const EMAIL_USER = 'email-user'
 
-export function setTokens ({ refreshToken, idToken, localId, stayOn = false, expiresIn = 3600 }, setAuth) {
+export function setTokens ({ refreshToken, idToken, localId, email, stayOn = false, expiresIn = 3600 }, setAuth) {
   const expiresDate = new Date().getTime() + expiresIn * 1000
   localStorage.setItem(USERID_KEY, localId)
   localStorage.setItem(TOKEN_KEY, idToken)
   localStorage.setItem(REFRESH_KEY, refreshToken)
   localStorage.setItem(EXPIRES_KEY, expiresDate)
   localStorage.setItem(STAY_ON, stayOn)
+  localStorage.setItem(EMAIL_USER, email)
   if (setAuth) checkLogin(setAuth)
 }
 export function getAccessToken () {
@@ -28,12 +30,16 @@ export function getUserId () {
 export function getStayOn () {
   return localStorage.getItem(STAY_ON)
 }
+export function getEmailUser () {
+  return localStorage.getItem(EMAIL_USER)
+}
 export function removeAuthData () {
   localStorage.removeItem(USERID_KEY)
   localStorage.removeItem(TOKEN_KEY)
   localStorage.removeItem(REFRESH_KEY)
   localStorage.removeItem(EXPIRES_KEY)
   localStorage.removeItem(STAY_ON)
+  localStorage.removeItem(EMAIL_USER)
 }
 export function checkLogin (setAuth) {
   console.log('Run checkLogin')
@@ -61,7 +67,8 @@ const localStorageService = {
   getUserId,
   getStayOn,
   removeAuthData,
-  checkLogin
+  checkLogin,
+  getEmailUser
 }
 
 export default localStorageService

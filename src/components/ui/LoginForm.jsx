@@ -41,7 +41,7 @@ export const LoginForm = () => {
     console.log(data)
     try {
       await signIn(data)
-      history.push('/admin')
+      history.push('/')
     } catch (error) {
       setErrors(error)
       setEnterErrors(error.message)

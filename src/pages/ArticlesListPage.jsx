@@ -4,12 +4,13 @@ import { Grid, Card, CardMedia, CardContent, Button, Typography, CardActions } f
 import { useSelector, useDispatch } from 'react-redux'
 import { getArticles, getOpenArticle } from '../store/articles'
 import { useHistory } from 'react-router-dom'
+import _ from 'lodash'
 
 export const ArticlesListPage = () => {
   const articles = useSelector(getArticles())
   const dispatch = useDispatch()
   const history = useHistory()
-
+  const sortedArticles = _.orderBy(articles, ['date'], ['desc'])
   const openArticle = (id) => {
     history.push(`/articles/${id}`)
     dispatch(getOpenArticle(id))
@@ -18,7 +19,7 @@ export const ArticlesListPage = () => {
     <>
       <SubTitle>Статьи</SubTitle>
       <Grid container spacing={4}>
-        {articles.map(article => (
+        {sortedArticles.map(article => (
           <Grid item key={article.id} xs={ 12 } md={ 4 }>
             <Card sx={{ height: '100%' }}>
               <CardMedia
