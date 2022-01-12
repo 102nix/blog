@@ -6,8 +6,8 @@ export const ProtectedRoute = ({ auth, currentUser, component: Component, ...res
     <Route
       {...rest}
       render={(props) => {
-        if (auth && currentUser === 'adminBlog') return <Component {...props} />
-        if (!auth || currentUser !== 'adminBlog') return <Redirect to="/auth/login" />
+        if (auth && currentUser === 'adminblog@test.ru') return <Component {...props} />
+        if (!auth || currentUser !== 'adminblog@test.ru') return <Redirect to="/auth/login" />
       }}
     />
   )

@@ -18,7 +18,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null)
   const [isAuth, setAuth] = useState(false)
-  const [currentUser, setCurrentUser] = useState(null)
+  const [currentUser, setCurrentUser] = useState(localStorageService.getEmailUser() || null)
   const location = useLocation()
 
   useEffect(() => {
@@ -61,9 +61,7 @@ export const AuthProvider = ({ children }) => {
       data.stayOn = stayOn
       console.log(data)
       localStorageService.setTokens(data, setAuth)
-      console.log('+++++')
       setCurrentUser(localStorageService.getEmailUser())
-      console.log(localStorageService.getEmailUser())
     } catch (error) {
       errorCatcher(error)
       const { code, message } = error.response.data.error

@@ -26,12 +26,21 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1
+  },
+  userInfoBlock: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  userInfo: {
+    fontStyle: 'italic'
   }
 }))
 
 export const NavbarComponent = () => {
   const [anchorEl, setAnchorEl] = useState(null)
-  const { isAuth, logout } = useAuth()
+  const { isAuth, logout, currentUser } = useAuth()
+  console.log(currentUser)
   const classes = useStyles()
   const history = useHistory()
   const matches = useMediaQuery('(max-width:768px)')
@@ -110,7 +119,10 @@ export const NavbarComponent = () => {
             {!isAuth ? (
               <Button color="inherit" onClick={() => handleMenuClick('/auth/login')}><LoginIcon fontSize="inherit" />Login</Button>
             ) : (
-              <Button color="inherit" onClick={logout}><LogoutIcon fontSize="inherit" /> Выход</Button>
+              <div className={classes.userInfoBlock}>
+                <div className={classes.userInfo}>{currentUser}</div>
+                <Button size="small" color="inherit" onClick={logout}><LogoutIcon fontSize="inherit" /> Выход</Button>
+              </div>
             )}
           </>
         )
