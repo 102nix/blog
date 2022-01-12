@@ -3,8 +3,9 @@ import { SubTitle } from '../components/common/typografy/SubTitle'
 import { useHistory } from 'react-router'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography, Button } from '@material-ui/core'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { goArticlesListPage } from '../store/articles'
+import { getComments } from '../store/comments'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,6 +40,8 @@ const useStyles = makeStyles((theme) => ({
 
 export const ArticlePage = ({ blog }) => {
   console.log(blog)
+  const comments = useSelector(getComments())
+  console.log('comments:', comments)
   const classes = useStyles()
   const history = useHistory()
   const dispatch = useDispatch()

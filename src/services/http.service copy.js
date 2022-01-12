@@ -38,19 +38,15 @@ http.interceptors.request.use(
     return Promise.reject(error)
   }
 )
-// function transformData (data) {
-//   return data ? Object.keys(data).map(key => ({
-//     ...data[key]
-//   })) : []
-// }
 function transformData (data) {
-  return data && !data.id ? Object.keys(data).map(key => ({
+  return data ? Object.keys(data).map(key => ({
     ...data[key]
-  })) : data
+  })) : []
 }
 http.interceptors.response.use(
   res => {
-    if (configFile.isFirebase) {
+    if (!res.data) return res
+    if (configFile.isFirebase && Object.keys(res.data).length > 5) {
       res.data = { content: transformData(res.data) }
     }
     return res

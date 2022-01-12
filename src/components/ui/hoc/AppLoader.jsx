@@ -4,6 +4,7 @@ import { getArticlesLoadingStatus, getOpenArticle, goArticlesListPage, goRegPage
 import { loadStartInfo } from '../../../store/startInfo'
 import { useHistory } from 'react-router-dom'
 import Loader from '../../common/Loader/Loader'
+import { loadCommentsList } from '../../../store/comments'
 
 export const AppLoader = ({ children }) => {
   const articlesStatusLoading = useSelector(getArticlesLoadingStatus())
@@ -20,6 +21,7 @@ export const AppLoader = ({ children }) => {
     if (location.pathname === '/articles' || location.pathname === '/admin') {
       dispatch(goArticlesListPage())
       await dispatch(loadArticlesList())
+      await dispatch(loadCommentsList())
     } else if (location.pathname.indexOf('/articles/') !== -1) {
       const arrUrl = location.pathname.split('/')
       await dispatch(loadArticlesList())

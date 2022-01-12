@@ -7,6 +7,8 @@ import { InputFile } from '../common/form/InputFile'
 import { Button } from '@mui/material'
 import SaveIcon from '@mui/icons-material/Save'
 import { makeStyles } from '@material-ui/core/styles'
+import { createArticle, updateArticle } from '../../store/articles'
+import { useDispatch } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
+export const AddArticleForm = ({ article, onCloseModal, handleSnackbar }) => {
   const [data, setData] = useState({
     title: article ? article[0].title : '',
     article: article ? article[0].article : '',
@@ -34,6 +36,7 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
   const [dataUri, setDataUri] = useState(article?.img || '')
   const [errors, setErrors] = useState({})
   const [uploadName, setUploadName] = useState('')
+  const dispatch = useDispatch()
   const checkEdit = article
 
   const handleUserKeyPress = event => {
@@ -76,13 +79,26 @@ export const AddArticleForm = ({ article, onCloseModal, submitEdit }) => {
   }
   // ////////////////////////////////////////////////////////////////
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    data.img = dataUri // not match with pattern-> const [data, setData] = useState({...}) + handleChange()
+    data.date = new Date().toLocaleString() // see up
+    if (checkEdit === null) {
+      dispatch(createArticle(data, handleSnackbar))
+      handleSnackbar()
+    } else {
+      dispatch(updateArticle(data, handleSnackbar))
+      handleSnackbar()
+    }
+  }
+
   return (
     <form
       component="form"
       className={ classes.root }
       noValidate
       autoComplete="off"
-      onSubmit={(e) => submitEdit(e, data, dataUri, checkEdit)}
+      onSubmit={(e) => handleSubmit(e)}
     >
       <ComponentInput
         label="Название статьи:"

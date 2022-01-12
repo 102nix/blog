@@ -3,7 +3,7 @@ import { Box, Modal } from '@mui/material/'
 import { SubTitle } from './common/typografy/SubTitle'
 import { AddArticleForm } from './ui/AddArticleForm'
 import { useSelector, useDispatch } from 'react-redux'
-import { getCurrentArticle, getIsModal, setCloseModal, updateArticle } from '../store/articles'
+import { getCurrentArticle, getIsModal, setCloseModal } from '../store/articles'
 
 const style = {
   modalWindow: {
@@ -42,7 +42,8 @@ export const ModalEdit = ({ handleSnackbar }) => {
           <AddArticleForm
             article={blog}
             onCloseModal={() => dispatch(setCloseModal())}
-            submitEdit={(e, data, dataUri, checkEdit) => dispatch(updateArticle(e, data, dataUri, checkEdit, handleSnackbar))}
+            handleSnackbar={handleSnackbar}
+            // submitEdit={(data, checkEdit) => dispatch(updateArticle(data, checkEdit, handleSnackbar))}
           />
         </Box>
       </Modal>

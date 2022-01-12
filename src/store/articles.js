@@ -22,12 +22,12 @@ const articlesSlice = createSlice({
       state.lastFetch = Date.now()
       state.isLoading = false
     },
-    articlesCreated: (state, action) => {
-      state.entities.push(action.payload)
+    articleCreated: (state, action) => {
+      state.entities.push(action.payload.content)
     },
-    articlesUpdated: (state, action) => {
+    articleUpdated: (state, action) => {
       state.entities = state.entities.map(a => {
-        if (a.id === action.payload.id) return action.payload
+        if (a.id === action.payload.content.id) return action.payload.content
         return a
       })
     },
@@ -58,10 +58,13 @@ const articlesSlice = createSlice({
 })
 
 const { reducer: articlesReducer, actions } = articlesSlice
-const { articlesRequested, articlesReceived, articlesRequestFiled, currentArticleReceived, currentArticleReseted, articlesUpdated, regPageRequested, moduleClosed, moduleOpened, articlesCreated, articleDeleted } = actions
+const { articlesRequested, articlesReceived, articlesRequestFiled, currentArticleReceived, currentArticleReseted, articleCreated, articleUpdated, regPageRequested, moduleClosed, moduleOpened, articleDeleted } = actions
 
-const updateArticleFailed = createAction('users/updateArticleFailed')
 const deleteArticleFailed = createAction('users/deleteArticleFailed')
+const createArticleRequested = createAction('users/createArticleRequested')
+const createArticleFailed = createAction('users/createArticleFailed')
+const updateArticleRequested = createAction('users/updateArticleRequested')
+const updaterticleFailed = createAction('users/updateArticleFailed')
 
 function isOutDated (date) {
   if (Date.now() - date > 10 * 60 * 100) {
@@ -97,37 +100,30 @@ export const getOpenArticle = (articleId) => (dispatch) => {
   dispatch(currentArticleReceived(articleId))
 }
 
-export const updateArticle = (e, val, dataUri, checkEdit, handleSnackbar) => async (dispatch) => {
-  e.preventDefault()
-  val.img = dataUri // not match with pattern-> const [data, setData] = useState({...}) + handleChange()
-  val.date = new Date().toLocaleString() // see up
+export const createArticle = (val, handleSnackbar) => async (dispatch) => {
+  dispatch(createArticleRequested())
   try {
     const { data } = await httpService.put(`articles/${val.id}`, val)
     dispatch(moduleClosed())
-    if (checkEdit === null) {
-      dispatch(articlesCreated(data))
-      handleSnackbar()
-    } else {
-      dispatch(articlesUpdated(data))
-      handleSnackbar()
-    }
+    dispatch(articleCreated(data))
+    handleSnackbar()
   } catch (error) {
-    updateArticleFailed(error.message)
+    dispatch(createArticleFailed(error.message))
     toast.error(error.message)
   }
 }
 
-export const editArticle = (articleId) => (dispatch) => {
-  dispatch(moduleOpened())
-  dispatch(currentArticleReceived(articleId))
-}
-
-export const setOpenModal = () => (dispatch) => {
-  dispatch(moduleOpened())
-}
-
-export const setCloseModal = () => (dispatch) => {
-  dispatch(moduleClosed())
+export const updateArticle = (val, handleSnackbar) => async (dispatch) => {
+  dispatch(updateArticleRequested())
+  try {
+    const { data } = await httpService.put(`articles/${val.id}`, val)
+    dispatch(moduleClosed())
+    dispatch(articleUpdated(data))
+    handleSnackbar()
+  } catch (error) {
+    dispatch(updaterticleFailed(error.message))
+    toast.error(error.message)
+  }
 }
 
 export const delArticle = (articleId, handleSnackbar) => async (dispatch) => {
@@ -139,6 +135,18 @@ export const delArticle = (articleId, handleSnackbar) => async (dispatch) => {
     deleteArticleFailed(error.message)
     toast.error(error.message)
   }
+}
+export const editArticle = (articleId) => (dispatch) => {
+  dispatch(moduleOpened())
+  dispatch(currentArticleReceived(articleId))
+}
+
+export const setOpenModal = () => (dispatch) => {
+  dispatch(moduleOpened())
+}
+
+export const setCloseModal = () => (dispatch) => {
+  dispatch(moduleClosed())
 }
 
 export const getArticles = () => (state) => state.articles.entities

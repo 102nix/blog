@@ -19,12 +19,12 @@ export const TblBody = ({ data, columns, onDelete, onEdit }) => {
   return (
     <TableBody>
       {data.map(item => <TableRow key={item.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-        {Object.keys(columns).map(column => (
+        {Object.keys(columns).map((column, i) => (
           column === 'edit' ? (
             <TableCell
               className={classes.tdStyle}
               onClick={() => onEdit(item.id)}
-              key={column}
+              key={i}
             >
               <Tooltip title="Edit">
                 <IconButton>
@@ -35,7 +35,7 @@ export const TblBody = ({ data, columns, onDelete, onEdit }) => {
           ) : column === 'delete' ? (
             <TableCell
               onClick={() => onDelete(item.id)}
-              key={column}
+              key={i}
             >
               <Tooltip title="Delete">
                 <IconButton>
@@ -44,7 +44,7 @@ export const TblBody = ({ data, columns, onDelete, onEdit }) => {
               </Tooltip>
             </TableCell>
           ) : (
-            <TableCell key={column}>
+            <TableCell key={i}>
               {item[column]}
             </TableCell>
           )
