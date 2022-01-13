@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Typography, Button } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import { goArticlesListPage } from '../store/articles'
-import { getComments } from '../store/comments'
+import { getComments, delComment } from '../store/comments'
 import { prepareComments } from '../static/prepareComments'
 import Divider from '@mui/material/Divider'
 import { AddCommentForm } from '../components/ui/AddCommentForm'
@@ -116,7 +116,7 @@ export const ArticlePage = ({ blog }) => {
                   {currentUser === 'adminblog@test.ru' &&
                   <Tooltip title="Delete">
                     <IconButton>
-                      <DeleteIcon />
+                      <DeleteIcon onClick={() => dispatch(delComment(c.id))}/>
                     </IconButton>
                   </Tooltip>
                   }

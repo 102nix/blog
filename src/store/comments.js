@@ -21,17 +21,18 @@ const commentsSlice = createSlice({
     commentsCreated: (state, action) => {
       state.entities.push(action.payload.content)
     },
-    articleDeleted: (state, action) => {
+    commentDeleted: (state, action) => {
       state.entities = state.entities.filter(a => a.id !== action.payload)
     }
   }
 })
 
 const { reducer: commentsReducer, actions } = commentsSlice
-const { commentsRequested, commentsReceived, commentsRequestFiled, commentsCreated } = actions
+const { commentsRequested, commentsReceived, commentsRequestFiled, commentsCreated, commentDeleted } = actions
 
 const createCommentRequested = createAction('comments/createCommentRequested')
 const createCommentFailed = createAction('comments/createCommentFailed')
+const deleteCommentFailed = createAction('users/deleteCommentFailed')
 
 export const loadCommentsList = () => async (dispatch, getState) => {
   console.log('1) Loading comments....')
@@ -54,6 +55,16 @@ export const createComment = (val) => async (dispatch) => {
     dispatch(commentsCreated(data))
   } catch (error) {
     dispatch(createCommentFailed(error.message))
+    toast.error(error.message)
+  }
+}
+
+export const delComment = (commentId) => async (dispatch) => {
+  try {
+    await httpService.delete('articles/' + commentId)
+    dispatch(commentDeleted(commentId))
+  } catch (error) {
+    deleteCommentFailed(error.message)
     toast.error(error.message)
   }
 }
