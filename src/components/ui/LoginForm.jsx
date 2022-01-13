@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-// import { useHistory } from 'react-router-dom'
 import * as yup from 'yup'
 import { ComponentInput } from '../common/form/TextField'
 import { CheckBoxField } from '../common/form/CheckBoxField'
@@ -9,7 +8,6 @@ import { FormTemplate } from '../common/form/FormTemplate'
 import Loader from '../common/Loader/Loader'
 
 export const LoginForm = () => {
-  // const history = useHistory()
   const [data, setData] = useState({
     email: '', password: '', stayOn: false
   })
@@ -47,7 +45,6 @@ export const LoginForm = () => {
       await signIn(data)
     } catch (error) {
       setLoading(false)
-      console.log(error.message)
       setErrors({})
       setEnterErrors(error.message)
     }

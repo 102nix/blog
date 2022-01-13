@@ -3,7 +3,6 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import localStorageService from '../services/localStorage.service'
 import { useLocation, useHistory } from 'react-router-dom'
-import Loader from '../components/common/Loader/Loader'
 
 export const httpAuth = axios.create({
   baseURL: 'https://identitytoolkit.googleapis.com/v1/',
@@ -20,7 +19,6 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null)
   const [isAuth, setAuth] = useState(false)
   const [currentUser, setCurrentUser] = useState(localStorageService.getEmailUser() || null)
-  const [isLoading, setLoading] = useState(false)
   const location = useLocation()
   const history = useHistory()
 
@@ -43,15 +41,11 @@ export const AuthProvider = ({ children }) => {
   }
 
   async function signUp ({ email, password }) {
-    setLoading(true)
     try {
       const { data } = await httpAuth.post('accounts:signUp', { email, password, returnSecureToken: true })
-      // localStorage.setTokens(data)
       console.log(data)
-      setLoading(false)
       history.push('/auth/login')
     } catch (error) {
-      setLoading(false)
       errorCatcher(error)
       const { code, message } = error.response.data.error
       if (code === 400) {
@@ -67,17 +61,14 @@ export const AuthProvider = ({ children }) => {
     }
   }
   async function signIn ({ email, password, stayOn }) {
-    // setLoading(true)
     try {
       const { data } = await httpAuth.post('accounts:signInWithPassword', { email, password, returnSecureToken: true })
       data.stayOn = stayOn
       console.log(data)
       localStorageService.setTokens(data, setAuth)
       setCurrentUser(localStorageService.getEmailUser())
-      setLoading(false)
       history.push('/')
     } catch (error) {
-      // setLoading(false)
       errorCatcher(error)
       const { code, message } = error.response.data.error
       if (code === 400) {
@@ -105,7 +96,7 @@ export const AuthProvider = ({ children }) => {
   }, [error])
   return (
     <AuthContext.Provider value={{ signUp, signIn, isAuth, setAuth, logout, currentUser }}>
-      { !isLoading ? children : <div className="loader-container"><Loader /></div> }
+      { children }
     </AuthContext.Provider>
   )
 }
