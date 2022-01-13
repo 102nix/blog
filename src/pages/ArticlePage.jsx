@@ -65,7 +65,10 @@ const useStyles = makeStyles((theme) => ({
     color: 'grey'
   },
   emailComments: {
-    fontSize: '19px'
+    fontSize: '16px'
+  },
+  textComments: {
+    fontStyle: 'italic'
   },
   loginInvite: {
     marginTop: theme.spacing(3)
@@ -105,10 +108,10 @@ export const ArticlePage = ({ blog }) => {
                 <div className={classes.liBlock}>
                   <li>
                     <p>
-                      <span className={classes.dateComments} >{c.date} </span>
+                      <span className={classes.dateComments}>{c.date} </span>
                       <span className={classes.emailComments}>{c.email}, пишет: </span>
                     </p>
-                    <p>{c.commentText}</p>
+                    <p className={classes.textComments}>{c.commentText}</p>
                   </li>
                   {currentUser === 'adminblog@test.ru' &&
                   <Tooltip title="Delete">
@@ -117,8 +120,8 @@ export const ArticlePage = ({ blog }) => {
                     </IconButton>
                   </Tooltip>
                   }
-                  <Divider />
                 </div>
+                <Divider />
               </div>
             )))}
           </ul>

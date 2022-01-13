@@ -3,7 +3,7 @@ import * as yup from 'yup'
 import { TextAreaField } from '../common/form/TextAreaField'
 import { handleChange, handleKeyDown } from '../../static/funcsForForm'
 import { Button } from '@mui/material'
-import SaveIcon from '@mui/icons-material/Save'
+import SendIcon from '@mui/icons-material/Send'
 import { makeStyles } from '@material-ui/core/styles'
 import { getCurrentArticle } from '../../store/articles'
 import { createComment } from '../../store/comments'
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
   divActions: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     padding: '10px'
   },
   errText: {
@@ -85,7 +85,7 @@ export const AddCommentForm = () => {
         <Button
           type="submit"
           variant="contained"
-          endIcon={<SaveIcon />}
+          endIcon={<SendIcon />}
         >
           Опубликовать
         </Button>
