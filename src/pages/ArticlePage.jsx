@@ -3,16 +3,9 @@ import { SubTitle } from '../components/common/typografy/SubTitle'
 import { useHistory } from 'react-router'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography, Button } from '@material-ui/core'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { goArticlesListPage } from '../store/articles'
-import { getComments, delComment } from '../store/comments'
-import { prepareComments } from '../static/prepareComments'
-import Divider from '@mui/material/Divider'
-import { AddCommentForm } from '../components/ui/AddCommentForm'
-import { useAuth } from '../hooks/useAuth'
-import { NavLink } from 'react-router-dom'
-import { IconButton, Tooltip } from '@mui/material/'
-import DeleteIcon from '@mui/icons-material/Delete'
+import { Comments } from '../components/Comments'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,44 +35,10 @@ const useStyles = makeStyles((theme) => ({
   btnBack: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(3)
-  },
-  blockComments: {
-    marginTop: theme.spacing(2),
-    textAlign: 'center',
-    padding: '10px',
-    '& li': {
-      listStyleType: 'none',
-      marginTop: theme.spacing(2),
-      textAlign: 'left',
-      padding: '5px'
-    }
-  },
-  liBlock: {
-    display: 'flex',
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'space-between'
-  },
-  dateComments: {
-    fontSize: '12px',
-    color: 'grey'
-  },
-  emailComments: {
-    fontSize: '16px'
-  },
-  textComments: {
-    fontStyle: 'italic'
-  },
-  loginInvite: {
-    marginTop: theme.spacing(3)
   }
 }))
 
 export const ArticlePage = ({ blog }) => {
-  const comments = useSelector(getComments())
-  const currentComments = prepareComments(comments, blog[0].id)
-  const { currentUser } = useAuth()
-  console.log(currentUser)
   const classes = useStyles()
   const history = useHistory()
   const dispatch = useDispatch()
@@ -99,39 +58,7 @@ export const ArticlePage = ({ blog }) => {
           <Typography variant="body1" gutterBottom key={textBlog}>{textBlog}</Typography>
         ))}
       </div>
-      <div className={classes.blockComments}>
-        {currentComments?.length > 0 ? <>
-          <p>Комментарии:</p>
-          <ul>
-            {currentComments.map(c => ((
-              <div key={c.id}>
-                <div className={classes.liBlock}>
-                  <li>
-                    <p>
-                      <span className={classes.dateComments}>{c.date} </span>
-                      <span className={classes.emailComments}>{c.email}, пишет: </span>
-                    </p>
-                    <p className={classes.textComments}>{c.commentText}</p>
-                  </li>
-                  {currentUser === 'adminblog@test.ru' &&
-                  <Tooltip title="Delete">
-                    <IconButton>
-                      <DeleteIcon onClick={() => dispatch(delComment(c.id))}/>
-                    </IconButton>
-                  </Tooltip>
-                  }
-                </div>
-                <Divider />
-              </div>
-            )))}
-          </ul>
-        </> : <p>На данный момент комментариев нет</p>
-        }
-        {currentUser ? <AddCommentForm/> : <div className={classes.loginInvite}>
-          Чтобы оставить комментарий необходим <NavLink to='/auth/login'>Логин</NavLink>
-        </div>
-        }
-      </div>
+      <Comments blog={blog}/>
       <Button size="medium" color="primary" className={classes.btnBack} onClick={backToArticles}>
         Назад
       </Button>
