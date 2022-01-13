@@ -85,10 +85,10 @@ export const AddArticleForm = ({ article, onCloseModal, handleSnackbar }) => {
     data.date = new Date().toLocaleString() // see up
     if (checkEdit === null) {
       dispatch(createArticle(data, handleSnackbar))
-      handleSnackbar()
+      // handleSnackbar()
     } else {
       dispatch(updateArticle(data, handleSnackbar))
-      handleSnackbar()
+      // handleSnackbar()
     }
   }
 

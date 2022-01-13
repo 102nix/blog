@@ -9,6 +9,10 @@ import { getComments } from '../store/comments'
 import { prepareComments } from '../static/prepareComments'
 import Divider from '@mui/material/Divider'
 import { AddCommentForm } from '../components/ui/AddCommentForm'
+import { useAuth } from '../hooks/useAuth'
+import { NavLink } from 'react-router-dom'
+import { IconButton, Tooltip } from '@mui/material/'
+import DeleteIcon from '@mui/icons-material/Delete'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,8 +49,16 @@ const useStyles = makeStyles((theme) => ({
     padding: '10px',
     '& li': {
       listStyleType: 'none',
-      marginTop: theme.spacing(3)
+      marginTop: theme.spacing(2),
+      textAlign: 'left',
+      padding: '5px'
     }
+  },
+  liBlock: {
+    display: 'flex',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between'
   },
   dateComments: {
     fontSize: '12px',
@@ -54,12 +66,17 @@ const useStyles = makeStyles((theme) => ({
   },
   emailComments: {
     fontSize: '19px'
+  },
+  loginInvite: {
+    marginTop: theme.spacing(3)
   }
 }))
 
 export const ArticlePage = ({ blog }) => {
   const comments = useSelector(getComments())
   const currentComments = prepareComments(comments, blog[0].id)
+  const { currentUser } = useAuth()
+  console.log(currentUser)
   const classes = useStyles()
   const history = useHistory()
   const dispatch = useDispatch()
@@ -85,20 +102,32 @@ export const ArticlePage = ({ blog }) => {
           <ul>
             {currentComments.map(c => ((
               <div key={c.id}>
-                <li>
-                  <p>
-                    <span className={classes.dateComments} >{c.date} </span>
-                    <span className={classes.emailComments}>{c.email}, пишет: </span>
-                  </p>
-                  <p>{c.commentText}</p>
-                </li>
-                <Divider />
+                <div className={classes.liBlock}>
+                  <li>
+                    <p>
+                      <span className={classes.dateComments} >{c.date} </span>
+                      <span className={classes.emailComments}>{c.email}, пишет: </span>
+                    </p>
+                    <p>{c.commentText}</p>
+                  </li>
+                  {currentUser === 'adminblog@test.ru' &&
+                  <Tooltip title="Delete">
+                    <IconButton>
+                      <DeleteIcon />
+                    </IconButton>
+                  </Tooltip>
+                  }
+                  <Divider />
+                </div>
               </div>
             )))}
           </ul>
         </> : <p>На данный момент комментариев нет</p>
         }
-        <AddCommentForm/>
+        {currentUser ? <AddCommentForm/> : <div className={classes.loginInvite}>
+          Чтобы оставить комментарий необходим <NavLink to='/auth/login'>Логин</NavLink>
+        </div>
+        }
       </div>
       <Button size="medium" color="primary" className={classes.btnBack} onClick={backToArticles}>
         Назад

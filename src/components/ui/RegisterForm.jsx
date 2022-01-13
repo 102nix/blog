@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+// import { useHistory } from 'react-router-dom'
 import * as yup from 'yup'
 import { ComponentInput } from '../common/form/TextField'
 import { handleChange, handleKeyDown } from '../../static/funcsForForm'
@@ -7,7 +7,7 @@ import { useAuth } from '../../hooks/useAuth'
 import { FormTemplate } from '../common/form/FormTemplate'
 
 export const RegisterForm = () => {
-  const history = useHistory()
+  // const history = useHistory()
 
   const [data, setData] = useState({
     email: '',
@@ -16,6 +16,7 @@ export const RegisterForm = () => {
   })
   const { signUp } = useAuth()
   const [errors, setErrors] = useState({})
+  const [enterErrors, setEnterErrors] = useState(null)
 
   const validateScheme = yup.object().shape({
     password: yup.string()
@@ -38,6 +39,7 @@ export const RegisterForm = () => {
   const isValid = Object.keys(errors).length === 0
 
   useEffect(() => {
+    setEnterErrors(null)
     validate()
   }, [data])
 
@@ -47,14 +49,15 @@ export const RegisterForm = () => {
     if (!isValid) return
     try {
       await signUp(data)
-      history.push('/auth/login')
     } catch (error) {
+      console.log('======================= ', error)
       setErrors(error)
+      setEnterErrors(error.message)
     }
   }
 
   return (
-    <FormTemplate handleSubmit={handleSubmit} isValid={isValid}>
+    <FormTemplate handleSubmit={handleSubmit} isValid={isValid} enterErrors={enterErrors}>
       <ComponentInput
         label="Электронная почта"
         name="email"
@@ -70,7 +73,7 @@ export const RegisterForm = () => {
         type="password"
         name="password"
         value={data.password}
-        onChange={(target) => handleChange(setData, target)}
+        onChange={(target) => handleChange(setData, target, setEnterErrors)}
         error={errors.password}
         className="input-auth-form"
         onKeyDown={(e) => handleKeyDown(e)}
@@ -80,7 +83,7 @@ export const RegisterForm = () => {
         type="password"
         name="confirmpassword"
         value={data.confirmpassword}
-        onChange={(target) => handleChange(setData, target)}
+        onChange={(target) => handleChange(setData, target, setEnterErrors)}
         error={errors.confirmpassword}
         className="input-auth-form"
         onKeyDown={(e) => handleKeyDown(e)}

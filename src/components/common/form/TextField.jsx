@@ -26,6 +26,7 @@ export const ComponentInput = ({ label, type, name, value, onChange, error, ...r
   const handleMouseDownPassword = (event) => {
     event.preventDefault()
   }
+  console.log(error)
   return (
     <>
       {type === 'password' ? (

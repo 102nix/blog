@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import localStorageService from '../services/localStorage.service'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useHistory } from 'react-router-dom'
 import Loader from '../components/common/Loader/Loader'
 
 export const httpAuth = axios.create({
@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(localStorageService.getEmailUser() || null)
   const [isLoading, setLoading] = useState(false)
   const location = useLocation()
+  const history = useHistory()
 
   useEffect(() => {
     const url = location.pathname || ''
@@ -37,6 +38,8 @@ export const AuthProvider = ({ children }) => {
   function logout () {
     setAuth(false)
     localStorageService.removeAuthData()
+    setCurrentUser(null)
+    history.push(location.pathname)
   }
 
   async function signUp ({ email, password }) {
@@ -46,21 +49,25 @@ export const AuthProvider = ({ children }) => {
       // localStorage.setTokens(data)
       console.log(data)
       setLoading(false)
+      history.push('/auth/login')
     } catch (error) {
+      setLoading(false)
       errorCatcher(error)
       const { code, message } = error.response.data.error
       if (code === 400) {
         if (message === 'EMAIL_EXISTS') {
-          const errorObject = {
-            email: 'пользователь с таким Email уже существует'
-          }
-          throw errorObject
+          console.log('!!!:', message)
+          // const errorObject = {
+          //   email: 'пользователь с таким Email уже существует'
+          // }
+          // throw errorObject
+          throw new Error('Пользователь с таким Email уже существует')
         }
       }
     }
   }
   async function signIn ({ email, password, stayOn }) {
-    setLoading(true)
+    // setLoading(true)
     try {
       const { data } = await httpAuth.post('accounts:signInWithPassword', { email, password, returnSecureToken: true })
       data.stayOn = stayOn
@@ -68,10 +75,13 @@ export const AuthProvider = ({ children }) => {
       localStorageService.setTokens(data, setAuth)
       setCurrentUser(localStorageService.getEmailUser())
       setLoading(false)
+      history.push('/')
     } catch (error) {
+      // setLoading(false)
       errorCatcher(error)
       const { code, message } = error.response.data.error
       if (code === 400) {
+        console.log(message)
         switch (message) {
         case 'INVALID_PASSWORD':
           throw new Error('Неверный Email или пароль!')
