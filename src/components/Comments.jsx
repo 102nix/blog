@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '16px'
   },
   textComments: {
+    marginTop: theme.spacing(1),
     fontStyle: 'italic'
   },
   loginInvite: {

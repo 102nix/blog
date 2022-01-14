@@ -35,7 +35,7 @@ export const TextAreaField = ({ label, name, className, value, onChange, error, 
         onChange={handleChange}
         className={classes.taAddArticle}
         {...rest}
-        rows="10"
+        rows="5"
       />
       {error &&
         <Box className={classes.errText} component="div">{error}</Box>

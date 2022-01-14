@@ -128,7 +128,7 @@ export const AddArticleForm = ({ article, onCloseModal, handleSnackbar }) => {
         theme='snow'
         value={convertedText}
         onChange={setConvertedText}
-        style={{ minHeight: '300px' }}
+        style={{ minHeight: '300px', border: '2px solid grey' }}
       />
       {errors.article && <p className={classes.errArticle}>{errors.article}</p>}
       {/* <TextAreaField
