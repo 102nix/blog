@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getArticles, getOpenArticle } from '../store/articles'
 import { useHistory } from 'react-router-dom'
 import _ from 'lodash'
+import { Markup } from 'interweave'
 
 export const ArticlesListPage = () => {
   const articles = useSelector(getArticles())
@@ -33,7 +34,7 @@ export const ArticlesListPage = () => {
                   {article.title}
                 </Typography>
                 <Typography variant="body2">
-                  {article.article.slice(0, 59)}...
+                  <Markup content={article.article.slice(0, 59).replace(/<[^>]+>/g, '')}/>...
                 </Typography>
               </CardContent>
               <CardActions>

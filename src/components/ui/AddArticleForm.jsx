@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import * as yup from 'yup'
 import { ComponentInput } from '../common/form/TextField'
-import { TextAreaField } from '../common/form/TextAreaField'
+// import { TextAreaField } from '../common/form/TextAreaField'
 import { handleChange, handleKeyDown } from '../../static/funcsForForm'
 import { InputFile } from '../common/form/InputFile'
 import { Button } from '@mui/material'
@@ -9,6 +9,8 @@ import SaveIcon from '@mui/icons-material/Save'
 import { makeStyles } from '@material-ui/core/styles'
 import { createArticle, updateArticle } from '../../store/articles'
 import { useDispatch } from 'react-redux'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,6 +23,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     padding: '10px'
   },
+  errArticle: {
+    color: '#eb4242',
+    textAlign: 'center'
+  },
   errText: {
     color: '#eb4242'
   }
@@ -29,15 +35,22 @@ const useStyles = makeStyles((theme) => ({
 export const AddArticleForm = ({ article, onCloseModal, handleSnackbar }) => {
   const [data, setData] = useState({
     title: article ? article[0].title : '',
-    article: article ? article[0].article : '',
+    // article: article ? article[0].article : '',
     id: article ? article[0].id : Date.now()
   })
+  const [convertedText, setConvertedText] = useState(article ? article[0].article : '')
   const classes = useStyles()
   const [dataUri, setDataUri] = useState(article?.img || '')
   const [errors, setErrors] = useState({})
   const [uploadName, setUploadName] = useState('')
   const dispatch = useDispatch()
   const checkEdit = article
+
+  useEffect(() => {
+    setErrors(prevState => ({ ...prevState, article: null }))
+    console.log(errors)
+    validate()
+  }, [convertedText])
 
   const handleUserKeyPress = event => {
     const { keyCode } = event
@@ -53,7 +66,7 @@ export const AddArticleForm = ({ article, onCloseModal, handleSnackbar }) => {
   })
 
   const validateScheme = yup.object().shape({
-    article: yup.string().required('Содержание статьи - обязательно'),
+    // article: yup.string().required('Содержание статьи - обязательно'),
     title: yup.string().required('Необходимо указать название статьи')
   })
 
@@ -83,44 +96,52 @@ export const AddArticleForm = ({ article, onCloseModal, handleSnackbar }) => {
     e.preventDefault()
     data.img = dataUri // not match with pattern-> const [data, setData] = useState({...}) + handleChange()
     data.date = new Date().toLocaleString() // see up
+    data.article = convertedText
+    console.log(convertedText.length)
+    if (convertedText.length <= 11) return setErrors({ article: 'Наполните содержимое статьи!' })
     if (checkEdit === null) {
       dispatch(createArticle(data, handleSnackbar))
-      // handleSnackbar()
     } else {
       dispatch(updateArticle(data, handleSnackbar))
-      // handleSnackbar()
     }
   }
 
   return (
     <form
-      component="form"
+      component='form'
       className={ classes.root }
       noValidate
-      autoComplete="off"
+      autoComplete='off'
       onSubmit={(e) => handleSubmit(e)}
     >
       <ComponentInput
-        label="Название статьи:"
-        name="title"
+        label='Название статьи:'
+        name='title'
         value={data.title}
         onChange={(target) => handleChange(setData, target)}
         error={errors.title}
         autoFocus
-        placeholder="Новая..."
+        placeholder='Новая...'
         onKeyDown={(e) => handleKeyDown(e)}
       />
-      <TextAreaField
-        label="Текст статьи:"
-        id="article"
-        type="text"
-        name="article"
+      <ReactQuill
+        theme='snow'
+        value={convertedText}
+        onChange={setConvertedText}
+        style={{ minHeight: '300px' }}
+      />
+      {errors.article && <p className={classes.errArticle}>{errors.article}</p>}
+      {/* <TextAreaField
+        label='Текст статьи:'
+        id='article'
+        type='text'
+        name='article'
         value={data.article}
         error={errors.article}
         onChange={(target) => handleChange(setData, target)}
-        placeholder="Содержание..."
+        placeholder='Содержание...'
         onKeyDown={(e) => handleKeyDown(e)}
-      />
+      /> */}
       <InputFile
         article={article}
         fileUploadInputChange={fileUploadInputChange}
@@ -129,14 +150,14 @@ export const AddArticleForm = ({ article, onCloseModal, handleSnackbar }) => {
       />
       <div className={classes.divActions}>
         <Button
-          type="submit"
+          type='submit'
           disabled={!isValid}
-          variant="contained"
+          variant='contained'
           endIcon={<SaveIcon />}
         >
           Сохранить
         </Button>
-        <Button variant="outlined" type="button" onClick={onCloseModal}>Отмена</Button>
+        <Button variant='outlined' type='button' onClick={onCloseModal}>Отмена</Button>
       </div>
     </form>
   )

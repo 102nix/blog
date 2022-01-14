@@ -6,6 +6,7 @@ import { Typography, Button } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 import { goArticlesListPage } from '../store/articles'
 import { Comments } from '../components/Comments'
+import { Markup } from 'interweave'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,8 +55,11 @@ export const ArticlePage = ({ blog }) => {
         <div className={classes.imgBlock}>
           <img src={blog[0].img} alt="" className={classes.img} />
         </div>
-        {blog[0].article.split(' ~ ').map(textBlog => (
-          <Typography variant="body1" gutterBottom key={textBlog}>{textBlog}</Typography>
+        {blog[0].article.split(' ~ ').map((textBlog, i) => (
+          // <Typography variant="body1" gutterBottom key={textBlog}>{textBlog.replace(/<[^>]+>/g, '')}</Typography>
+          <Typography variant="body1" gutterBottom key={i}>
+            <Markup content={textBlog} />
+          </Typography>
         ))}
       </div>
       <Comments blog={blog}/>
