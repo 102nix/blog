@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { SubTitle } from '../components/common/typografy/SubTitle'
-import { Grid, Card, CardMedia, CardContent, Button, Typography, CardActions } from '@material-ui/core'
+import { Grid, Card, CardMedia, CardContent, Button, Typography, CardActions, Box } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import { getArticles, getOpenArticle } from '../store/articles'
 import { useHistory } from 'react-router-dom'
@@ -22,12 +22,14 @@ export const ArticlesListPage = () => {
   return (
     <>
       <SubTitle>Статьи</SubTitle>
-      <SearchArticleComponent
-        searchArticle={searchArticle}
-        setSearchArticle={setSearchArticle}
-        articles={articles}
-        setFindArticleArr={setFindArticleArr}
-      />
+      <Box sx={{ marginBottom: '20px' }}>
+        <SearchArticleComponent
+          searchArticle={searchArticle}
+          setSearchArticle={setSearchArticle}
+          articles={articles}
+          setFindArticleArr={setFindArticleArr}
+        />
+      </Box>
       <Grid container spacing={4}>
         {sortedArticles.map(article => (
           <Grid item key={article.id} xs={ 12 } md={ 4 }>
