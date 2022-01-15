@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { SubTitle } from '../components/common/typografy/SubTitle'
 import { Grid, Card, CardMedia, CardContent, Button, Typography, CardActions } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
@@ -6,12 +6,15 @@ import { getArticles, getOpenArticle } from '../store/articles'
 import { useHistory } from 'react-router-dom'
 import _ from 'lodash'
 import { Markup } from 'interweave'
+import { SearchArticleComponent } from '../components/SearchArticleComponent'
 
 export const ArticlesListPage = () => {
   const articles = useSelector(getArticles())
   const dispatch = useDispatch()
   const history = useHistory()
-  const sortedArticles = _.orderBy(articles, ['date'], ['desc'])
+  const [searchArticle, setSearchArticle] = useState('')
+  const [findArticleArr, setFindArticleArr] = useState(null)
+  const sortedArticles = _.orderBy(findArticleArr || articles, ['date'], ['desc'])
   const openArticle = (id) => {
     history.push(`/articles/${id}`)
     dispatch(getOpenArticle(id))
@@ -19,6 +22,12 @@ export const ArticlesListPage = () => {
   return (
     <>
       <SubTitle>Статьи</SubTitle>
+      <SearchArticleComponent
+        searchArticle={searchArticle}
+        setSearchArticle={setSearchArticle}
+        articles={articles}
+        setFindArticleArr={setFindArticleArr}
+      />
       <Grid container spacing={4}>
         {sortedArticles.map(article => (
           <Grid item key={article.id} xs={ 12 } md={ 4 }>

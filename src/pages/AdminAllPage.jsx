@@ -10,7 +10,8 @@ import { columns } from '../static/sortData'
 import _ from 'lodash'
 import { ModalEdit } from '../components/ModalEdit'
 import Snackbar from '@mui/material/Snackbar'
-import { ComponentInput } from '../components/common/form/TextField'
+// import { ComponentInput } from '../components/common/form/TextField'
+import { SearchArticleComponent } from '../components/SearchArticleComponent'
 
 const useStyles = makeStyles((theme) => ({
   rootAdmin: {
@@ -52,18 +53,18 @@ export const AdminAllPage = () => {
   }
   const { vertical, horizontal, open } = snackbar
 
-  const handlerSearchArticle = (e) => {
-    setSearchArticle(e.value)
-    const findArticles = []
-    articles.forEach((a) => {
-      if (
-        a.title.toLowerCase().indexOf(e.value.toLowerCase()) !== -1
-      ) {
-        findArticles.push(a)
-      }
-    })
-    setFindArticleArr(findArticles)
-  }
+  // const handlerSearchArticle = (e) => {
+  //   setSearchArticle(e.value)
+  //   const findArticles = []
+  //   articles.forEach((a) => {
+  //     if (
+  //       a.title.toLowerCase().indexOf(e.value.toLowerCase()) !== -1
+  //     ) {
+  //       findArticles.push(a)
+  //     }
+  //   })
+  //   setFindArticleArr(findArticles)
+  // }
 
   return (
 
@@ -72,13 +73,19 @@ export const AdminAllPage = () => {
         <Button variant="contained" endIcon={<CreateIcon />} onClick={() => dispatch(setOpenModal())}>
           Создать статью
         </Button>
-        <ComponentInput
+        <SearchArticleComponent
+          searchArticle={searchArticle}
+          setSearchArticle={setSearchArticle}
+          articles={articles}
+          setFindArticleArr={setFindArticleArr}
+        />
+        {/* <ComponentInput
           label='Название статьи:'
           name='searchArticle'
           value={searchArticle}
           onChange={(e) => handlerSearchArticle(e)}
           placeholder='Поиск...'
-        />
+        /> */}
       </div>
       <ModalEdit handleSnackbar={handleSnackbar}/>
       <TableContainer component={Paper}>
