@@ -10,6 +10,7 @@ import { columns } from '../static/sortData'
 import _ from 'lodash'
 import { ModalEdit } from '../components/ModalEdit'
 import Snackbar from '@mui/material/Snackbar'
+import { ComponentInput } from '../components/common/form/TextField'
 
 const useStyles = makeStyles((theme) => ({
   rootAdmin: {
@@ -30,14 +31,18 @@ const useStyles = makeStyles((theme) => ({
 export const AdminAllPage = () => {
   const classes = useStyles()
   const [sortBy, setSortBy] = useState({ path: 'date', order: 'desc' })
+  const [searchArticle, setSearchArticle] = useState('')
+  const [findArticleArr, setFindArticleArr] = useState(null)
   const [snackbar, setSnackbar] = useState({
     open: false,
     vertical: 'bottom',
     horizontal: 'left'
   })
+
   const dispatch = useDispatch()
   const articles = useSelector(getArticles())
-  const sortedArticles = _.orderBy(articles, [sortBy.path], [sortBy.order])
+  const sortedArticles = _.orderBy(findArticleArr || articles, [sortBy.path], [sortBy.order])
+
   const handleSort = (item) => {
     setSortBy(item)
   }
@@ -47,6 +52,19 @@ export const AdminAllPage = () => {
   }
   const { vertical, horizontal, open } = snackbar
 
+  const handlerSearchArticle = (e) => {
+    setSearchArticle(e.value)
+    const findArticles = []
+    articles.forEach((a) => {
+      if (
+        a.title.toLowerCase().indexOf(e.value.toLowerCase()) !== -1
+      ) {
+        findArticles.push(a)
+      }
+    })
+    setFindArticleArr(findArticles)
+  }
+
   return (
 
     <div className={classes.rootAdmin}>
@@ -54,9 +72,13 @@ export const AdminAllPage = () => {
         <Button variant="contained" endIcon={<CreateIcon />} onClick={() => dispatch(setOpenModal())}>
           Создать статью
         </Button>
-        {/* <Button variant="contained" component="span" onClick={setDownloadFB}>
-          Upload
-        </Button> */}
+        <ComponentInput
+          label='Название статьи:'
+          name='searchArticle'
+          value={searchArticle}
+          onChange={(e) => handlerSearchArticle(e)}
+          placeholder='Поиск...'
+        />
       </div>
       <ModalEdit handleSnackbar={handleSnackbar}/>
       <TableContainer component={Paper}>
