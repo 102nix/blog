@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { SubTitle } from '../components/common/typografy/SubTitle'
 import { Grid, Card, CardMedia, CardContent, Button, Typography, CardActions, Box } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import { getArticles, getOpenArticle } from '../store/articles'
@@ -21,8 +20,7 @@ export const ArticlesListPage = () => {
   }
   return (
     <>
-      <SubTitle>Статьи</SubTitle>
-      <Box sx={{ marginBottom: '20px' }}>
+      <Box sx={{ marginTop: '10px', marginBottom: '15px' }}>
         <SearchArticleComponent
           searchArticle={searchArticle}
           setSearchArticle={setSearchArticle}

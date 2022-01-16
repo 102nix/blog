@@ -15,6 +15,10 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative'
   },
   currentArticleBody: {
+    [theme.breakpoints.down('sm')]: {
+      padding: '15px',
+      whiteSpace: 'pre-wrap'
+    },
     padding: '25px',
     backgroundColor: 'rgb(103 103 235)',
     boxShadow: '2px 3px 25px rgb(49, 49, 77)',
@@ -22,6 +26,11 @@ const useStyles = makeStyles((theme) => ({
     textIndent: '1.5em'
   },
   imgBlock: {
+    [theme.breakpoints.down('sm')]: {
+      float: 'none',
+      margin: '0px',
+      marginBottom: '10px'
+    },
     maxWidth: '300px',
     maxHeight: '150px',
     overflow: 'hidden',
@@ -56,7 +65,6 @@ export const ArticlePage = ({ blog }) => {
           <img src={blog[0].img} alt="" className={classes.img} />
         </div>
         {blog[0].article.split(' ~ ').map((textBlog, i) => (
-          // <Typography variant="body1" gutterBottom key={textBlog}>{textBlog.replace(/<[^>]+>/g, '')}</Typography>
           <Typography variant="body1" gutterBottom key={i}>
             <Markup content={textBlog} />
           </Typography>
