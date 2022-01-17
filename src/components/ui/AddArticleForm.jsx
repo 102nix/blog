@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 export const AddArticleForm = ({ article, onCloseModal, handleSnackbar }) => {
   const [data, setData] = useState({
     title: article ? article[0].title : '',
+    img: article ? article[0].img : '',
     // article: article ? article[0].article : '',
     id: article ? article[0].id : Date.now()
   })
@@ -94,7 +95,7 @@ export const AddArticleForm = ({ article, onCloseModal, handleSnackbar }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    data.img = dataUri // not match with pattern-> const [data, setData] = useState({...}) + handleChange()
+    if (dataUri) data.img = dataUri // not match with pattern-> const [data, setData] = useState({...}) + handleChange()
     data.date = new Date().toLocaleString() // see up
     data.article = convertedText
     console.log(convertedText.length)
