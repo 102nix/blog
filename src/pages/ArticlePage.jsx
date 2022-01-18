@@ -65,11 +65,9 @@ export const ArticlePage = ({ blog }) => {
         <div className={classes.imgBlock}>
           <img src={blog[0].img} alt="" className={classes.img} />
         </div>
-        {blog[0].article.split(' ~ ').map((textBlog, i) => (
-          <Typography variant="body1" gutterBottom key={i}>
-            <Markup content={textBlog} />
-          </Typography>
-        ))}
+        <Typography variant="body1" gutterBottom>
+          <Markup content={blog[0].article} />
+        </Typography>
       </div>
       <Comments blog={blog}/>
       <Button size="medium" color="primary" className={classes.btnBack} onClick={backToArticles}>

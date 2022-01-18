@@ -129,20 +129,9 @@ export const AddArticleForm = ({ article, onCloseModal, handleSnackbar }) => {
         theme='snow'
         value={convertedText}
         onChange={setConvertedText}
-        style={{ minHeight: '300px', border: '2px solid grey' }}
+        style={{ minHeight: '250px', maxHeight: '400px', overflow: 'auto', marginBottom: '10px' }}
       />
       {errors.article && <p className={classes.errArticle}>{errors.article}</p>}
-      {/* <TextAreaField
-        label='Текст статьи:'
-        id='article'
-        type='text'
-        name='article'
-        value={data.article}
-        error={errors.article}
-        onChange={(target) => handleChange(setData, target)}
-        placeholder='Содержание...'
-        onKeyDown={(e) => handleKeyDown(e)}
-      /> */}
       <InputFile
         article={article}
         fileUploadInputChange={fileUploadInputChange}
