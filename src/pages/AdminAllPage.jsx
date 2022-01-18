@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { TableHeader } from '../components/common/table/TableHeader'
 import { TblBody } from '../components/common/table/TableBody'
-import { Button, TableContainer, Paper, Table } from '@mui/material'
-import CreateIcon from '@mui/icons-material/Create'
-import { makeStyles } from '@material-ui/core/styles'
-import { useSelector, useDispatch } from 'react-redux'
+import { SearchArticleComponent } from '../components/SearchArticleComponent'
 import { delArticle, editArticle, getArticles, setOpenModal } from '../store/articles'
 import { columns } from '../static/sortData'
 import _ from 'lodash'
 import { ModalEdit } from '../components/ModalEdit'
+// Material UI:
 import Snackbar from '@mui/material/Snackbar'
-import { SearchArticleComponent } from '../components/SearchArticleComponent'
+import CreateIcon from '@mui/icons-material/Create'
+import { makeStyles } from '@material-ui/core/styles'
+import { Button, TableContainer, Paper, Table } from '@mui/material'
 
 const useStyles = makeStyles((theme) => ({
   rootAdmin: {

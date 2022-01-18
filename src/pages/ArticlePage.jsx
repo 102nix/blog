@@ -1,12 +1,13 @@
 import React from 'react'
-import { SubTitle } from '../components/common/typografy/SubTitle'
 import { useHistory } from 'react-router'
-import { makeStyles } from '@material-ui/core/styles'
-import { Typography, Button } from '@material-ui/core'
+import { SubTitle } from '../components/common/typografy/SubTitle'
 import { useDispatch } from 'react-redux'
 import { goArticlesListPage } from '../store/articles'
 import { Comments } from '../components/Comments'
 import { Markup } from 'interweave'
+// Material UI:
+import { makeStyles } from '@material-ui/core/styles'
+import { Typography, Button } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   root: {

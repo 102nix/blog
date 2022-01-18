@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { Grid, Card, CardMedia, CardContent, Button, Typography, CardActions, Box } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
-import { getArticles, getOpenArticle } from '../store/articles'
 import { useHistory } from 'react-router-dom'
+import { Grid, Card, CardMedia, CardContent, Button, Typography, CardActions, Box } from '@material-ui/core'
+import { getArticles, getOpenArticle } from '../store/articles'
 import _ from 'lodash'
 import { Markup } from 'interweave'
 import { SearchArticleComponent } from '../components/SearchArticleComponent'
@@ -43,7 +43,7 @@ export const ArticlesListPage = () => {
                   {article.title}
                 </Typography>
                 <Typography variant="body2">
-                  <Markup content={article.article.slice(0, 59).replace(/<[^>]+>/g, '')}/>...
+                  <Markup content={article.article.slice(0, 59)}/>...
                 </Typography>
               </CardContent>
               <CardActions>
