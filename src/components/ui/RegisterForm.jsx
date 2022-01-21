@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import * as yup from 'yup'
 import { ComponentInput } from '../common/form/TextField'
+import { FormTemplate } from '../common/form/FormTemplate'
 import { handleChange, handleKeyDown } from '../../static/funcsForForm'
 import { useAuth } from '../../hooks/useAuth'
-import { FormTemplate } from '../common/form/FormTemplate'
 import Loader from '../common/Loader/Loader'
 
 export const RegisterForm = () => {

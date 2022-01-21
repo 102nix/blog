@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
 export const FormTemplate = ({ handleSubmit, isValid, enterErrors, children }) => {
   const history = useHistory()
   const classes = useStyles()
-  console.log('Enter errors: ', enterErrors)
   return (
     <form
       component="form"

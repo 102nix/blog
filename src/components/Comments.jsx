@@ -3,10 +3,11 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { getComments, delComment } from '../store/comments'
 import { prepareComments } from '../static/prepareComments'
-import Divider from '@mui/material/Divider'
 import { AddCommentForm } from '../components/ui/AddCommentForm'
 import { useAuth } from '../hooks/useAuth'
 import { NavLink } from 'react-router-dom'
+// Materisl UI:
+import Divider from '@mui/material/Divider'
 import { IconButton, Tooltip } from '@mui/material/'
 import DeleteIcon from '@mui/icons-material/Delete'
 
@@ -44,9 +45,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-export const Comments = ({ blog }) => {
+export const Comments = ({ blogID }) => {
   const comments = useSelector(getComments())
-  const currentComments = prepareComments(comments, blog[0].id)
+  const currentComments = prepareComments(comments, blogID)
   const { currentUser } = useAuth()
   const classes = useStyles()
   const dispatch = useDispatch()

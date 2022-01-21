@@ -23,6 +23,10 @@ const commentsSlice = createSlice({
     },
     commentDeleted: (state, action) => {
       state.entities = state.entities.filter(a => a.id !== action.payload)
+    },
+    commentsRequestFiled: (state, action) => {
+      state.error = action.payload
+      state.isLoading = false
     }
   }
 })
@@ -32,15 +36,12 @@ const { commentsRequested, commentsReceived, commentsRequestFiled, commentsCreat
 
 const createCommentRequested = createAction('comments/createCommentRequested')
 const createCommentFailed = createAction('comments/createCommentFailed')
-const deleteCommentFailed = createAction('users/deleteCommentFailed')
+const deleteCommentFailed = createAction('comments/deleteCommentFailed')
 
 export const loadCommentsList = () => async (dispatch, getState) => {
-  console.log('1) Loading comments....')
   dispatch(commentsRequested())
   try {
-    console.log('2) Loading comments....')
     const { content } = await commentsService.get()
-    console.log(content)
     dispatch(commentsReceived(content))
   } catch (error) {
     dispatch(commentsRequestFiled(error.message))

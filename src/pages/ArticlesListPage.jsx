@@ -29,25 +29,25 @@ export const ArticlesListPage = () => {
         />
       </Box>
       <Grid container spacing={4}>
-        {sortedArticles.map(article => (
-          <Grid item key={article.id} xs={ 12 } md={ 4 }>
+        {sortedArticles.map(a => (
+          <Grid item key={a.id} xs={ 12 } md={ 4 }>
             <Card sx={{ height: '100%' }}>
               <CardMedia
                 component="img"
                 height="150px"
-                image={article.img}
+                image={a.img}
                 alt=""
               />
               <CardContent sx={{ p: 0 }}>
                 <Typography gutterBottom variant="h5" component="div">
-                  {article.title}
+                  {a.title}
                 </Typography>
                 <Typography variant="body2">
-                  <Markup content={article.article.slice(0, 59)}/>...
+                  <Markup content={a.article.slice(0, 59)}/>...
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" color="primary" onClick={() => openArticle(article.id) }>
+                <Button size="small" color="primary" onClick={() => openArticle(a.id) }>
                   Открыть
                 </Button>
               </CardActions>

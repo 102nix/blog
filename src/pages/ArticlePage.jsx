@@ -69,7 +69,7 @@ export const ArticlePage = ({ blog }) => {
           <Markup content={blog[0].article} />
         </Typography>
       </div>
-      <Comments blog={blog}/>
+      <Comments blogID={blog[0].id}/>
       <Button size="medium" color="primary" className={classes.btnBack} onClick={backToArticles}>
         Назад
       </Button>

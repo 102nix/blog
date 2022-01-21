@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import * as yup from 'yup'
 import { TextAreaField } from '../common/form/TextAreaField'
-import { handleChange, handleKeyDown } from '../../static/funcsForForm'
-import { Button } from '@mui/material'
-import SendIcon from '@mui/icons-material/Send'
-import { makeStyles } from '@material-ui/core/styles'
+import { handleChange } from '../../static/funcsForForm'
 import { getCurrentArticle } from '../../store/articles'
 import { createComment } from '../../store/comments'
 import { useDispatch, useSelector } from 'react-redux'
 import { useAuth } from '../../hooks/useAuth'
+// Material UI:
+import { Button } from '@mui/material'
+import SendIcon from '@mui/icons-material/Send'
+import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,7 +80,6 @@ export const AddCommentForm = () => {
         error={errors.commentText}
         onChange={(target) => handleChange(setData, target)}
         placeholder="Содержание..."
-        onKeyDown={(e) => handleKeyDown(e)}
       />
       <div className={classes.divActions}>
         <Button

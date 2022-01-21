@@ -5,7 +5,7 @@ export const SearchArticleComponent = ({ searchArticle, setSearchArticle, articl
   const handlerSearchArticle = (e) => {
     setSearchArticle(e.value)
     const findArticles = []
-    articles.forEach((a) => {
+    articles.forEach(a => {
       if (
         a.title.toLowerCase().indexOf(e.value.toLowerCase()) !== -1
       ) {

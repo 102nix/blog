@@ -60,17 +60,29 @@ const articlesSlice = createSlice({
 const { reducer: articlesReducer, actions } = articlesSlice
 const { articlesRequested, articlesReceived, articlesRequestFiled, currentArticleReceived, currentArticleReseted, articleCreated, articleUpdated, regPageRequested, moduleClosed, moduleOpened, articleDeleted } = actions
 
-const deleteArticleFailed = createAction('users/deleteArticleFailed')
-const createArticleRequested = createAction('users/createArticleRequested')
-const createArticleFailed = createAction('users/createArticleFailed')
-const updateArticleRequested = createAction('users/updateArticleRequested')
-const updaterticleFailed = createAction('users/updateArticleFailed')
+const deleteArticleFailed = createAction('articles/deleteArticleFailed')
+const createArticleRequested = createAction('articles/createArticleRequested')
+const createArticleFailed = createAction('articles/createArticleFailed')
+const updateArticleRequested = createAction('articles/updateArticleRequested')
+const updaterticleFailed = createAction('articles/updateArticleFailed')
 
 function isOutDated (date) {
   if (Date.now() - date > 10 * 60 * 100) {
     return true
   }
   return false
+}
+
+export const goArticlesListPage = () => (dispatch) => {
+  dispatch(currentArticleReseted())
+}
+
+export const goRegPage = () => (dispatch) => {
+  dispatch(regPageRequested())
+}
+
+export const getOpenArticle = (articleId) => (dispatch) => {
+  dispatch(currentArticleReceived(articleId))
 }
 
 export const loadArticlesList = () => async (dispatch, getState) => {
@@ -85,18 +97,6 @@ export const loadArticlesList = () => async (dispatch, getState) => {
       toast(error.message)
     }
   }
-}
-
-export const goArticlesListPage = () => (dispatch) => {
-  dispatch(currentArticleReseted())
-}
-
-export const goRegPage = () => (dispatch) => {
-  dispatch(regPageRequested())
-}
-
-export const getOpenArticle = (articleId) => (dispatch) => {
-  dispatch(currentArticleReceived(articleId))
 }
 
 export const createArticle = (val, handleSnackbar) => async (dispatch) => {
