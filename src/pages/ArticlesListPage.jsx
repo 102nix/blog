@@ -11,7 +11,6 @@ export const ArticlesListPage = () => {
   const articles = useSelector(getArticles())
   const dispatch = useDispatch()
   const history = useHistory()
-  const [searchArticle, setSearchArticle] = useState('')
   const [findArticleArr, setFindArticleArr] = useState(null)
   const sortedArticles = _.orderBy(findArticleArr || articles, ['date'], ['desc'])
   const openArticle = (id) => {
@@ -22,8 +21,6 @@ export const ArticlesListPage = () => {
     <>
       <Box sx={{ marginTop: '10px', marginBottom: '15px' }}>
         <SearchArticleComponent
-          searchArticle={searchArticle}
-          setSearchArticle={setSearchArticle}
           articles={articles}
           setFindArticleArr={setFindArticleArr}
         />

@@ -32,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
 export const AdminAllPage = () => {
   const classes = useStyles()
   const [sortBy, setSortBy] = useState({ path: 'date', order: 'desc' })
-  const [searchArticle, setSearchArticle] = useState('')
   const [findArticleArr, setFindArticleArr] = useState(null)
   const [snackbar, setSnackbar] = useState({
     open: false,
@@ -61,8 +60,6 @@ export const AdminAllPage = () => {
           Создать статью
         </Button>
         <SearchArticleComponent
-          searchArticle={searchArticle}
-          setSearchArticle={setSearchArticle}
           articles={articles}
           setFindArticleArr={setFindArticleArr}
         />

@@ -1,19 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ComponentInput } from './common/form/TextField'
 
-export const SearchArticleComponent = ({ searchArticle, setSearchArticle, articles, setFindArticleArr }) => {
+export const SearchArticleComponent = ({ articles, setFindArticleArr }) => {
+  const [searchArticle, setSearchArticle] = useState('')
+
   const handlerSearchArticle = (e) => {
     setSearchArticle(e.value)
     const findArticles = []
     articles.forEach(a => {
-      if (
-        a.title.toLowerCase().indexOf(e.value.toLowerCase()) !== -1
-      ) {
-        findArticles.push(a)
-      }
+      if (a.title.toLowerCase().indexOf(e.value.toLowerCase()) !== -1) findArticles.push(a)
     })
     setFindArticleArr(findArticles)
   }
+
   return (
     <ComponentInput
       label='Название статьи:'
