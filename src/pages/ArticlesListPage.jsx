@@ -6,6 +6,9 @@ import { getArticles, getOpenArticle } from '../store/articles'
 import _ from 'lodash'
 import { Markup } from 'interweave'
 import { SearchArticleComponent } from '../components/SearchArticleComponent'
+// import { useArticles } from '../hooks/useArticles'
+import Pagination from '@mui/material/Pagination'
+import { paginate } from '../static/paginate'
 
 export const ArticlesListPage = () => {
   const articles = useSelector(getArticles())
@@ -13,6 +16,15 @@ export const ArticlesListPage = () => {
   const history = useHistory()
   const [findArticleArr, setFindArticleArr] = useState(null)
   const sortedArticles = _.orderBy(findArticleArr || articles, ['date'], ['desc'])
+  const pageSize = 3
+  const count = Math.ceil(sortedArticles.length / pageSize)
+  const [page, setPage] = useState(1)
+  const handleChange = (event, value) => {
+    console.log(value)
+    setPage(value)
+  }
+  const articlesPaginate = paginate(sortedArticles, page, pageSize)
+  // const { articles, setFindArticleArr, articlesPaginate } = useArticles()
   const openArticle = (id) => {
     history.push(`/articles/${id}`)
     dispatch(getOpenArticle(id))
@@ -26,7 +38,7 @@ export const ArticlesListPage = () => {
         />
       </Box>
       <Grid container spacing={4}>
-        {sortedArticles.map(a => (
+        {articlesPaginate.map(a => (
           <Grid item key={a.id} xs={ 12 } md={ 4 }>
             <Card sx={{ height: '100%' }}>
               <CardMedia
@@ -52,6 +64,7 @@ export const ArticlesListPage = () => {
           </Grid>
         ))}
       </Grid>
+      <Pagination count={count} page={page} onChange={handleChange} />
     </>
   )
 }
