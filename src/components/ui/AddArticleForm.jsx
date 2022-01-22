@@ -39,17 +39,16 @@ export const AddArticleForm = ({ article, onCloseModal, handleSnackbar }) => {
     // article: article ? article[0].article : '',
     id: article ? article[0].id : Date.now()
   })
-  const [convertedText, setConvertedText] = useState(article ? article[0].article : '')
+  const [convertedText, setConvertedText] = useState(article ? article[0].article : '') // ReactQuill text editor
   const classes = useStyles()
   const [dataUri, setDataUri] = useState(article?.img || '')
   const [errors, setErrors] = useState({})
-  const [uploadName, setUploadName] = useState('')
+  const [uploadName, setUploadName] = useState('') // For display file name
   const dispatch = useDispatch()
   const checkEdit = article
 
   useEffect(() => {
     setErrors(prevState => ({ ...prevState, article: null }))
-    console.log(errors)
     validate()
   }, [convertedText])
 
@@ -98,7 +97,6 @@ export const AddArticleForm = ({ article, onCloseModal, handleSnackbar }) => {
     if (dataUri) data.img = dataUri // not match with pattern-> const [data, setData] = useState({...}) + handleChange()
     data.date = new Date().toLocaleString() // see up
     data.article = convertedText
-    console.log(convertedText.length)
     if (convertedText.length <= 11) return setErrors({ article: 'Наполните содержимое статьи!' })
     if (checkEdit === null) {
       dispatch(createArticle(data, handleSnackbar))

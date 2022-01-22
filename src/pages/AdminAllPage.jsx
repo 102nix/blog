@@ -53,7 +53,6 @@ export const AdminAllPage = () => {
   const { vertical, horizontal, open } = snackbar
 
   return (
-
     <div className={classes.rootAdmin}>
       <div className={classes.blockActions} component="div">
         <Button variant="contained" endIcon={<CreateIcon />} onClick={() => dispatch(setOpenModal())}>
