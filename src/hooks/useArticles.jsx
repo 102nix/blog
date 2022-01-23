@@ -1,4 +1,3 @@
-
 import React, { useContext, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getArticles, getFoundArticles, getPage, setPage } from '../store/articles'
