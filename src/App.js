@@ -19,6 +19,7 @@ import './App.scss'
 // Material UI:
 import { Container } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { ArticlesProvider } from './hooks/useArticles'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,9 +38,11 @@ function App () {
           <NavbarComponent />
           <Container className={classes.root}>
             <Route exact path='/' component={StartPage} />
-            <Route path='/articles/:articleId?' component={ArticlesContainer} />
+            <ArticlesProvider>
+              <Route path='/articles/:articleId?' component={ArticlesContainer} />
+              <ProtectedRoute path='/admin' component={AdminAllPage} auth={isAuth} currentUser={currentUser} />
+            </ArticlesProvider>
             <Route path='/auth/:type?' component={Auth} />
-            <ProtectedRoute path='/admin' component={AdminAllPage} auth={isAuth} currentUser={currentUser} />
           </Container>
           <FooterPage />
           {/* {

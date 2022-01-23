@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { TableHeader } from '../components/common/table/TableHeader'
 import { TblBody } from '../components/common/table/TableBody'
 import { SearchArticleComponent } from '../components/SearchArticleComponent'
-import { delArticle, editArticle, getArticles, setOpenModal } from '../store/articles'
+import { delArticle, editArticle, setOpenModal } from '../store/articles'
 import { columns } from '../static/sortData'
-import _ from 'lodash'
+// import _ from 'lodash'
 import { ModalEdit } from '../components/ModalEdit'
 // Material UI:
 import Snackbar from '@mui/material/Snackbar'
 import CreateIcon from '@mui/icons-material/Create'
 import { makeStyles } from '@material-ui/core/styles'
 import { Button, TableContainer, Paper, Table } from '@mui/material'
+import { useArticles } from '../hooks/useArticles'
+import Pagination from '@mui/material/Pagination'
 
 const useStyles = makeStyles((theme) => ({
   rootAdmin: {
@@ -30,9 +32,10 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export const AdminAllPage = () => {
+  const { articles, setFindArticleArr, articlesPaginate, sortBy, handleSort, count, handleChange, page } = useArticles()
   const classes = useStyles()
-  const [sortBy, setSortBy] = useState({ path: 'date', order: 'desc' })
-  const [findArticleArr, setFindArticleArr] = useState(null)
+  // const [sortBy, setSortBy] = useState({ path: 'date', order: 'desc' })
+  // const [findArticleArr, setFindArticleArr] = useState(null)
   const [snackbar, setSnackbar] = useState({
     open: false,
     vertical: 'bottom',
@@ -40,12 +43,12 @@ export const AdminAllPage = () => {
   })
 
   const dispatch = useDispatch()
-  const articles = useSelector(getArticles())
-  const sortedArticles = _.orderBy(findArticleArr || articles, [sortBy.path], [sortBy.order])
+  // const articles = useSelector(getArticles())
+  // const sortedArticles = _.orderBy(findArticleArr || articles, [sortBy.path], [sortBy.order])
 
-  const handleSort = (item) => {
-    setSortBy(item)
-  }
+  // const handleSort = (item) => {
+  //   setSortBy(item)
+  // }
 
   const handleSnackbar = () => {
     setSnackbar({ ...snackbar, open: !open })
@@ -73,12 +76,13 @@ export const AdminAllPage = () => {
           />
           <TblBody
             columns={columns}
-            data={sortedArticles}
+            data={articlesPaginate}
             onDelete={(id) => dispatch(delArticle(id, handleSnackbar))}
             onEdit={(id) => dispatch(editArticle(id))}
           />
         </Table>
       </TableContainer>
+      <Pagination count={count} page={page} onChange={handleChange} />
       <Snackbar
         anchorOrigin={{ vertical, horizontal }}
         open={open}

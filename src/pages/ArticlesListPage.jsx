@@ -1,30 +1,31 @@
-import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React from 'react'
+import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { Grid, Card, CardMedia, CardContent, Button, Typography, CardActions, Box } from '@material-ui/core'
-import { getArticles, getOpenArticle } from '../store/articles'
-import _ from 'lodash'
+import { getOpenArticle } from '../store/articles'
+// import _ from 'lodash'
 import { Markup } from 'interweave'
 import { SearchArticleComponent } from '../components/SearchArticleComponent'
-// import { useArticles } from '../hooks/useArticles'
+import { useArticles } from '../hooks/useArticles'
+// import Pagination from '@mui/material/Pagination'
+// import { paginate } from '../static/paginate'
 import Pagination from '@mui/material/Pagination'
-import { paginate } from '../static/paginate'
 
 export const ArticlesListPage = () => {
-  const articles = useSelector(getArticles())
+  // const articles = useSelector(getArticles())
   const dispatch = useDispatch()
   const history = useHistory()
-  const [findArticleArr, setFindArticleArr] = useState(null)
-  const sortedArticles = _.orderBy(findArticleArr || articles, ['date'], ['desc'])
-  const pageSize = 3
-  const count = Math.ceil(sortedArticles.length / pageSize)
-  const [page, setPage] = useState(1)
-  const handleChange = (event, value) => {
-    console.log(value)
-    setPage(value)
-  }
-  const articlesPaginate = paginate(sortedArticles, page, pageSize)
-  // const { articles, setFindArticleArr, articlesPaginate } = useArticles()
+  // const [findArticleArr, setFindArticleArr] = useState(null)
+  // const sortedArticles = _.orderBy(findArticleArr || articles, ['date'], ['desc'])
+  // const pageSize = 3
+  // const count = Math.ceil(sortedArticles.length / pageSize)
+  // const [page, setPage] = useState(1)
+  // const handleChange = (event, value) => {
+  //   console.log(value)
+  //   setPage(value)
+  // }
+  // const articlesPaginate = paginate(sortedArticles, page, pageSize)
+  const { articles, setFindArticleArr, articlesPaginate, count, handleChange, page } = useArticles()
   const openArticle = (id) => {
     history.push(`/articles/${id}`)
     dispatch(getOpenArticle(id))
