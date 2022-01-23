@@ -11,7 +11,7 @@ import { ModalEdit } from '../components/ModalEdit'
 import Snackbar from '@mui/material/Snackbar'
 import CreateIcon from '@mui/icons-material/Create'
 import { makeStyles } from '@material-ui/core/styles'
-import { Button, TableContainer, Paper, Table } from '@mui/material'
+import { Button, TableContainer, Paper, Table, Box } from '@mui/material'
 import { useArticles } from '../hooks/useArticles'
 import Pagination from '@mui/material/Pagination'
 
@@ -67,7 +67,7 @@ export const AdminAllPage = () => {
         />
       </div>
       <ModalEdit handleSnackbar={handleSnackbar}/>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} sx={{ marginBottom: '15px' }}>
         <Table className={classes.table} aria-label="simple table">
           <TableHeader
             onSort={handleSort}
@@ -82,7 +82,9 @@ export const AdminAllPage = () => {
           />
         </Table>
       </TableContainer>
-      <Pagination count={count} page={page} onChange={handleChange} />
+      <Box sx={{ display: 'flex', justifyContent: 'center' }} >
+        <Pagination count={count} page={page} onChange={handleChange} />
+      </Box>
       <Snackbar
         anchorOrigin={{ vertical, horizontal }}
         open={open}

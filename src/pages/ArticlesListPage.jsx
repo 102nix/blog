@@ -38,7 +38,7 @@ export const ArticlesListPage = () => {
           setFindArticleArr={setFindArticleArr}
         />
       </Box>
-      <Grid container spacing={4}>
+      <Grid container spacing={4} >
         {articlesPaginate.map(a => (
           <Grid item key={a.id} xs={ 12 } md={ 4 }>
             <Card sx={{ height: '100%' }}>
@@ -65,7 +65,9 @@ export const ArticlesListPage = () => {
           </Grid>
         ))}
       </Grid>
-      <Pagination count={count} page={page} onChange={handleChange} />
+      <Box sx={{ marginTop: '15px', display: 'flex', justifyContent: 'center' }} >
+        <Pagination count={count} page={page} onChange={handleChange} />
+      </Box>
     </>
   )
 }
