@@ -3,7 +3,6 @@ import React, { useContext, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { getArticles } from '../store/articles'
 import _ from 'lodash'
-// import Pagination from '@mui/material/Pagination'
 import { paginate } from '../static/paginate'
 
 const ArticlesContext = React.createContext()
@@ -18,7 +17,6 @@ export const ArticlesProvider = ({ children }) => {
 
   const [sortBy, setSortBy] = useState({ path: 'date', order: 'desc' })
 
-  // const sortedArticles = _.orderBy(findArticleArr || articles, ['date'], ['desc'])
   const sortedArticles = _.orderBy(findArticleArr || articles, [sortBy.path], [sortBy.order])
 
   const pageSize = 6

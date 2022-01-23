@@ -5,7 +5,6 @@ import { TblBody } from '../components/common/table/TableBody'
 import { SearchArticleComponent } from '../components/SearchArticleComponent'
 import { delArticle, editArticle, setOpenModal } from '../store/articles'
 import { columns } from '../static/sortData'
-// import _ from 'lodash'
 import { ModalEdit } from '../components/ModalEdit'
 // Material UI:
 import Snackbar from '@mui/material/Snackbar'
@@ -34,8 +33,6 @@ const useStyles = makeStyles((theme) => ({
 export const AdminAllPage = () => {
   const { articles, setFindArticleArr, articlesPaginate, sortBy, handleSort, count, handleChange, page } = useArticles()
   const classes = useStyles()
-  // const [sortBy, setSortBy] = useState({ path: 'date', order: 'desc' })
-  // const [findArticleArr, setFindArticleArr] = useState(null)
   const [snackbar, setSnackbar] = useState({
     open: false,
     vertical: 'bottom',
@@ -43,12 +40,6 @@ export const AdminAllPage = () => {
   })
 
   const dispatch = useDispatch()
-  // const articles = useSelector(getArticles())
-  // const sortedArticles = _.orderBy(findArticleArr || articles, [sortBy.path], [sortBy.order])
-
-  // const handleSort = (item) => {
-  //   setSortBy(item)
-  // }
 
   const handleSnackbar = () => {
     setSnackbar({ ...snackbar, open: !open })
