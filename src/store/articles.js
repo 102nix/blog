@@ -11,7 +11,9 @@ const articlesSlice = createSlice({
     error: null,
     lastFetch: null,
     currentArticle: null,
-    isModal: false
+    isModal: false,
+    foundArticles: null,
+    page: 1
   },
   reducers: {
     articlesRequested: (state) => {
@@ -53,12 +55,24 @@ const articlesSlice = createSlice({
     moduleClosed: (state) => {
       state.isModal = false
       state.currentArticle = null
+    },
+    articlesFound: (state, action) => {
+      state.foundArticles = action.payload
+    },
+    articlesFoundCleared: (state) => {
+      state.foundArticles = null
+    },
+    pageSelected: (state, action) => {
+      state.page = action.payload
+    },
+    pageReseted: (state) => {
+      state.page = 1
     }
   }
 })
 
 const { reducer: articlesReducer, actions } = articlesSlice
-const { articlesRequested, articlesReceived, articlesRequestFiled, currentArticleReceived, currentArticleReseted, articleCreated, articleUpdated, regPageRequested, moduleClosed, moduleOpened, articleDeleted } = actions
+const { articlesRequested, articlesReceived, articlesRequestFiled, currentArticleReceived, currentArticleReseted, articleCreated, articleUpdated, regPageRequested, moduleClosed, moduleOpened, articleDeleted, articlesFound, articlesFoundCleared, pageSelected, pageReseted } = actions
 
 const deleteArticleFailed = createAction('articles/deleteArticleFailed')
 const createArticleRequested = createAction('articles/createArticleRequested')
@@ -148,9 +162,27 @@ export const setCloseModal = () => (dispatch) => {
   dispatch(moduleClosed())
 }
 
+export const setFoundArticles = (articles) => (dispatch) => {
+  dispatch(articlesFound(articles))
+}
+
+export const resetFoundArticles = () => (dispatch) => {
+  dispatch(articlesFoundCleared())
+}
+
+export const setPage = (page) => (dispatch) => {
+  dispatch(pageSelected(page))
+}
+
+export const resetPage = () => (dispatch) => {
+  dispatch(pageReseted())
+}
+
 export const getArticles = () => (state) => state.articles.entities
 export const getArticlesLoadingStatus = () => (state) => state.articles.isLoading
 export const getCurrentArticle = () => (state) => state.articles.currentArticle
 export const getIsModal = () => (state) => state.articles.isModal
+export const getFoundArticles = () => (state) => state.articles.foundArticles
+export const getPage = () => (state) => state.articles.page
 
 export default articlesReducer

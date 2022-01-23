@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getArticlesLoadingStatus, getOpenArticle, goArticlesListPage, goRegPage, loadArticlesList } from '../../../store/articles'
+import { getArticlesLoadingStatus, getOpenArticle, goArticlesListPage, goRegPage, loadArticlesList, resetFoundArticles, resetPage } from '../../../store/articles'
 import { loadStartInfo } from '../../../store/startInfo'
 import { loadCommentsList } from '../../../store/comments'
 import { useHistory } from 'react-router-dom'
@@ -20,6 +20,8 @@ export const AppLoader = ({ children }) => {
   async function checkLoadByURL () {
     if (location.pathname === '/articles' || location.pathname === '/admin') {
       dispatch(goArticlesListPage())
+      dispatch(resetFoundArticles())
+      dispatch(resetPage())
       await dispatch(loadArticlesList())
       await dispatch(loadCommentsList())
     } else if (location.pathname.indexOf('/articles/') !== -1) {

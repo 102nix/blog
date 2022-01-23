@@ -11,7 +11,7 @@ import Pagination from '@mui/material/Pagination'
 export const ArticlesListPage = () => {
   const dispatch = useDispatch()
   const history = useHistory()
-  const { articles, setFindArticleArr, articlesPaginate, count, handleChange, page } = useArticles()
+  const { articles, articlesPaginate, count, handleChange, page } = useArticles()
   const openArticle = (id) => {
     history.push(`/articles/${id}`)
     dispatch(getOpenArticle(id))
@@ -21,7 +21,6 @@ export const ArticlesListPage = () => {
       <Box sx={{ marginTop: '10px', marginBottom: '15px' }}>
         <SearchArticleComponent
           articles={articles}
-          setFindArticleArr={setFindArticleArr}
         />
       </Box>
       <Grid container spacing={4} >

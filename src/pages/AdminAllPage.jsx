@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export const AdminAllPage = () => {
-  const { articles, setFindArticleArr, articlesPaginate, sortBy, handleSort, count, handleChange, page } = useArticles()
+  const { articles, articlesPaginate, sortBy, handleSort, count, handleChange, page } = useArticles()
   const classes = useStyles()
   const [snackbar, setSnackbar] = useState({
     open: false,
@@ -54,7 +54,6 @@ export const AdminAllPage = () => {
         </Button>
         <SearchArticleComponent
           articles={articles}
-          setFindArticleArr={setFindArticleArr}
         />
       </div>
       <ModalEdit handleSnackbar={handleSnackbar}/>
