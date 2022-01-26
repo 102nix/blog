@@ -72,7 +72,23 @@ const articlesSlice = createSlice({
 })
 
 const { reducer: articlesReducer, actions } = articlesSlice
-const { articlesRequested, articlesReceived, articlesRequestFiled, currentArticleReceived, currentArticleReseted, articleCreated, articleUpdated, regPageRequested, moduleClosed, moduleOpened, articleDeleted, articlesFound, articlesFoundCleared, pageSelected, pageReseted } = actions
+const {
+  articlesRequested,
+  articlesReceived,
+  articlesRequestFiled,
+  currentArticleReceived,
+  currentArticleReseted,
+  articleCreated,
+  articleUpdated,
+  regPageRequested,
+  moduleClosed,
+  moduleOpened,
+  articleDeleted,
+  articlesFound,
+  articlesFoundCleared,
+  pageSelected,
+  pageReseted
+} = actions
 
 const deleteArticleFailed = createAction('articles/deleteArticleFailed')
 const createArticleRequested = createAction('articles/createArticleRequested')
